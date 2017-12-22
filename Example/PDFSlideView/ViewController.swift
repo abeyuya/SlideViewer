@@ -7,18 +7,23 @@
 //
 
 import UIKit
+import PDFSlideView
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func tapShowPDFSlideView(_ sender: Any) {
+//        let pdfURL = "https://speakerd.s3.amazonaws.com/presentations/50021f75cf1db900020005e7/speakerdeck.pdf"
+        let pdfURL = "http://gahp.net/wp-content/uploads/2017/09/sample.pdf"
+        let vc = PDFSlideViewController.setup(pdfFileURL: pdfURL)
+        present(vc, animated: true)
+    }
 }
 

@@ -1,0 +1,26 @@
+{
+  "name": "PDFSlideView",
+  "version": "0.1.0",
+  "summary": "A short description of PDFSlideView.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/abeyuya/PDFSlideView",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "abeyuya": "yuya.abe.0525@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/abeyuya/PDFSlideView.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "11.0"
+  },
+  "source_files": "PDFSlideView/Classes/**/*",
+  "frameworks": [
+    "UIKit",
+    "PDFKit"
+  ]
+}

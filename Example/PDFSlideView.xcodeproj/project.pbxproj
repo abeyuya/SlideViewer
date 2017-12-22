@@ -29,8 +29,9 @@
 
 /* Begin PBXFileReference section */
 		18166AD2CE299A02AAE3EEF1 /* Pods-PDFSlideView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDFSlideView_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PDFSlideView_Tests/Pods-PDFSlideView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		5F931C36C4848DB538D1194C /* PDFSlideView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = PDFSlideView.podspec; path = ../PDFSlideView.podspec; sourceTree = "<group>"; };
-		60145DBA959A29AF76363532 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		4D911CCE1FED2201000D8184 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
+		5F931C36C4848DB538D1194C /* PDFSlideView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = PDFSlideView.podspec; path = ../PDFSlideView.podspec; sourceTree = "<group>"; };
+		60145DBA959A29AF76363532 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* PDFSlideView_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PDFSlideView_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,7 +45,7 @@
 		6EED3DD7B9DFC8C4319A8BFA /* Pods-PDFSlideView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDFSlideView_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PDFSlideView_Tests/Pods-PDFSlideView_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		8FDF02BD5F8E92531D75D365 /* Pods_PDFSlideView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PDFSlideView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9822C88EDD881FE1B4B5AE65 /* Pods-PDFSlideView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDFSlideView_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-PDFSlideView_Example/Pods-PDFSlideView_Example.release.xcconfig"; sourceTree = "<group>"; };
-		CAB2306B3136F2BF03B47671 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		CAB2306B3136F2BF03B47671 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		CD1DBED57E07C953F60F1A0F /* Pods-PDFSlideView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDFSlideView_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PDFSlideView_Example/Pods-PDFSlideView_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		E13363EB33D72BD535E53DC5 /* Pods_PDFSlideView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PDFSlideView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -72,6 +73,7 @@
 		0DFD9E50FE0F99394EC26CB6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D911CCE1FED2201000D8184 /* PDFKit.framework */,
 				E13363EB33D72BD535E53DC5 /* Pods_PDFSlideView_Example.framework */,
 				8FDF02BD5F8E92531D75D365 /* Pods_PDFSlideView_Tests.framework */,
 			);
@@ -215,10 +217,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = V5GVZ9RQJM;
 						LastSwiftMigration = 0900;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = V5GVZ9RQJM;
 						LastSwiftMigration = 0900;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -522,7 +526,9 @@
 			baseConfigurationReference = CD1DBED57E07C953F60F1A0F /* Pods-PDFSlideView_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = V5GVZ9RQJM;
 				INFOPLIST_FILE = PDFSlideView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -537,7 +543,9 @@
 			baseConfigurationReference = 9822C88EDD881FE1B4B5AE65 /* Pods-PDFSlideView_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = V5GVZ9RQJM;
 				INFOPLIST_FILE = PDFSlideView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -551,6 +559,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 18166AD2CE299A02AAE3EEF1 /* Pods-PDFSlideView_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = V5GVZ9RQJM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -560,6 +569,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -572,11 +582,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6EED3DD7B9DFC8C4319A8BFA /* Pods-PDFSlideView_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = V5GVZ9RQJM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
