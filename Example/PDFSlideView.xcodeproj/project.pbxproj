@@ -362,10 +362,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-PDFSlideView_Example/Pods-PDFSlideView_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/PDFSlideView/PDFSlideView.framework",
+				"${BUILT_PRODUCTS_DIR}/ReSwift/ReSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDFSlideView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

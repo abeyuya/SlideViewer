@@ -1,7 +1,9 @@
 PODS:
   - Nimble (7.0.3)
-  - PDFSlideView (0.1.0)
+  - PDFSlideView (0.1.0):
+    - ReSwift
   - Quick (1.2.0)
+  - ReSwift (4.0.0)
 
 DEPENDENCIES:
   - Nimble (~> 7.0.2)
@@ -14,8 +16,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
-  PDFSlideView: 86ed2d99a41f89dbeec7d582f352b01e6b21a2e0
+  PDFSlideView: b1345e53f31a279eac5c4325dbd65cb1dfb59f43
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
+  ReSwift: f058ef13b46ae5f463f10605ccbbb7fb04424d8d
 
 PODFILE CHECKSUM: b832809190825bc854e4ca8dd7c7ec9f0815b767
 

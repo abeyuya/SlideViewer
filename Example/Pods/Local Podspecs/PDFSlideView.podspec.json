@@ -22,5 +22,10 @@
   "frameworks": [
     "UIKit",
     "PDFKit"
-  ]
+  ],
+  "dependencies": {
+    "ReSwift": [
+
+    ]
+  }
 }
