@@ -19,6 +19,11 @@
     "ios": "11.0"
   },
   "source_files": "PDFSlideView/Classes/**/*",
+  "resource_bundles": {
+    "PDFSlideView": [
+      "PDFSlideView/Assets/*.xib"
+    ]
+  },
   "frameworks": [
     "UIKit",
     "PDFKit"

@@ -66,17 +66,41 @@ extension PDFSlideViewController {
         }
         
         view.backgroundColor = .black
-        //        let safeArea = view.safeAreaLayoutGuide
+
+        let pdfView = setupPDFView()
+        let topMenu = setupPortraitTopMenuView()
+        layoutView(pdfView: pdfView, topMenu: topMenu)
+    }
+    
+    private func setupPDFView() -> PDFView {
+        let pdfView = PDFView(frame: view.frame)
+        pdfView.backgroundColor = .orange
+        pdfView.autoScales = true
+        pdfView.displayMode = .singlePageContinuous
+        pdfView.usePageViewController(true, withViewOptions: nil)
+        pdfView.document = document
+        pdfView.translatesAutoresizingMaskIntoConstraints = false
         
-        let pdfView = createPDFView()
         view.addSubview(pdfView)
+        return pdfView
+    }
+    
+    private func setupPortraitTopMenuView() -> PortraitTopMenuView? {
+        guard let topMenu = PortraitTopMenuView.initFromBundledNib() else { return nil }
+        topMenu.closeButton.addTarget(self, action: #selector(self.close), for: .touchUpInside)
+        view.addSubview(topMenu)
+        return topMenu
+    }
+    
+    private func layoutView(pdfView: PDFView, topMenu: PortraitTopMenuView?) {
+        let safeArea = view.safeAreaLayoutGuide
         
         view.addConstraints([
             NSLayoutConstraint(
                 item: pdfView,
                 attribute: .top,
                 relatedBy: .equal,
-                toItem: view,
+                toItem: safeArea,
                 attribute: .top,
                 multiplier: 1,
                 constant: 0),
@@ -84,7 +108,7 @@ extension PDFSlideViewController {
                 item: pdfView,
                 attribute: .leading,
                 relatedBy: .equal,
-                toItem: view,
+                toItem: safeArea,
                 attribute: .leading,
                 multiplier: 1,
                 constant: 0),
@@ -92,7 +116,7 @@ extension PDFSlideViewController {
                 item: pdfView,
                 attribute: .trailing,
                 relatedBy: .equal,
-                toItem: view,
+                toItem: safeArea,
                 attribute: .trailing,
                 multiplier: 1,
                 constant: 0),
@@ -100,23 +124,52 @@ extension PDFSlideViewController {
                 item: pdfView,
                 attribute: .bottom,
                 relatedBy: .equal,
-                toItem: view,
+                toItem: safeArea,
                 attribute: .bottom,
                 multiplier: 1,
                 constant: 0),
             ])
+        
+        if let topMenu = topMenu {
+            view.addConstraints([
+                NSLayoutConstraint(
+                    item: topMenu,
+                    attribute: .top,
+                    relatedBy: .equal,
+                    toItem: safeArea,
+                    attribute: .top,
+                    multiplier: 1,
+                    constant: 0),
+                NSLayoutConstraint(
+                    item: topMenu,
+                    attribute: .leading,
+                    relatedBy: .equal,
+                    toItem: safeArea,
+                    attribute: .leading,
+                    multiplier: 1,
+                    constant: 0),
+                NSLayoutConstraint(
+                    item: topMenu,
+                    attribute: .trailing,
+                    relatedBy: .equal,
+                    toItem: safeArea,
+                    attribute: .trailing,
+                    multiplier: 1,
+                    constant: 0),
+                NSLayoutConstraint(
+                    item: topMenu,
+                    attribute: .height,
+                    relatedBy: .equal,
+                    toItem: nil,
+                    attribute: .height,
+                    multiplier: 1,
+                    constant: 44),
+                ])
+        }
     }
     
-    private func createPDFView() -> PDFView {
-        let pdfView = PDFView(frame: view.frame)
-        pdfView.document = document
-        pdfView.backgroundColor = .black
-        pdfView.autoScales = true
-        pdfView.displayMode = .singlePageContinuous
-        pdfView.usePageViewController(true, withViewOptions: nil)
-        pdfView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return pdfView
+    @objc func close() {
+        dismiss(animated: true, completion: nil)
     }
 }
 
