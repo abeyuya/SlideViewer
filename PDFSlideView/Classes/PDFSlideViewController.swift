@@ -16,6 +16,23 @@ let mainStore = Store<PDFSlideViewState>(
 
 public final class PDFSlideViewController: UIViewController {
     private var document: PDFDocument? = nil
+    
+    private lazy var pdfView: PDFView = {
+        let pdfView = PDFView(frame: view.frame)
+        pdfView.backgroundColor = .black
+        pdfView.autoScales = true
+        pdfView.displayMode = .singlePageContinuous
+        pdfView.usePageViewController(true, withViewOptions: nil)
+        pdfView.document = document
+        pdfView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return pdfView
+    }()
+    
+    private lazy var portraitTopMenuView: PortraitTopMenuView = {
+        let topMenu = try! PortraitTopMenuView.initFromBundledNib()
+        return topMenu
+    }()
 }
 
 extension PDFSlideViewController {
@@ -34,6 +51,7 @@ extension PDFSlideViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        mainStore.dispatch(changeIsPortrait(isPortrait: UIDevice.current.orientation.isPortrait))
         setupView()
     }
     
@@ -67,32 +85,23 @@ extension PDFSlideViewController {
         
         view.backgroundColor = .black
 
-        let pdfView = setupPDFView()
-        let topMenu = setupPortraitTopMenuView()
-        layoutView(pdfView: pdfView, topMenu: topMenu)
+        setupPDFView()
+        setupPortraitTopMenuView()
+        layoutView()
     }
     
-    private func setupPDFView() -> PDFView {
-        let pdfView = PDFView(frame: view.frame)
-        pdfView.backgroundColor = .orange
-        pdfView.autoScales = true
-        pdfView.displayMode = .singlePageContinuous
-        pdfView.usePageViewController(true, withViewOptions: nil)
-        pdfView.document = document
-        pdfView.translatesAutoresizingMaskIntoConstraints = false
-        
+    private func setupPDFView() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(tapPDFView))
+        pdfView.addGestureRecognizer(gesture)
         view.addSubview(pdfView)
-        return pdfView
     }
     
-    private func setupPortraitTopMenuView() -> PortraitTopMenuView? {
-        guard let topMenu = PortraitTopMenuView.initFromBundledNib() else { return nil }
-        topMenu.closeButton.addTarget(self, action: #selector(self.close), for: .touchUpInside)
-        view.addSubview(topMenu)
-        return topMenu
+    private func setupPortraitTopMenuView() {
+        portraitTopMenuView.closeButton.addTarget(self, action: #selector(self.close), for: .touchUpInside)
+        view.addSubview(portraitTopMenuView)
     }
     
-    private func layoutView(pdfView: PDFView, topMenu: PortraitTopMenuView?) {
+    private func layoutView() {
         let safeArea = view.safeAreaLayoutGuide
         
         view.addConstraints([
@@ -130,46 +139,51 @@ extension PDFSlideViewController {
                 constant: 0),
             ])
         
-        if let topMenu = topMenu {
-            view.addConstraints([
-                NSLayoutConstraint(
-                    item: topMenu,
-                    attribute: .top,
-                    relatedBy: .equal,
-                    toItem: safeArea,
-                    attribute: .top,
-                    multiplier: 1,
-                    constant: 0),
-                NSLayoutConstraint(
-                    item: topMenu,
-                    attribute: .leading,
-                    relatedBy: .equal,
-                    toItem: safeArea,
-                    attribute: .leading,
-                    multiplier: 1,
-                    constant: 0),
-                NSLayoutConstraint(
-                    item: topMenu,
-                    attribute: .trailing,
-                    relatedBy: .equal,
-                    toItem: safeArea,
-                    attribute: .trailing,
-                    multiplier: 1,
-                    constant: 0),
-                NSLayoutConstraint(
-                    item: topMenu,
-                    attribute: .height,
-                    relatedBy: .equal,
-                    toItem: nil,
-                    attribute: .height,
-                    multiplier: 1,
-                    constant: 44),
-                ])
-        }
+        view.addConstraints([
+            NSLayoutConstraint(
+                item: portraitTopMenuView,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: safeArea,
+                attribute: .top,
+                multiplier: 1,
+                constant: 0),
+            NSLayoutConstraint(
+                item: portraitTopMenuView,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: safeArea,
+                attribute: .leading,
+                multiplier: 1,
+                constant: 0),
+            NSLayoutConstraint(
+                item: portraitTopMenuView,
+                attribute: .trailing,
+                relatedBy: .equal,
+                toItem: safeArea,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: 0),
+            NSLayoutConstraint(
+                item: portraitTopMenuView,
+                attribute: .height,
+                relatedBy: .equal,
+                toItem: nil,
+                attribute: .height,
+                multiplier: 1,
+                constant: 44),
+            ])
     }
     
     @objc func close() {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension PDFSlideViewController {
+    
+    @objc private func tapPDFView() {
+        mainStore.dispatch(toggleMenu())
     }
 }
 
@@ -179,5 +193,20 @@ extension PDFSlideViewController: StoreSubscriber {
     public func newState(state: PDFSlideViewController.StoreSubscriberStateType) {
         print("state update!")
         print(state)
+        
+        renderMenu(state: state)
+    }
+    
+    private func renderMenu(state: PDFSlideViewState) {
+        if !state.showMenu {
+            portraitTopMenuView.isHidden = true
+            return
+        }
+        
+        if state.isPortrait {
+            portraitTopMenuView.isHidden = false
+        } else {
+            portraitTopMenuView.isHidden = true
+        }
     }
 }

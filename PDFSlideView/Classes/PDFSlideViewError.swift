@@ -9,11 +9,13 @@ import Foundation
 
 enum PDFSlideViewError: Error {
     
-    case invalidPDFFileURL
+    case invalidPDFFile
+    case cannotLoadBundledResource
     
     var message: String {
         switch self {
-        case .invalidPDFFileURL: return "Invalid PDF file url."
+        case .invalidPDFFile: return "Invalid PDF file."
+        case .cannotLoadBundledResource: return "Cannot load bundled resource."
         }
     }
 }
