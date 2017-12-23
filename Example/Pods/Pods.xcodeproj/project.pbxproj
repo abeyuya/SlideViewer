@@ -48,6 +48,7 @@
 		4CDACD8A5A6CFB688838AA988E7D1E43 /* Nimble-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6DC95845EA8FA29E43AB9A8CA15B92 /* Nimble-dummy.m */; };
 		4D911CDE1FEE0F9F000D8184 /* LandscapeRightMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D911CDD1FEE0F9F000D8184 /* LandscapeRightMenuView.swift */; };
 		4D911CE01FEE0FC2000D8184 /* LandscapeRightMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D911CDF1FEE0FC2000D8184 /* LandscapeRightMenuView.xib */; };
+		4D911CE21FEE3F02000D8184 /* ThumbnailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D911CE11FEE3F02000D8184 /* ThumbnailTableViewCell.swift */; };
 		4DF83747D0190F7A01F6A70F98CA9BBC /* QCKDSL.h in Headers */ = {isa = PBXBuildFile; fileRef = D37D89EF13234061691672176526A979 /* QCKDSL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E2ECA6A434E2ED45DA78AC62DAA8D13 /* PDFSlideView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E27FB9562C6F25CC30CDF6BE1B18A145 /* PDFSlideView.bundle */; };
 		4FABBF5CA8F735F48035BE4144613CB7 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C323C83AB822837DF985A636A527884 /* Expression.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -258,6 +259,7 @@
 		4CF9E7113923AB260286481C7E57CF4A /* BeVoid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeVoid.swift; path = Sources/Nimble/Matchers/BeVoid.swift; sourceTree = "<group>"; };
 		4D911CDD1FEE0F9F000D8184 /* LandscapeRightMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LandscapeRightMenuView.swift; path = PDFSlideView/Classes/LandscapeRightMenuView.swift; sourceTree = "<group>"; };
 		4D911CDF1FEE0FC2000D8184 /* LandscapeRightMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LandscapeRightMenuView.xib; path = PDFSlideView/Assets/LandscapeRightMenuView.xib; sourceTree = "<group>"; };
+		4D911CE11FEE3F02000D8184 /* ThumbnailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ThumbnailTableViewCell.swift; path = PDFSlideView/Classes/ThumbnailTableViewCell.swift; sourceTree = "<group>"; };
 		53C7D90A3B5B5AFB195411E19DBD80F5 /* Nimble-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nimble-prefix.pch"; sourceTree = "<group>"; };
 		54DC9BEBAD0B24DA5D6DE30C76523A39 /* Predicate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Predicate.swift; path = Sources/Nimble/Matchers/Predicate.swift; sourceTree = "<group>"; };
 		56B11C1B76830E2EFDBE665C4592EE2F /* RaisesException.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RaisesException.swift; path = Sources/Nimble/Matchers/RaisesException.swift; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 				593C576AE95C8DC6B0B98F1B316F0788 /* Resources */,
 				D1A74406766FE7A1B1D9EAF2F3BC4783 /* Support Files */,
 				4D911CDD1FEE0F9F000D8184 /* LandscapeRightMenuView.swift */,
+				4D911CE11FEE3F02000D8184 /* ThumbnailTableViewCell.swift */,
 			);
 			name = PDFSlideView;
 			path = ../..;
@@ -1151,6 +1154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D911CDE1FEE0F9F000D8184 /* LandscapeRightMenuView.swift in Sources */,
+				4D911CE21FEE3F02000D8184 /* ThumbnailTableViewCell.swift in Sources */,
 				29CA07BA4DB03D37719FC1D4BADB9AAB /* PDFSlideView-dummy.m in Sources */,
 				594A326000A0877121C2DF534DE6C680 /* PDFSlideViewController.swift in Sources */,
 				834CA4DAB8B5F16122BC6B40187A5CAA /* PDFSlideViewError.swift in Sources */,

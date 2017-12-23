@@ -38,6 +38,32 @@ public final class PDFSlideViewController: UIViewController {
         let rightMenu = try! LandscapeRightMenuView.initFromBundledNib()
         return rightMenu
     }()
+    
+    private lazy var thumbnailTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.estimatedRowHeight = 40
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.register(ThumbnailTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.tableFooterView = UIView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tableView
+    }()
+    
+    private let thumbnailWidth: CGFloat = 120
+    
+    private lazy var thumbnailTableViewWidth: NSLayoutConstraint = {
+        return NSLayoutConstraint(
+            item: thumbnailTableView,
+            attribute: .width,
+            relatedBy: .equal,
+            toItem: nil,
+            attribute: .width,
+            multiplier: 1,
+            constant: thumbnailWidth)
+    }()
 }
 
 extension PDFSlideViewController {
@@ -84,7 +110,6 @@ extension PDFSlideViewController {
         super.viewWillTransition(to: size, with: coordinator)
         mainStore.dispatch(changeIsPortrait(isPortrait: UIDevice.current.orientation.isPortrait))
     }
-    
 }
 
 extension PDFSlideViewController {
@@ -100,6 +125,7 @@ extension PDFSlideViewController {
         setupPDFView()
         setupPortraitTopMenuView()
         setupLandscapeRightMenuView()
+        setupThumbnailTableView()
         layoutView()
     }
     
@@ -131,8 +157,47 @@ extension PDFSlideViewController {
         view.addSubview(landscapeRightMenuView)
     }
     
+    private func setupThumbnailTableView() {
+        view.addSubview(thumbnailTableView)
+    }
+    
     private func layoutView() {
         let safeArea = view.safeAreaLayoutGuide
+        
+        view.addConstraints([
+            NSLayoutConstraint(
+                item: thumbnailTableView,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: safeArea,
+                attribute: .top,
+                multiplier: 1,
+                constant: 0),
+            NSLayoutConstraint(
+                item: thumbnailTableView,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: safeArea,
+                attribute: .leading,
+                multiplier: 1,
+                constant: 0),
+            NSLayoutConstraint(
+                item: thumbnailTableView,
+                attribute: .trailing,
+                relatedBy: .equal,
+                toItem: pdfView,
+                attribute: .leading,
+                multiplier: 1,
+                constant: 0),
+            NSLayoutConstraint(
+                item: thumbnailTableView,
+                attribute: .bottom,
+                relatedBy: .equal,
+                toItem: safeArea,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 0),
+            ])
         
         view.addConstraints([
             NSLayoutConstraint(
@@ -145,14 +210,6 @@ extension PDFSlideViewController {
                 constant: 0),
             NSLayoutConstraint(
                 item: pdfView,
-                attribute: .leading,
-                relatedBy: .equal,
-                toItem: safeArea,
-                attribute: .leading,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: pdfView,
                 attribute: .trailing,
                 relatedBy: .equal,
                 toItem: safeArea,
@@ -167,6 +224,7 @@ extension PDFSlideViewController {
                 attribute: .bottom,
                 multiplier: 1,
                 constant: 0),
+            thumbnailTableViewWidth
             ])
         
         view.addConstraints([
@@ -270,25 +328,62 @@ extension PDFSlideViewController: StoreSubscriber {
         print(state)
         
         renderMenu(state: state)
+        renderThumbnailView(state: state)
     }
     
     private func renderMenu(state: PDFSlideViewState) {
-        if !state.showMenu {
+        guard let document = document else { return }
+        
+        guard state.showMenu else {
             portraitTopMenuView.isHidden = true
             landscapeRightMenuView.isHidden = true
             return
         }
         
-        if state.isPortrait {
-            portraitTopMenuView.isHidden = false
-            landscapeRightMenuView.isHidden = true
-        } else {
+        guard state.isPortrait else {
             portraitTopMenuView.isHidden = true
             landscapeRightMenuView.isHidden = false
+            landscapeRightMenuView.pageLabel.text = "\(state.currentPage) of \(document.pageCount)"
+            return
         }
- 
-        if let doc = document {
-            landscapeRightMenuView.pageLabel.text = "\(state.currentPage) of \(doc.pageCount)"
+        
+        portraitTopMenuView.isHidden = false
+        landscapeRightMenuView.isHidden = true
+    }
+    
+    private func renderThumbnailView(state: PDFSlideViewState) {
+        guard state.isPortrait == false else {
+            thumbnailTableViewWidth.constant = 0
+            return
         }
+        
+        guard state.showThumbnail else {
+            thumbnailTableViewWidth.constant = 0
+            return
+        }
+        
+        thumbnailTableViewWidth.constant = thumbnailWidth
+    }
+}
+
+extension PDFSlideViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return document?.pageCount ?? 0
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ThumbnailTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        guard let doc = document, let pdf = doc.page(at: indexPath.row) else { return UITableViewCell() }
+        let thumbImage = pdf.thumbnail(of: CGSize(width: cell.frame.size.width, height: cell.frame.size.height), for: .artBox)
+        cell.thumbnail.image = thumbImage
+        
+        return cell
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 }
