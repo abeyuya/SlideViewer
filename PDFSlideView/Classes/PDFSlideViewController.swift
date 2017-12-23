@@ -33,6 +33,11 @@ public final class PDFSlideViewController: UIViewController {
         let topMenu = try! PortraitTopMenuView.initFromBundledNib()
         return topMenu
     }()
+    
+    private lazy var landscapeRightMenuView: LandscapeRightMenuView = {
+        let rightMenu = try! LandscapeRightMenuView.initFromBundledNib()
+        return rightMenu
+    }()
 }
 
 extension PDFSlideViewController {
@@ -57,11 +62,17 @@ extension PDFSlideViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.pdfViewPageChanged),
+            name: .PDFViewPageChanged,
+            object: nil)
         mainStore.subscribe(self)
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
         mainStore.unsubscribe(self)
     }
 
@@ -73,6 +84,7 @@ extension PDFSlideViewController {
         super.viewWillTransition(to: size, with: coordinator)
         mainStore.dispatch(changeIsPortrait(isPortrait: UIDevice.current.orientation.isPortrait))
     }
+    
 }
 
 extension PDFSlideViewController {
@@ -87,6 +99,7 @@ extension PDFSlideViewController {
 
         setupPDFView()
         setupPortraitTopMenuView()
+        setupLandscapeRightMenuView()
         layoutView()
     }
     
@@ -97,8 +110,25 @@ extension PDFSlideViewController {
     }
     
     private func setupPortraitTopMenuView() {
-        portraitTopMenuView.closeButton.addTarget(self, action: #selector(self.close), for: .touchUpInside)
+        portraitTopMenuView.closeButton.addTarget(
+            self,
+            action: #selector(self.close),
+            for: .touchUpInside)
+        
         view.addSubview(portraitTopMenuView)
+    }
+    
+    private func setupLandscapeRightMenuView() {
+        landscapeRightMenuView.closeButton.addTarget(
+            self,
+            action: #selector(self.close),
+            for: .touchUpInside)
+        landscapeRightMenuView.thumbnailButton.addTarget(
+            self,
+            action: #selector(self.toggleThumbnailView),
+            for: .touchUpInside)
+        
+        view.addSubview(landscapeRightMenuView)
     }
     
     private func layoutView() {
@@ -171,19 +201,64 @@ extension PDFSlideViewController {
                 toItem: nil,
                 attribute: .height,
                 multiplier: 1,
-                constant: 44),
+                constant: 60),
             ])
-    }
-    
-    @objc func close() {
-        dismiss(animated: true, completion: nil)
+        
+        view.addConstraints([
+            NSLayoutConstraint(
+                item: landscapeRightMenuView,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: safeArea,
+                attribute: .top,
+                multiplier: 1,
+                constant: 0),
+            NSLayoutConstraint(
+                item: landscapeRightMenuView,
+                attribute: .width,
+                relatedBy: .equal,
+                toItem: nil,
+                attribute: .width,
+                multiplier: 1,
+                constant: 60),
+            NSLayoutConstraint(
+                item: landscapeRightMenuView,
+                attribute: .trailing,
+                relatedBy: .equal,
+                toItem: safeArea,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: 0),
+            NSLayoutConstraint(
+                item: landscapeRightMenuView,
+                attribute: .bottom,
+                relatedBy: .equal,
+                toItem: safeArea,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 0),
+            ])
     }
 }
 
 extension PDFSlideViewController {
     
+    @objc func close() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @objc private func tapPDFView() {
         mainStore.dispatch(toggleMenu())
+    }
+    
+    @objc private func toggleThumbnailView() {
+        mainStore.dispatch(toggleThumbnail())
+    }
+    
+    @objc private func pdfViewPageChanged(notification: Notification) {
+        guard let doc = document, let currentPage = pdfView.currentPage else { return }
+        let index = doc.index(for: currentPage)
+        mainStore.dispatch(changeCurrentPage(page: index + 1))
     }
 }
 
@@ -200,13 +275,20 @@ extension PDFSlideViewController: StoreSubscriber {
     private func renderMenu(state: PDFSlideViewState) {
         if !state.showMenu {
             portraitTopMenuView.isHidden = true
+            landscapeRightMenuView.isHidden = true
             return
         }
         
         if state.isPortrait {
             portraitTopMenuView.isHidden = false
+            landscapeRightMenuView.isHidden = true
         } else {
             portraitTopMenuView.isHidden = true
+            landscapeRightMenuView.isHidden = false
+        }
+ 
+        if let doc = document {
+            landscapeRightMenuView.pageLabel.text = "\(state.currentPage) of \(doc.pageCount)"
         }
     }
 }
