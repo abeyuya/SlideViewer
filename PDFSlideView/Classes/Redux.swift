@@ -9,14 +9,14 @@ import Foundation
 import ReSwift
 
 public struct PDFSlideViewState: StateType {
-    var currentPage: Int = 1
+    var currentPageNo: Int = 1
     var isPortrait: Bool = true
     var showMenu: Bool = false
     var showThumbnail: Bool = false
 }
 
 struct changeCurrentPage: Action {
-    let page: Int
+    let pageNo: Int
 }
 struct toggleMenu: Action {}
 struct toggleThumbnail: Action {}
@@ -30,7 +30,7 @@ func pdfSlideViewReducer(action: Action, state: PDFSlideViewState?) -> PDFSlideV
     switch action {
         
     case let action as changeCurrentPage:
-        state.currentPage = action.page
+        state.currentPageNo = action.pageNo
         
     case _ as toggleMenu:
         state.showMenu = !state.showMenu

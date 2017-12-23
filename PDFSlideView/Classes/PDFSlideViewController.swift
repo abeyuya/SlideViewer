@@ -316,7 +316,7 @@ extension PDFSlideViewController {
     @objc private func pdfViewPageChanged(notification: Notification) {
         guard let doc = document, let currentPage = pdfView.currentPage else { return }
         let index = doc.index(for: currentPage)
-        mainStore.dispatch(changeCurrentPage(page: index + 1))
+        mainStore.dispatch(changeCurrentPage(pageNo: index + 1))
     }
 }
 
@@ -329,6 +329,7 @@ extension PDFSlideViewController: StoreSubscriber {
         
         renderMenu(state: state)
         renderThumbnailView(state: state)
+        moveToCurrentPage()
     }
     
     private func renderMenu(state: PDFSlideViewState) {
@@ -343,7 +344,7 @@ extension PDFSlideViewController: StoreSubscriber {
         guard state.isPortrait else {
             portraitTopMenuView.isHidden = true
             landscapeRightMenuView.isHidden = false
-            landscapeRightMenuView.pageLabel.text = "\(state.currentPage) of \(document.pageCount)"
+            landscapeRightMenuView.pageLabel.text = "\(state.currentPageNo) of \(document.pageCount)"
             return
         }
         
@@ -363,6 +364,11 @@ extension PDFSlideViewController: StoreSubscriber {
         }
         
         thumbnailTableViewWidth.constant = thumbnailWidth
+    }
+    
+    private func moveToCurrentPage() {
+        guard let currentPage = pdfView.currentPage else { return }
+        pdfView.go(to: currentPage)
     }
 }
 
@@ -385,5 +391,6 @@ extension PDFSlideViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        mainStore.dispatch(changeCurrentPage(pageNo: indexPath.row + 1))
     }
 }

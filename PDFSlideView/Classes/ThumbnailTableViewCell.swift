@@ -10,18 +10,23 @@ import UIKit
 final class ThumbnailTableViewCell: UITableViewCell {
     
     var thumbnail = UIImageView()
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        addSubview(thumbnail)
+        thumbnail.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(thumbnail)
         
-        self.addConstraints([
+        contentView.addConstraints([
             NSLayoutConstraint(
                 item: thumbnail,
                 attribute: .top,
                 relatedBy: .equal,
-                toItem: self,
+                toItem: contentView,
                 attribute: .top,
                 multiplier: 1,
                 constant: 0),
@@ -29,7 +34,7 @@ final class ThumbnailTableViewCell: UITableViewCell {
                 item: thumbnail,
                 attribute: .leading,
                 relatedBy: .equal,
-                toItem: self,
+                toItem: contentView,
                 attribute: .leading,
                 multiplier: 1,
                 constant: 0),
@@ -37,7 +42,7 @@ final class ThumbnailTableViewCell: UITableViewCell {
                 item: thumbnail,
                 attribute: .trailing,
                 relatedBy: .equal,
-                toItem: self,
+                toItem: contentView,
                 attribute: .trailing,
                 multiplier: 1,
                 constant: 0),
@@ -45,7 +50,7 @@ final class ThumbnailTableViewCell: UITableViewCell {
                 item: thumbnail,
                 attribute: .bottom,
                 relatedBy: .equal,
-                toItem: self,
+                toItem: contentView,
                 attribute: .bottom,
                 multiplier: 1,
                 constant: 0),
