@@ -45,8 +45,11 @@ func pdfSlideViewReducer(action: Action, state: PDFSlideViewState?) -> PDFSlideV
         state.slide = action.slide
         
     case let action as loadImage:
-        if let image = loadImageFrom(state: state, index: action.pageIndex) {
-            state.slide.images[action.pageIndex] = image
+        if state.slide.images[action.pageIndex] == nil {
+            if let image = loadImageFrom(state: state, index: action.pageIndex) {
+                state.slide.images[action.pageIndex] = image
+                state.slide.thumbnailImages[action.pageIndex] = createThumbnailImage(originalImage: image)
+            }
         }
 
     default:
@@ -79,6 +82,29 @@ private func loadImageFrom(pdfDocument: PDFDocument, index: Int) -> UIImage? {
         ctx.cgContext.drawPDFPage(page.pageRef!)
     }
     return image
+}
+
+
+private func createThumbnailImage(originalImage: UIImage) -> UIImage? {
+    let thumbnailHeight = originalImage.size.height * (Config.shared.thumbnailViewWidth / originalImage.size.width)
+    return originalImage.resize(size: CGSize(width: Config.shared.thumbnailViewWidth, height: thumbnailHeight))
+}
+
+extension UIImage {
+    func resize(size _size: CGSize) -> UIImage? {
+        let widthRatio = _size.width / size.width
+        let heightRatio = _size.height / size.height
+        let ratio = widthRatio < heightRatio ? widthRatio : heightRatio
+        
+        let resizedSize = CGSize(width: size.width * ratio, height: size.height * ratio)
+        
+        UIGraphicsBeginImageContextWithOptions(resizedSize, false, 0.0)
+        draw(in: CGRect(origin: .zero, size: resizedSize))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return resizedImage
+    }
 }
 
 let mainStore = Store<PDFSlideViewState>(
