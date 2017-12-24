@@ -28,30 +28,23 @@ public final class PDFSlideViewController: UIViewController {
         return rightMenu
     }()
     
-    private lazy var thumbnailTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.estimatedRowHeight = 40
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.register(ThumbnailTableViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.tableFooterView = UIView()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return tableView
+    private lazy var thumbnailAreaView: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
     }()
     
-    private let thumbnailWidth: CGFloat = 120
+    private let thumbnailAreaWidth: CGFloat = 120
     
-    private lazy var thumbnailTableViewWidth: NSLayoutConstraint = {
+    private lazy var thumbnailAreaViewWidthConstraint: NSLayoutConstraint = {
         return NSLayoutConstraint(
-            item: thumbnailTableView,
+            item: thumbnailAreaView,
             attribute: .width,
             relatedBy: .equal,
             toItem: nil,
             attribute: .width,
             multiplier: 1,
-            constant: thumbnailWidth)
+            constant: thumbnailAreaWidth)
     }()
     
     private lazy var slideContainerViewController: SlideContainerViewController = {
@@ -63,6 +56,16 @@ public final class PDFSlideViewController: UIViewController {
         v.view.translatesAutoresizingMaskIntoConstraints = false
         addChildViewController(v)
         slideAreaView.addSubview(v.view)
+        v.didMove(toParentViewController: self)
+        return v
+    }()
+    
+    private lazy var thumbnailViewController: ThumbnailContainerViewController = {
+        let v = ThumbnailContainerViewController()
+        v.document = document
+        v.view.translatesAutoresizingMaskIntoConstraints = false
+        addChildViewController(v)
+        thumbnailAreaView.addSubview(v.view)
         v.didMove(toParentViewController: self)
         return v
     }()
@@ -121,7 +124,7 @@ extension PDFSlideViewController {
         setupPDFView()
         setupPortraitTopMenuView()
         setupLandscapeRightMenuView()
-        setupThumbnailTableView()
+        setupThumbnailView()
         layoutView()
     }
     
@@ -153,8 +156,8 @@ extension PDFSlideViewController {
         view.addSubview(landscapeRightMenuView)
     }
     
-    private func setupThumbnailTableView() {
-        view.addSubview(thumbnailTableView)
+    private func setupThumbnailView() {
+        view.addSubview(thumbnailAreaView)
     }
     
     private func layoutView() {
@@ -162,7 +165,7 @@ extension PDFSlideViewController {
         
         view.addConstraints([
             NSLayoutConstraint(
-                item: thumbnailTableView,
+                item: thumbnailAreaView,
                 attribute: .top,
                 relatedBy: .equal,
                 toItem: safeArea,
@@ -170,7 +173,7 @@ extension PDFSlideViewController {
                 multiplier: 1,
                 constant: 0),
             NSLayoutConstraint(
-                item: thumbnailTableView,
+                item: thumbnailAreaView,
                 attribute: .leading,
                 relatedBy: .equal,
                 toItem: safeArea,
@@ -178,7 +181,7 @@ extension PDFSlideViewController {
                 multiplier: 1,
                 constant: 0),
             NSLayoutConstraint(
-                item: thumbnailTableView,
+                item: thumbnailAreaView,
                 attribute: .trailing,
                 relatedBy: .equal,
                 toItem: slideAreaView,
@@ -186,7 +189,7 @@ extension PDFSlideViewController {
                 multiplier: 1,
                 constant: 0),
             NSLayoutConstraint(
-                item: thumbnailTableView,
+                item: thumbnailAreaView,
                 attribute: .bottom,
                 relatedBy: .equal,
                 toItem: safeArea,
@@ -220,7 +223,7 @@ extension PDFSlideViewController {
                 attribute: .bottom,
                 multiplier: 1,
                 constant: 0),
-            thumbnailTableViewWidth
+            thumbnailAreaViewWidthConstraint
             ])
         
         view.addConstraints([
@@ -323,6 +326,41 @@ extension PDFSlideViewController {
                 attribute: .bottom,
                 relatedBy: .equal,
                 toItem: slideAreaView,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 0),
+            ])
+        
+        view.addConstraints([
+            NSLayoutConstraint(
+                item: thumbnailViewController.view,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: thumbnailAreaView,
+                attribute: .top,
+                multiplier: 1,
+                constant: 0),
+            NSLayoutConstraint(
+                item: thumbnailViewController.view,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: thumbnailAreaView,
+                attribute: .leading,
+                multiplier: 1,
+                constant: 0),
+            NSLayoutConstraint(
+                item: thumbnailViewController.view,
+                attribute: .trailing,
+                relatedBy: .equal,
+                toItem: thumbnailAreaView,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: 0),
+            NSLayoutConstraint(
+                item: thumbnailViewController.view,
+                attribute: .bottom,
+                relatedBy: .equal,
+                toItem: thumbnailAreaView,
                 attribute: .bottom,
                 multiplier: 1,
                 constant: 0),
@@ -378,38 +416,15 @@ extension PDFSlideViewController: StoreSubscriber {
     
     private func renderThumbnailView(state: PDFSlideViewState) {
         guard state.isPortrait == false else {
-            thumbnailTableViewWidth.constant = 0
+            thumbnailAreaViewWidthConstraint.constant = 0
             return
         }
         
         guard state.showThumbnail else {
-            thumbnailTableViewWidth.constant = 0
+            thumbnailAreaViewWidthConstraint.constant = 0
             return
         }
         
-        thumbnailTableViewWidth.constant = thumbnailWidth
-    }
-}
-
-extension PDFSlideViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return document?.pageCount ?? 0
-    }
-    
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ThumbnailTableViewCell else {
-            return UITableViewCell()
-        }
-        
-        guard let doc = document, let pdf = doc.page(at: indexPath.row) else { return UITableViewCell() }
-        let thumbImage = pdf.thumbnail(of: CGSize(width: cell.frame.size.width, height: cell.frame.size.height), for: .artBox)
-        cell.thumbnail.image = thumbImage
-        
-        return cell
-    }
-    
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        mainStore.dispatch(changeCurrentPage(pageIndex: indexPath.row))
+        thumbnailAreaViewWidthConstraint.constant = thumbnailAreaWidth
     }
 }
