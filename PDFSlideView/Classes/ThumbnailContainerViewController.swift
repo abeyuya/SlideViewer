@@ -11,10 +11,13 @@ import PDFKit
 final class ThumbnailContainerViewController: UIViewController {
     
     var slide: Slide = Slide(images: [])
+    private lazy var thumbnailImages: [UIImage?] = {
+        return Array(repeating: nil, count: slide.images.count)
+    }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.estimatedRowHeight = 40
+        tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.register(ThumbnailTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView()
@@ -84,11 +87,44 @@ extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewData
             return UITableViewCell()
         }
         
-        cell.thumbnail.image = slide.images[indexPath.row]
+        if let thumbnailImage = thumbnailImages[indexPath.row] {
+            cell.thumbnail.image = thumbnailImage
+        } else {
+            let thumbnailImage = createThumbnailImage(at: indexPath.row)
+            cell.thumbnail.image = thumbnailImage
+            thumbnailImages.insert(thumbnailImage, at: indexPath.row)
+        }
+
         return cell
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         mainStore.dispatch(changeCurrentPage(pageIndex: indexPath.row))
+    }
+}
+
+extension ThumbnailContainerViewController {
+    
+    private func createThumbnailImage(at index: Int) -> UIImage? {
+        guard let originalImage = slide.images[index] else { return nil }
+        let thumbnailHeight = originalImage.size.height * (Config.shared.thumbnailViewWidth / originalImage.size.width)
+        return originalImage.resize(size: CGSize(width: Config.shared.thumbnailViewWidth, height: thumbnailHeight))
+    }
+}
+
+extension UIImage {
+    func resize(size _size: CGSize) -> UIImage? {
+        let widthRatio = _size.width / size.width
+        let heightRatio = _size.height / size.height
+        let ratio = widthRatio < heightRatio ? widthRatio : heightRatio
+        
+        let resizedSize = CGSize(width: size.width * ratio, height: size.height * ratio)
+        
+        UIGraphicsBeginImageContextWithOptions(resizedSize, false, 0.0)
+        draw(in: CGRect(origin: .zero, size: resizedSize))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return resizedImage
     }
 }

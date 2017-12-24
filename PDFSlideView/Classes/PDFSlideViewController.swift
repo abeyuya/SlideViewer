@@ -35,8 +35,6 @@ public final class PDFSlideViewController: UIViewController {
         return v
     }()
     
-    private let thumbnailAreaWidth: CGFloat = 120
-    
     private lazy var thumbnailAreaViewWidthConstraint: NSLayoutConstraint = {
         return NSLayoutConstraint(
             item: thumbnailAreaView,
@@ -45,7 +43,7 @@ public final class PDFSlideViewController: UIViewController {
             toItem: nil,
             attribute: .width,
             multiplier: 1,
-            constant: thumbnailAreaWidth)
+            constant: Config.shared.thumbnailViewWidth)
     }()
     
     private lazy var slideContainerViewController: SlideContainerViewController = {
@@ -421,6 +419,6 @@ extension PDFSlideViewController: StoreSubscriber {
             return
         }
         
-        thumbnailAreaViewWidthConstraint.constant = thumbnailAreaWidth
+        thumbnailAreaViewWidthConstraint.constant = Config.shared.thumbnailViewWidth
     }
 }
