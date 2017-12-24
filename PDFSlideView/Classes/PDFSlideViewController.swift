@@ -17,16 +17,10 @@ let mainStore = Store<PDFSlideViewState>(
 public final class PDFSlideViewController: UIViewController {
     private var document: PDFDocument? = nil
     
-    private lazy var pdfView: PDFView = {
-        let pdfView = PDFView(frame: view.frame)
-        pdfView.backgroundColor = .black
-        pdfView.autoScales = true
-        pdfView.displayMode = .singlePageContinuous
-        pdfView.usePageViewController(true, withViewOptions: nil)
-        pdfView.document = document
-        pdfView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return pdfView
+    private lazy var slideAreaView: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
     }()
     
     private lazy var portraitTopMenuView: PortraitTopMenuView = {
@@ -63,6 +57,19 @@ public final class PDFSlideViewController: UIViewController {
             attribute: .width,
             multiplier: 1,
             constant: thumbnailWidth)
+    }()
+    
+    private lazy var slideContainerViewController: SlideContainerViewController = {
+        let v = SlideContainerViewController(
+            transitionStyle: .scroll,
+            navigationOrientation: .horizontal,
+            options: nil)
+        v.document = document
+        v.view.translatesAutoresizingMaskIntoConstraints = false
+        addChildViewController(v)
+        slideAreaView.addSubview(v.view)
+        v.didMove(toParentViewController: self)
+        return v
     }()
 }
 
@@ -131,8 +138,10 @@ extension PDFSlideViewController {
     
     private func setupPDFView() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(tapPDFView))
-        pdfView.addGestureRecognizer(gesture)
-        view.addSubview(pdfView)
+        slideAreaView.addGestureRecognizer(gesture)
+        view.addSubview(slideAreaView)
+        
+
     }
     
     private func setupPortraitTopMenuView() {
@@ -185,7 +194,7 @@ extension PDFSlideViewController {
                 item: thumbnailTableView,
                 attribute: .trailing,
                 relatedBy: .equal,
-                toItem: pdfView,
+                toItem: slideAreaView,
                 attribute: .leading,
                 multiplier: 1,
                 constant: 0),
@@ -201,7 +210,7 @@ extension PDFSlideViewController {
         
         view.addConstraints([
             NSLayoutConstraint(
-                item: pdfView,
+                item: slideAreaView,
                 attribute: .top,
                 relatedBy: .equal,
                 toItem: safeArea,
@@ -209,7 +218,7 @@ extension PDFSlideViewController {
                 multiplier: 1,
                 constant: 0),
             NSLayoutConstraint(
-                item: pdfView,
+                item: slideAreaView,
                 attribute: .trailing,
                 relatedBy: .equal,
                 toItem: safeArea,
@@ -217,7 +226,7 @@ extension PDFSlideViewController {
                 multiplier: 1,
                 constant: 0),
             NSLayoutConstraint(
-                item: pdfView,
+                item: slideAreaView,
                 attribute: .bottom,
                 relatedBy: .equal,
                 toItem: safeArea,
@@ -296,6 +305,41 @@ extension PDFSlideViewController {
                 multiplier: 1,
                 constant: 0),
             ])
+        
+        view.addConstraints([
+            NSLayoutConstraint(
+                item: slideContainerViewController.view,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: slideAreaView,
+                attribute: .top,
+                multiplier: 1,
+                constant: 0),
+            NSLayoutConstraint(
+                item: slideContainerViewController.view,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: slideAreaView,
+                attribute: .leading,
+                multiplier: 1,
+                constant: 0),
+            NSLayoutConstraint(
+                item: slideContainerViewController.view,
+                attribute: .trailing,
+                relatedBy: .equal,
+                toItem: slideAreaView,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: 0),
+            NSLayoutConstraint(
+                item: slideContainerViewController.view,
+                attribute: .bottom,
+                relatedBy: .equal,
+                toItem: slideAreaView,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 0),
+            ])
     }
 }
 
@@ -314,9 +358,9 @@ extension PDFSlideViewController {
     }
     
     @objc private func pdfViewPageChanged(notification: Notification) {
-        guard let doc = document, let currentPage = pdfView.currentPage else { return }
-        let index = doc.index(for: currentPage)
-        mainStore.dispatch(changeCurrentPage(pageNo: index + 1))
+//        guard let doc = document, let currentPage = slideAreaView.currentPage else { return }
+//        let index = doc.index(for: currentPage)
+//        mainStore.dispatch(changeCurrentPage(pageNo: index + 1))
     }
 }
 
@@ -367,8 +411,8 @@ extension PDFSlideViewController: StoreSubscriber {
     }
     
     private func moveToCurrentPage() {
-        guard let currentPage = pdfView.currentPage else { return }
-        pdfView.go(to: currentPage)
+//        guard let currentPage = slideAreaView.currentPage else { return }
+//        slideAreaView.go(to: currentPage)
     }
 }
 
