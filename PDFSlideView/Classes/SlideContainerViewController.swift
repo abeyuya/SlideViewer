@@ -11,8 +11,6 @@ import ReSwift
 
 final class SlideContainerViewController: UIPageViewController {
     
-    var slide: Slide = Slide(images: [])
-
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
@@ -42,7 +40,6 @@ extension SlideContainerViewController: UIPageViewControllerDelegate, UIPageView
     private func createSlideView(at index: Int) -> UIViewController {
         let v = SlideDisplayViewController()
         v.index = index
-        v.image = slide.images[index]
         return v
     }
     
@@ -56,7 +53,7 @@ extension SlideContainerViewController: UIPageViewControllerDelegate, UIPageView
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let v = viewController as? SlideDisplayViewController else { return nil }
-        guard v.index < (slide.images.count - 1) else { return nil }
+        guard v.index < (mainStore.state.slide.images.count - 1) else { return nil }
         
         let index = v.index + 1
         return createSlideView(at: index)

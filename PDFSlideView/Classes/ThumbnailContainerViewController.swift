@@ -10,10 +10,9 @@ import PDFKit
 
 final class ThumbnailContainerViewController: UIViewController {
     
-    var slide: Slide = Slide(images: [])
-    private lazy var thumbnailImages: [UIImage?] = {
-        return Array(repeating: nil, count: slide.images.count)
-    }()
+//    private lazy var thumbnailImages: [UIImage?] = {
+//        return Array(repeating: nil, count: slide.images.count)
+//    }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -79,7 +78,7 @@ final class ThumbnailContainerViewController: UIViewController {
 extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return slide.images.count
+        return mainStore.state.slide.thumbnailImages.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,12 +86,12 @@ extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewData
             return UITableViewCell()
         }
         
-        if let thumbnailImage = thumbnailImages[indexPath.row] {
+        if let thumbnailImage = mainStore.state.slide.thumbnailImages[indexPath.row] {
             cell.thumbnail.image = thumbnailImage
         } else {
-            let thumbnailImage = createThumbnailImage(at: indexPath.row)
-            cell.thumbnail.image = thumbnailImage
-            thumbnailImages.insert(thumbnailImage, at: indexPath.row)
+//            let thumbnailImage = createThumbnailImage(at: indexPath.row)
+//            cell.thumbnail.image = thumbnailImage
+//            mainStore.state.slide.thumbnailImages.insert(thumbnailImage, at: indexPath.row)
         }
 
         return cell
@@ -105,11 +104,11 @@ extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewData
 
 extension ThumbnailContainerViewController {
     
-    private func createThumbnailImage(at index: Int) -> UIImage? {
-        guard let originalImage = slide.images[index] else { return nil }
-        let thumbnailHeight = originalImage.size.height * (Config.shared.thumbnailViewWidth / originalImage.size.width)
-        return originalImage.resize(size: CGSize(width: Config.shared.thumbnailViewWidth, height: thumbnailHeight))
-    }
+//    private func createThumbnailImage(at index: Int) -> UIImage? {
+//        guard let originalImage = slide.images[index] else { return nil }
+//        let thumbnailHeight = originalImage.size.height * (Config.shared.thumbnailViewWidth / originalImage.size.width)
+//        return originalImage.resize(size: CGSize(width: Config.shared.thumbnailViewWidth, height: thumbnailHeight))
+//    }
 }
 
 extension UIImage {

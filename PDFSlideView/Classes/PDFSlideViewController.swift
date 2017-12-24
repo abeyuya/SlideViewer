@@ -11,8 +11,6 @@ import ReSwift
 
 public final class PDFSlideViewController: UIViewController {
     
-    private var slide: Slide = Slide(images: [])
-    
     private lazy var slideAreaView: UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +49,6 @@ public final class PDFSlideViewController: UIViewController {
             transitionStyle: .scroll,
             navigationOrientation: .horizontal,
             options: nil)
-        v.slide = slide
         v.view.translatesAutoresizingMaskIntoConstraints = false
         addChildViewController(v)
         slideAreaView.addSubview(v.view)
@@ -61,7 +58,6 @@ public final class PDFSlideViewController: UIViewController {
     
     private lazy var thumbnailViewController: ThumbnailContainerViewController = {
         let v = ThumbnailContainerViewController()
-        v.slide = slide
         v.view.translatesAutoresizingMaskIntoConstraints = false
         addChildViewController(v)
         thumbnailAreaView.addSubview(v.view)
@@ -73,8 +69,8 @@ public final class PDFSlideViewController: UIViewController {
 extension PDFSlideViewController {
     
     public static func setup(slide: Slide) -> PDFSlideViewController {
+        mainStore.dispatch(setSlide(slide: slide))
         let v = PDFSlideViewController()
-        v.slide = slide
         return v
     }
 }
@@ -110,10 +106,10 @@ extension PDFSlideViewController {
 extension PDFSlideViewController {
     
     private func setupView() {
-        guard slide.images.isEmpty == false else {
-            // TODO: show Error
-            return
-        }
+//        guard mainStore.state.slide.images.isEmpty == false else {
+//            // TODO: show Error
+//            return
+//        }
         
         view.backgroundColor = .black
 
@@ -383,9 +379,6 @@ extension PDFSlideViewController: StoreSubscriber {
     public typealias StoreSubscriberStateType = PDFSlideViewState
 
     public func newState(state: PDFSlideViewController.StoreSubscriberStateType) {
-        print("state update!")
-        print(state)
-        
         renderMenu(state: state)
         renderThumbnailView(state: state)
     }
@@ -400,7 +393,7 @@ extension PDFSlideViewController: StoreSubscriber {
         guard state.isPortrait else {
             portraitTopMenuView.isHidden = true
             landscapeRightMenuView.isHidden = false
-            landscapeRightMenuView.pageLabel.text = "\(state.currentPageIndex + 1) of \(slide.images.count)"
+            landscapeRightMenuView.pageLabel.text = "\(state.currentPageIndex + 1) of \(state.slide.images.count)"
             return
         }
         

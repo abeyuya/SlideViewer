@@ -7,13 +7,13 @@
 
 import UIKit
 import PDFKit
+import ReSwift
 
 final class SlideDisplayViewController: UIViewController {
     
     var index: Int = 0
-    var image: UIImage? = nil
-    
-    lazy var scrollView: UIScrollView = {
+
+    private lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.delegate = self
         v.minimumZoomScale = 1
@@ -34,19 +34,47 @@ final class SlideDisplayViewController: UIViewController {
         return v
     }()
     
-    lazy var imageView: UIImageView = {
-        let imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+    private var imageView: UIImageView? = nil
+}
+
+extension SlideDisplayViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(scrollView)
-        scrollView.addSubview(imageView)
         layoutView()
+        
+        if let image = mainStore.state.slide.images[index] {
+            setImageView(image: image)
+        } else {
+            mainStore.dispatch(loadImage(pageIndex: index))
+        }
     }
     
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        mainStore.subscribe(self)
+    }
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        mainStore.unsubscribe(self)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+}
+
+extension SlideDisplayViewController {
+    
+    private func setImageView(image: UIImage) {
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
+        scrollView.addSubview(imageView)
+        self.imageView = imageView
+    }
+
     private func layoutView() {
         view.addConstraints([
             NSLayoutConstraint(
@@ -83,10 +111,6 @@ final class SlideDisplayViewController: UIViewController {
                 constant: 0),
             ])
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
 }
 
 extension SlideDisplayViewController: UIScrollViewDelegate {
@@ -101,7 +125,8 @@ extension SlideDisplayViewController: UIScrollViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if let size = imageView.image?.size {
+        
+        if let imageView = imageView, let size = imageView.image?.size {
             let wrate = scrollView.frame.width / size.width
             let hrate = scrollView.frame.height / size.height
             let rate = min(wrate, hrate, 1)
@@ -125,7 +150,7 @@ extension SlideDisplayViewController {
         }
     }
     
-    func zoomRectForScale(scale:CGFloat, center: CGPoint) -> CGRect{
+    private func zoomRectForScale(scale:CGFloat, center: CGPoint) -> CGRect {
         let size = CGSize(
             width: self.scrollView.frame.size.width / scale,
             height: self.scrollView.frame.size.height / scale
@@ -140,11 +165,24 @@ extension SlideDisplayViewController {
     }
 
     private func updateScrollInset() {
-        scrollView.contentInset = UIEdgeInsetsMake(
-            max((scrollView.frame.height - imageView.frame.height)/2, 0),
-            max((scrollView.frame.width - imageView.frame.width)/2, 0),
-            0,
-            0
-        )
+        if let imageView = imageView {
+            scrollView.contentInset = UIEdgeInsetsMake(
+                max((scrollView.frame.height - imageView.frame.height)/2, 0),
+                max((scrollView.frame.width - imageView.frame.width)/2, 0),
+                0,
+                0
+            )
+        }
+    }
+}
+
+extension SlideDisplayViewController: StoreSubscriber {
+    
+    public typealias StoreSubscriberStateType = PDFSlideViewState
+    
+    public func newState(state: StoreSubscriberStateType) {
+        guard self.imageView == nil else { return }
+        guard let loadedImage = state.slide.images[index] else { return }
+        setImageView(image: loadedImage)
     }
 }
