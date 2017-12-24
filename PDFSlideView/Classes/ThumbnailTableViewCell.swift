@@ -16,6 +16,7 @@ final class ThumbnailTableViewCell: UITableViewCell {
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
+    var tableView: UITableView? = nil
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -43,12 +44,14 @@ final class ThumbnailTableViewCell: UITableViewCell {
 
 extension ThumbnailTableViewCell {
     
-    func set(index: Int) {
+    func set(index: Int, tableView: UITableView) {
         self.index = index
+        self.tableView = tableView
+        
         if let image = mainStore.state.slide.thumbnailImages[index] {
             thumbnail.image = image
         } else {
-            mainStore.dispatch(loadImage(pageIndex: index))
+            loadImage(state: mainStore.state, index: index)
         }
     }
     
@@ -97,9 +100,13 @@ extension ThumbnailTableViewCell: StoreSubscriber {
     public typealias StoreSubscriberStateType = PDFSlideViewState
     
     public func newState(state: StoreSubscriberStateType) {
-        guard let index = index, thumbnail.image == nil else { return }
+        guard let index = index,
+            let tableView = tableView,
+            thumbnail.image == nil else { return }
+        
         if let image = state.slide.thumbnailImages[index] {
             thumbnail.image = image
+            tableView.reloadData()
         }
     }
 }

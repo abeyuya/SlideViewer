@@ -22,7 +22,11 @@ struct toggleMenu: Action {}
 struct toggleThumbnail: Action {}
 struct changeIsPortrait: Action { let isPortrait: Bool }
 struct setSlide: Action { let slide: Slide }
-struct loadImage: Action { let pageIndex: Int }
+struct setImage: Action {
+    let pageIndex: Int
+    let originalImage: UIImage
+    let thumbnailImage: UIImage?
+}
 
 func pdfSlideViewReducer(action: Action, state: PDFSlideViewState?) -> PDFSlideViewState {
     var state = state ?? PDFSlideViewState()
@@ -44,19 +48,32 @@ func pdfSlideViewReducer(action: Action, state: PDFSlideViewState?) -> PDFSlideV
     case let action as setSlide:
         state.slide = action.slide
         
-    case let action as loadImage:
-        if state.slide.images[action.pageIndex] == nil {
-            if let image = loadImageFrom(state: state, index: action.pageIndex) {
-                state.slide.images[action.pageIndex] = image
-                state.slide.thumbnailImages[action.pageIndex] = createThumbnailImage(originalImage: image)
-            }
-        }
+    case let action as setImage:
+        state.slide.images[action.pageIndex] = action.originalImage
+        state.slide.thumbnailImages[action.pageIndex] = action.thumbnailImage
 
     default:
         break
     }
     
     return state
+}
+
+func loadImage(state: PDFSlideViewState, index: Int) {
+    DispatchQueue.global(qos: .default).async {
+        if state.slide.images[index] == nil {
+            if let image = loadImageFrom(state: state, index: index) {
+                let thumbnailImage = createThumbnailImage(originalImage: image)
+                DispatchQueue.main.async {
+                    mainStore.dispatch(setImage(
+                        pageIndex: index,
+                        originalImage: image,
+                        thumbnailImage: thumbnailImage
+                    ))
+                }
+            }
+        }
+    }
 }
 
 private func loadImageFrom(state: PDFSlideViewState, index: Int) -> UIImage? {

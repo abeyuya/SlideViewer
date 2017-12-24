@@ -47,7 +47,7 @@ extension SlideDisplayViewController {
         if let image = mainStore.state.slide.images[index] {
             setImageView(image: image)
         } else {
-            mainStore.dispatch(loadImage(pageIndex: index))
+            loadImage(state: mainStore.state, index: index)
         }
     }
     
@@ -73,6 +73,7 @@ extension SlideDisplayViewController {
         imageView.contentMode = .scaleAspectFit
         scrollView.addSubview(imageView)
         self.imageView = imageView
+        self.view.setNeedsLayout()
     }
 
     private func layoutView() {
@@ -183,6 +184,6 @@ extension SlideDisplayViewController: StoreSubscriber {
     public func newState(state: StoreSubscriberStateType) {
         guard self.imageView == nil else { return }
         guard let loadedImage = state.slide.images[index] else { return }
-        setImageView(image: loadedImage)
+        self.setImageView(image: loadedImage)
     }
 }

@@ -86,7 +86,7 @@ extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewData
             return UITableViewCell()
         }
         
-        cell.set(index: indexPath.row)
+        cell.set(index: indexPath.row, tableView: tableView)
         return cell
     }
     
