@@ -9,11 +9,6 @@ import UIKit
 import PDFKit
 import ReSwift
 
-let mainStore = Store<PDFSlideViewState>(
-    reducer: pdfSlideViewReducer,
-    state: nil
-)
-
 public final class PDFSlideViewController: UIViewController {
     private var document: PDFDocument? = nil
     
@@ -95,17 +90,11 @@ extension PDFSlideViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.pdfViewPageChanged),
-            name: .PDFViewPageChanged,
-            object: nil)
         mainStore.subscribe(self)
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
         mainStore.unsubscribe(self)
     }
 
@@ -137,11 +126,9 @@ extension PDFSlideViewController {
     }
     
     private func setupPDFView() {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(tapPDFView))
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(tapSlideView))
         slideAreaView.addGestureRecognizer(gesture)
         view.addSubview(slideAreaView)
-        
-
     }
     
     private func setupPortraitTopMenuView() {
@@ -349,18 +336,12 @@ extension PDFSlideViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    @objc private func tapPDFView() {
+    @objc private func tapSlideView() {
         mainStore.dispatch(toggleMenu())
     }
     
     @objc private func toggleThumbnailView() {
         mainStore.dispatch(toggleThumbnail())
-    }
-    
-    @objc private func pdfViewPageChanged(notification: Notification) {
-//        guard let doc = document, let currentPage = slideAreaView.currentPage else { return }
-//        let index = doc.index(for: currentPage)
-//        mainStore.dispatch(changeCurrentPage(pageNo: index + 1))
     }
 }
 
@@ -373,7 +354,6 @@ extension PDFSlideViewController: StoreSubscriber {
         
         renderMenu(state: state)
         renderThumbnailView(state: state)
-        moveToCurrentPage()
     }
     
     private func renderMenu(state: PDFSlideViewState) {
@@ -388,7 +368,7 @@ extension PDFSlideViewController: StoreSubscriber {
         guard state.isPortrait else {
             portraitTopMenuView.isHidden = true
             landscapeRightMenuView.isHidden = false
-            landscapeRightMenuView.pageLabel.text = "\(state.currentPageNo) of \(document.pageCount)"
+            landscapeRightMenuView.pageLabel.text = "\(state.currentPageIndex + 1) of \(document.pageCount)"
             return
         }
         
@@ -408,11 +388,6 @@ extension PDFSlideViewController: StoreSubscriber {
         }
         
         thumbnailTableViewWidth.constant = thumbnailWidth
-    }
-    
-    private func moveToCurrentPage() {
-//        guard let currentPage = slideAreaView.currentPage else { return }
-//        slideAreaView.go(to: currentPage)
     }
 }
 
@@ -435,6 +410,6 @@ extension PDFSlideViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        mainStore.dispatch(changeCurrentPage(pageNo: indexPath.row + 1))
+        mainStore.dispatch(changeCurrentPage(pageIndex: indexPath.row))
     }
 }

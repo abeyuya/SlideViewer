@@ -8,7 +8,7 @@
 import UIKit
 import PDFKit
 
-class SlideContainerViewController: UIPageViewController {
+final class SlideContainerViewController: UIPageViewController {
     
     var document: PDFDocument? = nil
 
@@ -55,5 +55,16 @@ extension SlideContainerViewController: UIPageViewControllerDelegate, UIPageView
         
         let index = v.index! + 1
         return createSlideView(at: index)
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        guard let nextView = pendingViewControllers.first as? SlideDisplayViewController else { return }
+        mainStore.dispatch(changeCurrentPage(pageIndex: nextView.index!))
+    }
+
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        guard let views = pageViewController.viewControllers,
+            let current = views.first as? SlideDisplayViewController else { return }
+        mainStore.dispatch(changeCurrentPage(pageIndex: current.index!))
     }
 }

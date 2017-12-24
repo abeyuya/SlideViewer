@@ -157,6 +157,6 @@ extension SlideDisplayViewController {
             max((scrollView.frame.width - imageView.frame.width)/2, 0),
             0,
             0
-        );
+        )
     }
 }
