@@ -49,7 +49,6 @@ final class SlideDisplayViewController: UIViewController {
         
         let imageView = UIImageView(image: img)
         imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
@@ -95,57 +94,6 @@ final class SlideDisplayViewController: UIViewController {
                 multiplier: 1,
                 constant: 0),
             ])
-        
-        view.addConstraints([
-            NSLayoutConstraint(
-                item: imageView,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: scrollView,
-                attribute: .top,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: imageView,
-                attribute: .leading,
-                relatedBy: .equal,
-                toItem: scrollView,
-                attribute: .leading,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: imageView,
-                attribute: .trailing,
-                relatedBy: .equal,
-                toItem: scrollView,
-                attribute: .trailing,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: imageView,
-                attribute: .bottom,
-                relatedBy: .equal,
-                toItem: scrollView,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: imageView,
-                attribute: .width,
-                relatedBy: .equal,
-                toItem: scrollView,
-                attribute: .width,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: imageView,
-                attribute: .height,
-                relatedBy: .equal,
-                toItem: scrollView,
-                attribute: .height,
-                multiplier: 1,
-                constant: 0),
-            ])
     }
 
     override func didReceiveMemoryWarning() {
@@ -154,6 +102,30 @@ final class SlideDisplayViewController: UIViewController {
 }
 
 extension SlideDisplayViewController: UIScrollViewDelegate {
+
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        updateScrollInset()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if let size = imageView.image?.size {
+            let wrate = scrollView.frame.width / size.width
+            let hrate = scrollView.frame.height / size.height
+            let rate = min(wrate, hrate, 1)
+            imageView.frame.size = CGSize(width: size.width * rate, height: size.height * rate)
+            
+            scrollView.contentSize = imageView.frame.size
+            updateScrollInset()
+        }
+    }
+}
+
+extension SlideDisplayViewController {
     
     @objc func doubleTap(gesture: UITapGestureRecognizer) -> Void {
         if (self.scrollView.zoomScale < self.scrollView.maximumZoomScale) {
@@ -163,10 +135,6 @@ extension SlideDisplayViewController: UIScrollViewDelegate {
         } else {
             self.scrollView.setZoomScale(1.0, animated: true)
         }
-    }
-    
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return imageView
     }
     
     func zoomRectForScale(scale:CGFloat, center: CGPoint) -> CGRect{
@@ -181,5 +149,14 @@ extension SlideDisplayViewController: UIScrollViewDelegate {
             ),
             size: size
         )
+    }
+
+    private func updateScrollInset() {
+        scrollView.contentInset = UIEdgeInsetsMake(
+            max((scrollView.frame.height - imageView.frame.height)/2, 0),
+            max((scrollView.frame.width - imageView.frame.width)/2, 0),
+            0,
+            0
+        );
     }
 }
