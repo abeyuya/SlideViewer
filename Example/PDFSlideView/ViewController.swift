@@ -21,8 +21,10 @@ class ViewController: UIViewController {
 
     @IBAction func tapShowPDFSlideView(_ sender: Any) {
 //        let pdfURL = "https://speakerd.s3.amazonaws.com/presentations/50021f75cf1db900020005e7/speakerdeck.pdf"
+        
         let pdfURL = "http://gahp.net/wp-content/uploads/2017/09/sample.pdf"
-        let vc = PDFSlideViewController.setup(pdfFileURL: pdfURL)
+        let slide = try! Slide(pdfFileURL: URL(string: pdfURL)!)
+        let vc = PDFSlideViewController.setup(slide: slide)
         present(vc, animated: true)
     }
 }

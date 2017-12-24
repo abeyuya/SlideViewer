@@ -10,7 +10,7 @@ import PDFKit
 
 final class ThumbnailContainerViewController: UIViewController {
     
-    var document: PDFDocument? = nil
+    var slide: Slide = Slide(images: [])
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -76,7 +76,7 @@ final class ThumbnailContainerViewController: UIViewController {
 extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return document?.pageCount ?? 0
+        return slide.images.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -84,10 +84,7 @@ extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewData
             return UITableViewCell()
         }
         
-        guard let doc = document, let pdf = doc.page(at: indexPath.row) else { return UITableViewCell() }
-        let thumbImage = pdf.thumbnail(of: CGSize(width: cell.frame.size.width, height: cell.frame.size.height), for: .artBox)
-        cell.thumbnail.image = thumbImage
-        
+        cell.thumbnail.image = slide.images[indexPath.row]
         return cell
     }
     

@@ -10,8 +10,8 @@ import PDFKit
 
 final class SlideDisplayViewController: UIViewController {
     
-    var index: Int? = nil
-    var pdfPage: PDFPage? = nil
+    var index: Int = 0
+    var image: UIImage? = nil
     
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
@@ -35,19 +35,7 @@ final class SlideDisplayViewController: UIViewController {
     }()
     
     lazy var imageView: UIImageView = {
-        let pageRect = pdfPage!.bounds(for: .mediaBox)
-        let renderer = UIGraphicsImageRenderer(size: pageRect.size)
-        let img = renderer.image { ctx in
-            UIColor.white.set()
-            ctx.fill(pageRect)
-            
-            ctx.cgContext.translateBy(x: 0.0, y: pageRect.size.height)
-            ctx.cgContext.scaleBy(x: 1.0, y: -1.0)
-            
-            ctx.cgContext.drawPDFPage(pdfPage!.pageRef!)
-        }
-        
-        let imageView = UIImageView(image: img)
+        let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()

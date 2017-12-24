@@ -46,6 +46,7 @@
 		45F183320C688F9978649F30ABE21D09 /* MatchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937726C6396DDB3452E936DB4A11FFFC /* MatchError.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		47062FE5B134A3FBB260829EE06A34ED /* Quick.h in Headers */ = {isa = PBXBuildFile; fileRef = F1F4589F06D943F26105E4FBDD7AB6ED /* Quick.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CDACD8A5A6CFB688838AA988E7D1E43 /* Nimble-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6DC95845EA8FA29E43AB9A8CA15B92 /* Nimble-dummy.m */; };
+		4D4A81EF1FEFE0C0006CD675 /* Slide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A81EE1FEFE0C0006CD675 /* Slide.swift */; };
 		4D4FF46E1FEFD02A00F6751B /* ThumbnailContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4FF46D1FEFD02A00F6751B /* ThumbnailContainerViewController.swift */; };
 		4D911CDE1FEE0F9F000D8184 /* LandscapeRightMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D911CDD1FEE0F9F000D8184 /* LandscapeRightMenuView.swift */; };
 		4D911CE01FEE0FC2000D8184 /* LandscapeRightMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D911CDF1FEE0FC2000D8184 /* LandscapeRightMenuView.xib */; };
@@ -260,6 +261,7 @@
 		4C6D7929283C6C5A01A5F68103B2BA6E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CE0CFA133D5FA516C031D803DB5874C /* Pods-PDFSlideView_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PDFSlideView_Example-frameworks.sh"; sourceTree = "<group>"; };
 		4CF9E7113923AB260286481C7E57CF4A /* BeVoid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeVoid.swift; path = Sources/Nimble/Matchers/BeVoid.swift; sourceTree = "<group>"; };
+		4D4A81EE1FEFE0C0006CD675 /* Slide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Slide.swift; path = PDFSlideView/Classes/Slide.swift; sourceTree = "<group>"; };
 		4D4FF46D1FEFD02A00F6751B /* ThumbnailContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ThumbnailContainerViewController.swift; path = PDFSlideView/Classes/ThumbnailContainerViewController.swift; sourceTree = "<group>"; };
 		4D911CDD1FEE0F9F000D8184 /* LandscapeRightMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LandscapeRightMenuView.swift; path = PDFSlideView/Classes/LandscapeRightMenuView.swift; sourceTree = "<group>"; };
 		4D911CDF1FEE0FC2000D8184 /* LandscapeRightMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LandscapeRightMenuView.xib; path = PDFSlideView/Assets/LandscapeRightMenuView.xib; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 				4DBBE7B21FEE8CC900B58764 /* SlideContainerViewController.swift */,
 				4DBBE7B41FEE8E2700B58764 /* SlideDisplayViewController.swift */,
 				4D4FF46D1FEFD02A00F6751B /* ThumbnailContainerViewController.swift */,
+				4D4A81EE1FEFE0C0006CD675 /* Slide.swift */,
 			);
 			name = PDFSlideView;
 			path = ../..;
@@ -1165,6 +1168,7 @@
 				4DBBE7B31FEE8CC900B58764 /* SlideContainerViewController.swift in Sources */,
 				4D911CDE1FEE0F9F000D8184 /* LandscapeRightMenuView.swift in Sources */,
 				4D911CE21FEE3F02000D8184 /* ThumbnailTableViewCell.swift in Sources */,
+				4D4A81EF1FEFE0C0006CD675 /* Slide.swift in Sources */,
 				29CA07BA4DB03D37719FC1D4BADB9AAB /* PDFSlideView-dummy.m in Sources */,
 				4D4FF46E1FEFD02A00F6751B /* ThumbnailContainerViewController.swift in Sources */,
 				594A326000A0877121C2DF534DE6C680 /* PDFSlideViewController.swift in Sources */,

@@ -10,7 +10,8 @@ import PDFKit
 import ReSwift
 
 public final class PDFSlideViewController: UIViewController {
-    private var document: PDFDocument? = nil
+    
+    private var slide: Slide = Slide(images: [])
     
     private lazy var slideAreaView: UIView = {
         let v = UIView()
@@ -52,7 +53,7 @@ public final class PDFSlideViewController: UIViewController {
             transitionStyle: .scroll,
             navigationOrientation: .horizontal,
             options: nil)
-        v.document = document
+        v.slide = slide
         v.view.translatesAutoresizingMaskIntoConstraints = false
         addChildViewController(v)
         slideAreaView.addSubview(v.view)
@@ -62,7 +63,7 @@ public final class PDFSlideViewController: UIViewController {
     
     private lazy var thumbnailViewController: ThumbnailContainerViewController = {
         let v = ThumbnailContainerViewController()
-        v.document = document
+        v.slide = slide
         v.view.translatesAutoresizingMaskIntoConstraints = false
         addChildViewController(v)
         thumbnailAreaView.addSubview(v.view)
@@ -73,13 +74,10 @@ public final class PDFSlideViewController: UIViewController {
 
 extension PDFSlideViewController {
     
-    public static func setup(pdfFileURL: String) -> PDFSlideViewController {
-        let url = URL(string: pdfFileURL)!
-        let document = PDFDocument(url: url)
-
-        let vc = PDFSlideViewController()
-        vc.document = document
-        return vc
+    public static func setup(slide: Slide) -> PDFSlideViewController {
+        let v = PDFSlideViewController()
+        v.slide = slide
+        return v
     }
 }
 
@@ -114,7 +112,7 @@ extension PDFSlideViewController {
 extension PDFSlideViewController {
     
     private func setupView() {
-        guard document != nil else {
+        guard slide.images.isEmpty == false else {
             // TODO: show Error
             return
         }
@@ -395,8 +393,6 @@ extension PDFSlideViewController: StoreSubscriber {
     }
     
     private func renderMenu(state: PDFSlideViewState) {
-        guard let document = document else { return }
-        
         guard state.showMenu else {
             portraitTopMenuView.isHidden = true
             landscapeRightMenuView.isHidden = true
@@ -406,7 +402,7 @@ extension PDFSlideViewController: StoreSubscriber {
         guard state.isPortrait else {
             portraitTopMenuView.isHidden = true
             landscapeRightMenuView.isHidden = false
-            landscapeRightMenuView.pageLabel.text = "\(state.currentPageIndex + 1) of \(document.pageCount)"
+            landscapeRightMenuView.pageLabel.text = "\(state.currentPageIndex + 1) of \(slide.images.count)"
             return
         }
         
