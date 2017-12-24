@@ -7,6 +7,7 @@
 
 import UIKit
 import PDFKit
+import ReSwift
 
 final class SlideContainerViewController: UIPageViewController {
     
@@ -19,6 +20,16 @@ final class SlideContainerViewController: UIPageViewController {
         
         let first = createSlideView(at: 0)
         setViewControllers([first], direction: .forward, animated: true, completion: nil)
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        mainStore.subscribe(self)
+    }
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        mainStore.unsubscribe(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,14 +68,34 @@ extension SlideContainerViewController: UIPageViewControllerDelegate, UIPageView
         return createSlideView(at: index)
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        guard let nextView = pendingViewControllers.first as? SlideDisplayViewController else { return }
-        mainStore.dispatch(changeCurrentPage(pageIndex: nextView.index!))
-    }
-
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         guard let views = pageViewController.viewControllers,
             let current = views.first as? SlideDisplayViewController else { return }
         mainStore.dispatch(changeCurrentPage(pageIndex: current.index!))
+    }
+}
+
+extension SlideContainerViewController: StoreSubscriber {
+    
+    public typealias StoreSubscriberStateType = PDFSlideViewState
+    
+    public func newState(state: PDFSlideViewController.StoreSubscriberStateType) {
+        move(to: state.currentPageIndex)
+    }
+    
+    private func move(to index: Int) {
+        guard let current = viewControllers?.first as? SlideDisplayViewController,
+            let currentIndex = current.index else { return }
+        guard currentIndex != index else { return }
+        
+        let nextView = createSlideView(at: index)
+
+        DispatchQueue.main.async {
+            if currentIndex < index {
+                self.setViewControllers([nextView], direction: .forward, animated: true, completion: nil)
+            } else {
+                self.setViewControllers([nextView], direction: .reverse, animated: true, completion: nil)
+            }
+        }
     }
 }
