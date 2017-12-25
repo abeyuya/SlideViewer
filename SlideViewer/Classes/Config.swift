@@ -1,6 +1,6 @@
 //
 //  Config.swift
-//  PDFSlideView
+//  SlideViewer
 //
 //  Created by abeyuya on 2017/12/25.
 //

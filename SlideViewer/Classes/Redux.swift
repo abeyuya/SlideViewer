@@ -1,6 +1,6 @@
 //
 //  Redux.swift
-//  PDFSlideView
+//  SlideViewer
 //
 //  Created by abeyuya on 2017/12/23.
 //
