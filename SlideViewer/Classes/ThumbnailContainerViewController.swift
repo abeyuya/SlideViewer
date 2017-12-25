@@ -72,7 +72,9 @@ extension ThumbnailContainerViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mainStore.subscribe(self)
+        mainStore.subscribe(self) { subscription in
+            subscription.select { state in state.currentPageIndex }
+        }
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -106,14 +108,13 @@ extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewData
 }
 
 extension ThumbnailContainerViewController: StoreSubscriber {
-    
-    public typealias StoreSubscriberStateType = SlideViewerState
-    
-    public func newState(state: StoreSubscriberStateType) {
+    public typealias StoreSubscriberStateType = Int
+ 
+    public func newState(state currentPageIndex: StoreSubscriberStateType) {
         guard tableView.numberOfRows(inSection: 0) > 0 else { return }
-        print("index: \(state.currentPageIndex)")
+        print("index: \(currentPageIndex)")
         tableView.scrollToRow(
-            at: IndexPath(row: state.currentPageIndex, section: 0),
+            at: IndexPath(row: currentPageIndex, section: 0),
             at: .middle,
             animated: true)
     }
