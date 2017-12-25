@@ -90,6 +90,7 @@ extension SlideContainerViewController: StoreSubscriber {
                 self.setViewControllers([nextView], direction: .reverse, animated: true, completion: nil)
             }
             mainStore.dispatch(selectThumbnail(pageIndex: nil))
+            mainStore.dispatch(changeCurrentPage(pageIndex: toIndex))
         }
     }
 }

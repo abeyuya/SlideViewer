@@ -13,7 +13,7 @@ final class ThumbnailContainerViewController: UIViewController {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 500
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.register(ThumbnailTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView()
@@ -70,6 +70,16 @@ extension ThumbnailContainerViewController {
             ])
     }
     
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        mainStore.subscribe(self)
+    }
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        mainStore.unsubscribe(self)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -92,5 +102,19 @@ extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewData
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         mainStore.dispatch(selectThumbnail(pageIndex: indexPath.row))
+    }
+}
+
+extension ThumbnailContainerViewController: StoreSubscriber {
+    
+    public typealias StoreSubscriberStateType = PDFSlideViewState
+    
+    public func newState(state: StoreSubscriberStateType) {
+        guard tableView.numberOfRows(inSection: 0) > 0 else { return }
+        print("index: \(state.currentPageIndex)")
+        tableView.scrollToRow(
+            at: IndexPath(row: state.currentPageIndex, section: 0),
+            at: .middle,
+            animated: true)
     }
 }
