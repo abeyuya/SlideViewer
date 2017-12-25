@@ -33,15 +33,21 @@ final class SlideDisplayViewController: UIViewController {
         
         return v
     }()
-    
+
     private var imageView: UIImageView? = nil
+    
+    private let indicator: UIActivityIndicatorView = {
+        let v = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        v.startAnimating()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
 }
 
 extension SlideDisplayViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(scrollView)
         layoutView()
         
         if let image = mainStore.state.slide.images[index] {
@@ -69,6 +75,7 @@ extension SlideDisplayViewController {
 extension SlideDisplayViewController {
     
     private func setImageView(image: UIImage) {
+        indicator.removeFromSuperview()
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         scrollView.addSubview(imageView)
@@ -77,6 +84,7 @@ extension SlideDisplayViewController {
     }
 
     private func layoutView() {
+        view.addSubview(scrollView)
         view.addConstraints([
             NSLayoutConstraint(
                 item: scrollView,
@@ -108,6 +116,26 @@ extension SlideDisplayViewController {
                 relatedBy: .equal,
                 toItem: view,
                 attribute: .bottom,
+                multiplier: 1,
+                constant: 0),
+            ])
+        
+        view.addSubview(indicator)
+        view.addConstraints([
+            NSLayoutConstraint(
+                item: indicator,
+                attribute: .centerX,
+                relatedBy: .equal,
+                toItem: view,
+                attribute: .centerX,
+                multiplier: 1,
+                constant: 0),
+            NSLayoutConstraint(
+                item: indicator,
+                attribute: .centerY,
+                relatedBy: .equal,
+                toItem: view,
+                attribute: .centerY,
                 multiplier: 1,
                 constant: 0),
             ])
