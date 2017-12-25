@@ -62,6 +62,7 @@ extension SlideContainerViewController: UIPageViewControllerDelegate, UIPageView
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         guard let views = pageViewController.viewControllers,
             let current = views.first as? SlideDisplayViewController else { return }
+        
         mainStore.dispatch(changeCurrentPage(pageIndex: current.index))
     }
 }
@@ -70,14 +71,16 @@ extension SlideContainerViewController: StoreSubscriber {
     
     public typealias StoreSubscriberStateType = PDFSlideViewState
     
-    public func newState(state: PDFSlideViewController.StoreSubscriberStateType) {
-        move(toIndex: state.currentPageIndex)
+    public func newState(state: StoreSubscriberStateType) {
+        if let toIndex = state.selectedThumbnailIndex {
+            move(toIndex: toIndex)
+        }
     }
     
     private func move(toIndex: Int) {
         guard let currentView = viewControllers?.first as? SlideDisplayViewController else { return }
         guard toIndex != currentView.index else { return }
-        
+
         let nextView = createSlideView(at: toIndex)
 
         DispatchQueue.main.async {
@@ -86,6 +89,7 @@ extension SlideContainerViewController: StoreSubscriber {
             } else {
                 self.setViewControllers([nextView], direction: .reverse, animated: true, completion: nil)
             }
+            mainStore.dispatch(selectThumbnail(pageIndex: nil))
         }
     }
 }

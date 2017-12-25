@@ -91,6 +91,6 @@ extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewData
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        mainStore.dispatch(changeCurrentPage(pageIndex: indexPath.row))
+        mainStore.dispatch(selectThumbnail(pageIndex: indexPath.row))
     }
 }

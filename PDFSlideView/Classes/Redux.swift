@@ -15,6 +15,7 @@ public struct PDFSlideViewState: StateType {
     var showMenu: Bool = false
     var showThumbnail: Bool = false
     var slide: Slide = Slide()
+    var selectedThumbnailIndex: Int? = nil
 }
 
 struct changeCurrentPage: Action { let pageIndex: Int }
@@ -27,6 +28,7 @@ struct setImage: Action {
     let originalImage: UIImage
     let thumbnailImage: UIImage?
 }
+struct selectThumbnail: Action { let pageIndex: Int? }
 
 func pdfSlideViewReducer(action: Action, state: PDFSlideViewState?) -> PDFSlideViewState {
     var state = state ?? PDFSlideViewState()
@@ -52,6 +54,9 @@ func pdfSlideViewReducer(action: Action, state: PDFSlideViewState?) -> PDFSlideV
         state.slide.images[action.pageIndex] = action.originalImage
         state.slide.thumbnailImages[action.pageIndex] = action.thumbnailImage
 
+    case let action as selectThumbnail:
+        state.selectedThumbnailIndex = action.pageIndex
+        
     default:
         break
     }
