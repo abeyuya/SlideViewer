@@ -17,6 +17,7 @@ final class ThumbnailContainerViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.register(ThumbnailTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView()
+        tableView.backgroundColor = .black
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false

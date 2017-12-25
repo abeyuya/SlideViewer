@@ -31,7 +31,14 @@ final class ThumbnailTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        mainStore.subscribe(self)
+        
+        mainStore.subscribe(self) { subscription in
+            subscription.select { state in
+                guard let index = self.index else { return nil }
+                return state.slide.thumbnailImages[index]
+            }
+        }
+        
         setupImageView()
     }
     
@@ -123,17 +130,15 @@ extension ThumbnailTableViewCell {
 
 extension ThumbnailTableViewCell: StoreSubscriber {
     
-    public typealias StoreSubscriberStateType = SlideViewerState
+    public typealias StoreSubscriberStateType = UIImage?
     
-    public func newState(state: StoreSubscriberStateType) {
+    public func newState(state image: StoreSubscriberStateType) {
         guard thumbnail.image == nil,
-            let index = index,
+            let image = image,
             let tableView = tableView else { return }
         
-        if let image = state.slide.thumbnailImages[index] {
-            thumbnail.image = image
-            indicator.removeFromSuperview()
-            tableView.reloadData()
-        }
+        thumbnail.image = image
+        indicator.removeFromSuperview()
+        tableView.reloadData()
     }
 }

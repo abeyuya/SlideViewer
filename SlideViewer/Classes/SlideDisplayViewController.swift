@@ -59,7 +59,9 @@ extension SlideDisplayViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mainStore.subscribe(self)
+        mainStore.subscribe(self) { subscription in
+            subscription.select { state in state.slide.images[self.index] }
+        }
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -207,11 +209,11 @@ extension SlideDisplayViewController {
 
 extension SlideDisplayViewController: StoreSubscriber {
     
-    public typealias StoreSubscriberStateType = SlideViewerState
+    public typealias StoreSubscriberStateType = UIImage?
     
-    public func newState(state: StoreSubscriberStateType) {
+    public func newState(state loadedImage: StoreSubscriberStateType) {
         guard self.imageView == nil else { return }
-        guard let loadedImage = state.slide.images[index] else { return }
+        guard let loadedImage = loadedImage else { return }
         self.setImageView(image: loadedImage)
     }
 }

@@ -22,7 +22,9 @@ final class SlideContainerViewController: UIPageViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mainStore.subscribe(self)
+        mainStore.subscribe(self) { subscription in
+            subscription.select { state in state.selectedThumbnailIndex }
+        }
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -69,12 +71,11 @@ extension SlideContainerViewController: UIPageViewControllerDelegate, UIPageView
 
 extension SlideContainerViewController: StoreSubscriber {
     
-    public typealias StoreSubscriberStateType = SlideViewerState
+    public typealias StoreSubscriberStateType = Int?
     
-    public func newState(state: StoreSubscriberStateType) {
-        if let toIndex = state.selectedThumbnailIndex {
-            move(toIndex: toIndex)
-        }
+    public func newState(state toIndex: StoreSubscriberStateType) {
+        guard let toIndex = toIndex else { return }
+        move(toIndex: toIndex)
     }
     
     private func move(toIndex: Int) {
