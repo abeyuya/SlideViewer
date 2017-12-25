@@ -1,5 +1,5 @@
 //
-//  PDFSlideViewError.swift
+//  SlideViewerError.swift
 //  PDFSlideView
 //
 //  Created by abeyuya on 2017/12/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum PDFSlideViewError: Error {
+enum SlideViewerError: Error {
     
     case invalidPDFFile
     case cannotLoadBundledResource

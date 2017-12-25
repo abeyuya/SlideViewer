@@ -69,7 +69,7 @@ extension SlideContainerViewController: UIPageViewControllerDelegate, UIPageView
 
 extension SlideContainerViewController: StoreSubscriber {
     
-    public typealias StoreSubscriberStateType = PDFSlideViewState
+    public typealias StoreSubscriberStateType = SlideViewerState
     
     public func newState(state: StoreSubscriberStateType) {
         if let toIndex = state.selectedThumbnailIndex {

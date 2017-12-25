@@ -97,7 +97,7 @@ extension ThumbnailTableViewCell {
 
 extension ThumbnailTableViewCell: StoreSubscriber {
     
-    public typealias StoreSubscriberStateType = PDFSlideViewState
+    public typealias StoreSubscriberStateType = SlideViewerState
     
     public func newState(state: StoreSubscriberStateType) {
         guard let index = index,

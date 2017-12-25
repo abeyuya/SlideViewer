@@ -61,7 +61,7 @@
 		54CC2049C937561A469575AF9E6A6FE9 /* NimbleEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33246E2CC36485A729E603D34002231A /* NimbleEnvironment.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		58C0125D796A97541FDE3414001D8A92 /* BeEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F038D9CE6AE4E4140160449B84C78AF /* BeEmpty.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		58D964317DFBB10F54A273CB12843017 /* BeGreaterThanOrEqualTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D641B7718735A853681EAE948474FF92 /* BeGreaterThanOrEqualTo.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
-		594A326000A0877121C2DF534DE6C680 /* PDFSlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574FADDC3D70A14ED47179DF186A53A1 /* PDFSlideViewController.swift */; };
+		594A326000A0877121C2DF534DE6C680 /* SlideViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574FADDC3D70A14ED47179DF186A53A1 /* SlideViewerController.swift */; };
 		5AB9DB61D62D8BF7B1C734B373F361E7 /* CurrentTestCaseTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = F09D5983F482D2B3B60BA8F4BF637DF6 /* CurrentTestCaseTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5BF274C2DEF332ED79B1CD15CFEC3498 /* ThrowError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A9092406B51E23563B5F3F7A2211B8 /* ThrowError.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		5D53CBEECD4555F1BE0BF7DC98C75C5B /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEA418B5295287D9E9D469112FE601C /* Configuration.swift */; };
@@ -90,7 +90,7 @@
 		7B5222991D1C53DF737242CA6C90012C /* CwlCatchException.m in Sources */ = {isa = PBXBuildFile; fileRef = 489DBEC189CC0715129F37468E0E1EDC /* CwlCatchException.m */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		7E0C9AE6468A5DF91F0F4C7A387D725C /* BeAKindOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA3B926B8204B1774DD962F2CCBD319 /* BeAKindOf.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		8170866E2ACE0ACFBC6D90081354EC65 /* Stringers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C9F45C4FB25656CDBDA2F60C87989D /* Stringers.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
-		834CA4DAB8B5F16122BC6B40187A5CAA /* PDFSlideViewError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C63CFB0F13F82D6BB64A4E48A16E744 /* PDFSlideViewError.swift */; };
+		834CA4DAB8B5F16122BC6B40187A5CAA /* SlideViewerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C63CFB0F13F82D6BB64A4E48A16E744 /* SlideViewerError.swift */; };
 		884AB045A3E0D6B9F22AFCF4A973EF28 /* TypeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D42406A5615AC8AEFE641B83E97224 /* TypeHelper.swift */; };
 		8B55BD430033027AD5FF22D630DD9F62 /* DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = A1793AC228F336FC32D1F4B1D4BA2B04 /* DSL.m */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		8BDE9F66BF68D7660233C31312AFB433 /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDC3810B74723E251C9B5CD8171D6A0 /* Example.swift */; };
@@ -274,12 +274,12 @@
 		54DC9BEBAD0B24DA5D6DE30C76523A39 /* Predicate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Predicate.swift; path = Sources/Nimble/Matchers/Predicate.swift; sourceTree = "<group>"; };
 		56B11C1B76830E2EFDBE665C4592EE2F /* RaisesException.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RaisesException.swift; path = Sources/Nimble/Matchers/RaisesException.swift; sourceTree = "<group>"; };
 		56D42406A5615AC8AEFE641B83E97224 /* TypeHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TypeHelper.swift; path = ReSwift/Utils/TypeHelper.swift; sourceTree = "<group>"; };
-		574FADDC3D70A14ED47179DF186A53A1 /* PDFSlideViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PDFSlideViewController.swift; path = PDFSlideView/Classes/PDFSlideViewController.swift; sourceTree = "<group>"; };
+		574FADDC3D70A14ED47179DF186A53A1 /* SlideViewerController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SlideViewerController.swift; path = PDFSlideView/Classes/SlideViewerController.swift; sourceTree = "<group>"; };
 		577EAA2155AAF7184F842497ED5E5679 /* EndWith.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EndWith.swift; path = Sources/Nimble/Matchers/EndWith.swift; sourceTree = "<group>"; };
 		582EE1B49EF9C1D92A25E687F8A55B76 /* SourceLocation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SourceLocation.swift; path = Sources/Nimble/Utils/SourceLocation.swift; sourceTree = "<group>"; };
 		58ACFD17D74857B41C655DE10ABEE6F9 /* NMBExceptionCapture.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NMBExceptionCapture.h; path = Sources/NimbleObjectiveC/NMBExceptionCapture.h; sourceTree = "<group>"; };
 		5B47811D7E5DE0EE75125B74FB48A7D3 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/PDFKit.framework; sourceTree = DEVELOPER_DIR; };
-		5C63CFB0F13F82D6BB64A4E48A16E744 /* PDFSlideViewError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PDFSlideViewError.swift; path = PDFSlideView/Classes/PDFSlideViewError.swift; sourceTree = "<group>"; };
+		5C63CFB0F13F82D6BB64A4E48A16E744 /* SlideViewerError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SlideViewerError.swift; path = PDFSlideView/Classes/SlideViewerError.swift; sourceTree = "<group>"; };
 		5CB1E965900D085D9BFF7B64E07530FE /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E45FE96058D4A93F5229E926B632512 /* URL+FileName.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "URL+FileName.swift"; path = "Sources/Quick/URL+FileName.swift"; sourceTree = "<group>"; };
 		5EF03C08CC462D3C15B0837BB7F077B0 /* Pods-PDFSlideView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PDFSlideView_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -456,8 +456,8 @@
 		0C9E564E6AF216E078D70A0C202094DA /* PDFSlideView */ = {
 			isa = PBXGroup;
 			children = (
-				574FADDC3D70A14ED47179DF186A53A1 /* PDFSlideViewController.swift */,
-				5C63CFB0F13F82D6BB64A4E48A16E744 /* PDFSlideViewError.swift */,
+				574FADDC3D70A14ED47179DF186A53A1 /* SlideViewerController.swift */,
+				5C63CFB0F13F82D6BB64A4E48A16E744 /* SlideViewerError.swift */,
 				1D1F1CE07FE86369027881692ACAE55E /* PortraitTopMenuView.swift */,
 				9479D32A161927AF19B11C93FCF7DFD8 /* Redux.swift */,
 				593C576AE95C8DC6B0B98F1B316F0788 /* Resources */,
@@ -1175,9 +1175,9 @@
 				29CA07BA4DB03D37719FC1D4BADB9AAB /* PDFSlideView-dummy.m in Sources */,
 				4D4A81F11FEFFD45006CD675 /* Config.swift in Sources */,
 				4D4FF46E1FEFD02A00F6751B /* ThumbnailContainerViewController.swift in Sources */,
-				594A326000A0877121C2DF534DE6C680 /* PDFSlideViewController.swift in Sources */,
+				594A326000A0877121C2DF534DE6C680 /* SlideViewerController.swift in Sources */,
 				4DBBE7B51FEE8E2700B58764 /* SlideDisplayViewController.swift in Sources */,
-				834CA4DAB8B5F16122BC6B40187A5CAA /* PDFSlideViewError.swift in Sources */,
+				834CA4DAB8B5F16122BC6B40187A5CAA /* SlideViewerError.swift in Sources */,
 				E66510941201B780FDE84DF37158B42C /* PortraitTopMenuView.swift in Sources */,
 				273742709746F7A997586C2C30C7BCD3 /* Redux.swift in Sources */,
 			);

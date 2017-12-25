@@ -9,7 +9,7 @@ import Foundation
 import PDFKit
 import ReSwift
 
-public struct PDFSlideViewState: StateType {
+public struct SlideViewerState: StateType {
     var currentPageIndex: Int = 0
     var isPortrait: Bool = true
     var showMenu: Bool = false
@@ -30,8 +30,8 @@ struct setImage: Action {
 }
 struct selectThumbnail: Action { let pageIndex: Int? }
 
-func pdfSlideViewReducer(action: Action, state: PDFSlideViewState?) -> PDFSlideViewState {
-    var state = state ?? PDFSlideViewState()
+func slideViewerReducer(action: Action, state: SlideViewerState?) -> SlideViewerState {
+    var state = state ?? SlideViewerState()
     
     switch action {
         
@@ -64,7 +64,7 @@ func pdfSlideViewReducer(action: Action, state: PDFSlideViewState?) -> PDFSlideV
     return state
 }
 
-func loadImage(state: PDFSlideViewState, index: Int) {
+func loadImage(state: SlideViewerState, index: Int) {
     DispatchQueue.global(qos: .default).async {
         if state.slide.images[index] == nil {
             if let image = loadImageFrom(state: state, index: index) {
@@ -81,7 +81,7 @@ func loadImage(state: PDFSlideViewState, index: Int) {
     }
 }
 
-private func loadImageFrom(state: PDFSlideViewState, index: Int) -> UIImage? {
+private func loadImageFrom(state: SlideViewerState, index: Int) -> UIImage? {
     
     if let pdfDocument = state.slide.pdfDocument {
         return loadImageFrom(pdfDocument: pdfDocument, index: index)
@@ -129,7 +129,7 @@ extension UIImage {
     }
 }
 
-let mainStore = Store<PDFSlideViewState>(
-    reducer: pdfSlideViewReducer,
+let mainStore = Store<SlideViewerState>(
+    reducer: slideViewerReducer,
     state: nil
 )

@@ -26,7 +26,7 @@ extension Slide {
     public init(pdfFileURL: URL) throws {
         // TODO: https URL
         guard let document = PDFDocument(url: pdfFileURL) else {
-            throw PDFSlideViewError.invalidPDFFile
+            throw SlideViewerError.invalidPDFFile
         }
         
         self.init(pdfDocument: document)

@@ -15,15 +15,15 @@ final class PortraitTopMenuView: UIView {
     @IBOutlet var avatarImage: UIImageView!
     
     static func initFromBundledNib() throws -> PortraitTopMenuView {
-        let podBundle = Bundle(for: PDFSlideViewController.classForCoder())
+        let podBundle = Bundle(for: SlideViewerController.classForCoder())
         
         guard let bundleURL = podBundle.url(forResource: "PDFSlideView", withExtension: "bundle"),
             let bundle = Bundle(url: bundleURL) else {
-                throw PDFSlideViewError.cannotLoadBundledResource
+                throw SlideViewerError.cannotLoadBundledResource
         }
         
         guard let topMenu = bundle.loadNibNamed("PortraitTopMenuView", owner: self, options: nil)?.first as? PortraitTopMenuView else {
-                throw PDFSlideViewError.cannotLoadBundledResource
+                throw SlideViewerError.cannotLoadBundledResource
         }
         
         topMenu.translatesAutoresizingMaskIntoConstraints = false

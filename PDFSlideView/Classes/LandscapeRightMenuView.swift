@@ -14,15 +14,15 @@ final class LandscapeRightMenuView: UIView {
     @IBOutlet weak var pageLabel: UILabel!
     
     static func initFromBundledNib() throws -> LandscapeRightMenuView {
-        let podBundle = Bundle(for: PDFSlideViewController.classForCoder())
+        let podBundle = Bundle(for: SlideViewerController.classForCoder())
         
         guard let bundleURL = podBundle.url(forResource: "PDFSlideView", withExtension: "bundle"),
             let bundle = Bundle(url: bundleURL) else {
-                throw PDFSlideViewError.cannotLoadBundledResource
+                throw SlideViewerError.cannotLoadBundledResource
         }
         
         guard let rightMenu = bundle.loadNibNamed("LandscapeRightMenuView", owner: self, options: nil)?.first as? LandscapeRightMenuView else {
-            throw PDFSlideViewError.cannotLoadBundledResource
+            throw SlideViewerError.cannotLoadBundledResource
         }
         
         rightMenu.translatesAutoresizingMaskIntoConstraints = false

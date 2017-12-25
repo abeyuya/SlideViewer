@@ -1,5 +1,5 @@
 //
-//  PDFSlideViewController.swift
+//  SlideViewerController.swift
 //  PDFSlideView
 //
 //  Created by abeyuya on 2017/12/21.
@@ -9,7 +9,7 @@ import UIKit
 import PDFKit
 import ReSwift
 
-public final class PDFSlideViewController: UIViewController {
+public final class SlideViewerController: UIViewController {
     
     private lazy var slideAreaView: UIView = {
         let v = UIView()
@@ -66,16 +66,16 @@ public final class PDFSlideViewController: UIViewController {
     }()
 }
 
-extension PDFSlideViewController {
+extension SlideViewerController {
     
-    public static func setup(slide: Slide) -> PDFSlideViewController {
+    public static func setup(slide: Slide) -> SlideViewerController {
         mainStore.dispatch(setSlide(slide: slide))
-        let v = PDFSlideViewController()
+        let v = SlideViewerController()
         return v
     }
 }
 
-extension PDFSlideViewController {
+extension SlideViewerController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,7 +103,7 @@ extension PDFSlideViewController {
     }
 }
 
-extension PDFSlideViewController {
+extension SlideViewerController {
     
     private func setupView() {
 //        guard mainStore.state.slide.images.isEmpty == false else {
@@ -360,7 +360,7 @@ extension PDFSlideViewController {
     }
 }
 
-extension PDFSlideViewController {
+extension SlideViewerController {
     
     @objc func close() {
         dismiss(animated: true, completion: nil)
@@ -375,15 +375,15 @@ extension PDFSlideViewController {
     }
 }
 
-extension PDFSlideViewController: StoreSubscriber {
-    public typealias StoreSubscriberStateType = PDFSlideViewState
+extension SlideViewerController: StoreSubscriber {
+    public typealias StoreSubscriberStateType = SlideViewerState
 
-    public func newState(state: PDFSlideViewController.StoreSubscriberStateType) {
+    public func newState(state: SlideViewerController.StoreSubscriberStateType) {
         renderMenu(state: state)
         renderThumbnailView(state: state)
     }
     
-    private func renderMenu(state: PDFSlideViewState) {
+    private func renderMenu(state: SlideViewerState) {
         guard state.showMenu else {
             portraitTopMenuView.isHidden = true
             landscapeRightMenuView.isHidden = true
@@ -401,7 +401,7 @@ extension PDFSlideViewController: StoreSubscriber {
         landscapeRightMenuView.isHidden = true
     }
     
-    private func renderThumbnailView(state: PDFSlideViewState) {
+    private func renderThumbnailView(state: SlideViewerState) {
         guard state.isPortrait == false else {
             thumbnailAreaViewWidthConstraint.constant = 0
             return

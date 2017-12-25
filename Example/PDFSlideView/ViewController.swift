@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         
         let pdfURL = "http://gahp.net/wp-content/uploads/2017/09/sample.pdf"
         let slide = try! Slide(pdfFileURL: URL(string: pdfURL)!)
-        let vc = PDFSlideViewController.setup(slide: slide)
+        let vc = SlideViewerController.setup(slide: slide)
         present(vc, animated: true)
     }
     
@@ -34,7 +34,7 @@ class ViewController: UIViewController {
         let url = URL(fileURLWithPath: path!)
         let doc = PDFDocument(url: url)
         let slide = try! Slide(pdfDocument: doc!)
-        let vc = PDFSlideViewController.setup(slide: slide)
+        let vc = SlideViewerController.setup(slide: slide)
         present(vc, animated: true)
     }
 }

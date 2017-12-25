@@ -107,7 +107,7 @@ extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewData
 
 extension ThumbnailContainerViewController: StoreSubscriber {
     
-    public typealias StoreSubscriberStateType = PDFSlideViewState
+    public typealias StoreSubscriberStateType = SlideViewerState
     
     public func newState(state: StoreSubscriberStateType) {
         guard tableView.numberOfRows(inSection: 0) > 0 else { return }

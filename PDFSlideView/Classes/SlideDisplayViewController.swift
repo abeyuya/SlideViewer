@@ -179,7 +179,7 @@ extension SlideDisplayViewController {
 
 extension SlideDisplayViewController: StoreSubscriber {
     
-    public typealias StoreSubscriberStateType = PDFSlideViewState
+    public typealias StoreSubscriberStateType = SlideViewerState
     
     public func newState(state: StoreSubscriberStateType) {
         guard self.imageView == nil else { return }
