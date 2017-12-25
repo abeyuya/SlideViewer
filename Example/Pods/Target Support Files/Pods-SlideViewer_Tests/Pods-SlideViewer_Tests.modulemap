@@ -1,0 +1,6 @@
+framework module Pods_SlideViewer_Tests {
+  umbrella header "Pods-SlideViewer_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

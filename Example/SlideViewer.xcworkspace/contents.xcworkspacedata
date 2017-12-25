@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/abeyuya/Documents/dev/private/pod/PDFSlideView/Example/SlideViewer.xcodeproj">
+      location = "group:SlideViewer.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

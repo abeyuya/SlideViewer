@@ -1,25 +1,25 @@
 PODS:
   - Nimble (7.0.3)
-  - PDFSlideView (0.1.0):
-    - ReSwift
   - Quick (1.2.0)
   - ReSwift (4.0.0)
+  - SlideViewer (0.1.0):
+    - ReSwift
 
 DEPENDENCIES:
   - Nimble (~> 7.0.2)
-  - PDFSlideView (from `../`)
   - Quick (~> 1.2.0)
+  - SlideViewer (from `../`)
 
 EXTERNAL SOURCES:
-  PDFSlideView:
+  SlideViewer:
     :path: ../
 
 SPEC CHECKSUMS:
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
-  PDFSlideView: 39056fc3366fd5e3f270014d02166c8af8e7afca
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   ReSwift: f058ef13b46ae5f463f10605ccbbb7fb04424d8d
+  SlideViewer: 44bb581c3cf2362e943da4beb4c7c03053ab5503
 
-PODFILE CHECKSUM: b832809190825bc854e4ca8dd7c7ec9f0815b767
+PODFILE CHECKSUM: fb901d89b32ba86e271242964b6a6cea11b2056c
 
 COCOAPODS: 1.3.1

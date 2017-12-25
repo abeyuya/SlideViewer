@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-               BuildableName = "PDFSlideView_Example.app"
-               BlueprintName = "PDFSlideView_Example"
-               ReferencedContainer = "container:PDFSlideView.xcodeproj">
+               BuildableName = "SlideViewer_Example.app"
+               BlueprintName = "SlideViewer_Example"
+               ReferencedContainer = "container:SlideViewer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "PDFSlideView_Tests.xctest"
-               BlueprintName = "PDFSlideView_Tests"
-               ReferencedContainer = "container:PDFSlideView.xcodeproj">
+               BuildableName = "SlideViewer_Tests.xctest"
+               BlueprintName = "SlideViewer_Tests"
+               ReferencedContainer = "container:SlideViewer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -48,9 +48,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "PDFSlideView_Tests.xctest"
-               BlueprintName = "PDFSlideView_Tests"
-               ReferencedContainer = "container:PDFSlideView.xcodeproj">
+               BuildableName = "SlideViewer_Tests.xctest"
+               BlueprintName = "SlideViewer_Tests"
+               ReferencedContainer = "container:SlideViewer.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -58,9 +58,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "PDFSlideView_Example.app"
-            BlueprintName = "PDFSlideView_Example"
-            ReferencedContainer = "container:PDFSlideView.xcodeproj">
+            BuildableName = "SlideViewer_Example.app"
+            BlueprintName = "SlideViewer_Example"
+            ReferencedContainer = "container:SlideViewer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -82,9 +82,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "PDFSlideView_Example.app"
-            BlueprintName = "PDFSlideView_Example"
-            ReferencedContainer = "container:PDFSlideView.xcodeproj">
+            BuildableName = "SlideViewer_Example.app"
+            BlueprintName = "SlideViewer_Example"
+            ReferencedContainer = "container:SlideViewer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -101,9 +101,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "PDFSlideView_Example.app"
-            BlueprintName = "PDFSlideView_Example"
-            ReferencedContainer = "container:PDFSlideView.xcodeproj">
+            BuildableName = "SlideViewer_Example.app"
+            BlueprintName = "SlideViewer_Example"
+            ReferencedContainer = "container:SlideViewer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

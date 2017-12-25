@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_PDFSlideView_TestsVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_PDFSlideView_TestsVersionString[];
+FOUNDATION_EXPORT double SlideViewerVersionNumber;
+FOUNDATION_EXPORT const unsigned char SlideViewerVersionString[];
 

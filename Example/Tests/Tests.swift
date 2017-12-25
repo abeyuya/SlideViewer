@@ -2,7 +2,7 @@
 
 import Quick
 import Nimble
-import PDFSlideView
+import SlideViewer
 
 class TableOfContentsSpec: QuickSpec {
     override func spec() {

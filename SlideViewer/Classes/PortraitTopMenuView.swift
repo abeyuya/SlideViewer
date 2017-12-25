@@ -17,7 +17,7 @@ final class PortraitTopMenuView: UIView {
     static func initFromBundledNib() throws -> PortraitTopMenuView {
         let podBundle = Bundle(for: SlideViewerController.classForCoder())
         
-        guard let bundleURL = podBundle.url(forResource: "PDFSlideView", withExtension: "bundle"),
+        guard let bundleURL = podBundle.url(forResource: "SlideViewer", withExtension: "bundle"),
             let bundle = Bundle(url: bundleURL) else {
                 throw SlideViewerError.cannotLoadBundledResource
         }

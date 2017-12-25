@@ -1,6 +1,0 @@
-framework module PDFSlideView {
-  umbrella header "PDFSlideView-umbrella.h"
-
-  export *
-  module * { export * }
-}

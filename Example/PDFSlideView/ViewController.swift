@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import PDFSlideView
+import SlideViewer
 import PDFKit
 
 class ViewController: UIViewController {

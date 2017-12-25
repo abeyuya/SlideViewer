@@ -1,0 +1,6 @@
+framework module SlideViewer {
+  umbrella header "SlideViewer-umbrella.h"
+
+  export *
+  module * { export * }
+}
