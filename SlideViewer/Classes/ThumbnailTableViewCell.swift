@@ -35,6 +35,7 @@ final class ThumbnailTableViewCell: UITableViewCell {
         mainStore.subscribe(self) { subscription in
             subscription.select { state in
                 guard let index = self.index else { return nil }
+                guard index < state.slide.thumbnailImages.count else { return nil }
                 return state.slide.thumbnailImages[index]
             }
         }

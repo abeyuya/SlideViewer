@@ -18,6 +18,7 @@ public struct SlideViewerState: StateType {
     var selectedThumbnailIndex: Int? = nil
 }
 
+struct stateReset: Action {}
 struct changeCurrentPage: Action { let pageIndex: Int }
 struct toggleMenu: Action {}
 struct toggleThumbnail: Action {}
@@ -34,6 +35,9 @@ func slideViewerReducer(action: Action, state: SlideViewerState?) -> SlideViewer
     var state = state ?? SlideViewerState()
     
     switch action {
+        
+    case _ as stateReset:
+        state = SlideViewerState()
         
     case let action as changeCurrentPage:
         state.currentPageIndex = action.pageIndex
@@ -112,7 +116,7 @@ private func createThumbnailImage(originalImage: UIImage) -> UIImage? {
     return originalImage.resize(size: CGSize(width: Config.shared.thumbnailViewWidth, height: thumbnailHeight))
 }
 
-extension UIImage {
+fileprivate extension UIImage {
     func resize(size _size: CGSize) -> UIImage? {
         let widthRatio = _size.width / size.width
         let heightRatio = _size.height / size.height
@@ -129,7 +133,7 @@ extension UIImage {
     }
 }
 
-let mainStore = Store<SlideViewerState>(
+internal let mainStore = Store<SlideViewerState>(
     reducer: slideViewerReducer,
     state: nil
 )

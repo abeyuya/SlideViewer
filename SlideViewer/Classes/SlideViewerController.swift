@@ -69,6 +69,7 @@ public final class SlideViewerController: UIViewController {
 extension SlideViewerController {
     
     public static func setup(slide: Slide) -> SlideViewerController {
+        mainStore.dispatch(stateReset())
         mainStore.dispatch(setSlide(slide: slide))
         let v = SlideViewerController()
         return v
