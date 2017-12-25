@@ -8,6 +8,7 @@
 
 import UIKit
 import PDFSlideView
+import PDFKit
 
 class ViewController: UIViewController {
 
@@ -24,6 +25,15 @@ class ViewController: UIViewController {
         
         let pdfURL = "http://gahp.net/wp-content/uploads/2017/09/sample.pdf"
         let slide = try! Slide(pdfFileURL: URL(string: pdfURL)!)
+        let vc = PDFSlideViewController.setup(slide: slide)
+        present(vc, animated: true)
+    }
+    
+    @IBAction func tapShowLocalPDFFile(_ sender: Any) {
+        let path = Bundle.main.path(forResource: "speakerdeck", ofType: "pdf")
+        let url = URL(fileURLWithPath: path!)
+        let doc = PDFDocument(url: url)
+        let slide = try! Slide(pdfDocument: doc!)
         let vc = PDFSlideViewController.setup(slide: slide)
         present(vc, animated: true)
     }

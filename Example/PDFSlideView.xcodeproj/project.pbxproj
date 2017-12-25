@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3C235ED2B0ECCDE3AF52722E /* Pods_PDFSlideView_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FDF02BD5F8E92531D75D365 /* Pods_PDFSlideView_Tests.framework */; };
+		4DAD3BF21FF14547003DB2BA /* speakerdeck.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4DAD3BF11FF14547003DB2BA /* speakerdeck.pdf */; };
 		507C20EC29C84B10908E4A4A /* Pods_PDFSlideView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13363EB33D72BD535E53DC5 /* Pods_PDFSlideView_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		18166AD2CE299A02AAE3EEF1 /* Pods-PDFSlideView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDFSlideView_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PDFSlideView_Tests/Pods-PDFSlideView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4D911CCE1FED2201000D8184 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
+		4DAD3BF11FF14547003DB2BA /* speakerdeck.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = speakerdeck.pdf; sourceTree = "<group>"; };
 		5F931C36C4848DB538D1194C /* PDFSlideView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = PDFSlideView.podspec; path = ../PDFSlideView.podspec; sourceTree = "<group>"; };
 		60145DBA959A29AF76363532 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* PDFSlideView_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PDFSlideView_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +117,7 @@
 		607FACD21AFB9204008FA782 /* Example for PDFSlideView */ = {
 			isa = PBXGroup;
 			children = (
+				4DAD3BF11FF14547003DB2BA /* speakerdeck.pdf */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -253,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				4DAD3BF21FF14547003DB2BA /* speakerdeck.pdf in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,17 +21,26 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CcE-zD-ndr">
-                                <rect key="frame" x="120" y="146" width="135" height="30"/>
-                                <state key="normal" title="show PDFSlideView"/>
+                                <rect key="frame" x="111" y="146" width="153" height="30"/>
+                                <state key="normal" title="show from http pdf url"/>
                                 <connections>
                                     <action selector="tapShowPDFSlideView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="QTp-Zr-LPD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zdc-K3-RJv">
+                                <rect key="frame" x="107" y="226" width="160" height="30"/>
+                                <state key="normal" title="show from local pdf file"/>
+                                <connections>
+                                    <action selector="tapShowLocalPDFFile:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="2as-PY-VGa"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="CcE-zD-ndr" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="Ply-WH-Im5"/>
+                            <constraint firstItem="CcE-zD-ndr" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="CAW-jK-3ry"/>
+                            <constraint firstItem="zdc-K3-RJv" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="S7V-ks-7Dd"/>
                             <constraint firstItem="CcE-zD-ndr" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="102" id="g0t-Ud-d5U"/>
+                            <constraint firstItem="zdc-K3-RJv" firstAttribute="top" secondItem="CcE-zD-ndr" secondAttribute="bottom" constant="50" id="tIO-Pf-vpV"/>
                         </constraints>
                     </view>
                 </viewController>
