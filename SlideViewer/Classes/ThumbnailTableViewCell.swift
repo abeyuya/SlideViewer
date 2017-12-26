@@ -18,6 +18,7 @@ final class ThumbnailTableViewCell: UITableViewCell {
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
+    
     private let indicator: UIActivityIndicatorView = {
         let v = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         v.startAnimating()
