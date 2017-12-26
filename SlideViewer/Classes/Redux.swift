@@ -15,23 +15,27 @@ public struct SlideViewerState: StateType {
     var showMenu: Bool = false
     var showThumbnail: Bool = false
     var slide: Slide = Slide()
-    var selectedThumbnailIndex: Int? = nil
+    var moveToSlideIndex: Int? = nil
+    var moveToThumbnailIndex: Int? = nil
+    var thumbnailHeight: CGFloat? = nil
 }
 
-struct stateReset: Action {}
-struct changeCurrentPage: Action { let pageIndex: Int }
-struct toggleMenu: Action {}
-struct toggleThumbnail: Action {}
-struct changeIsPortrait: Action { let isPortrait: Bool }
-struct setSlide: Action { let slide: Slide }
-struct setImage: Action {
+internal struct stateReset: Action {}
+internal struct changeCurrentPage: Action { let pageIndex: Int }
+internal struct toggleMenu: Action {}
+internal struct toggleThumbnail: Action {}
+internal struct changeIsPortrait: Action { let isPortrait: Bool }
+internal struct setSlide: Action { let slide: Slide }
+internal struct setImage: Action {
     let pageIndex: Int
     let originalImage: UIImage
     let thumbnailImage: UIImage?
 }
-struct selectThumbnail: Action { let pageIndex: Int? }
+internal struct moveToSlide: Action { let pageIndex: Int? }
+internal struct moveToThumbnail: Action { let pageIndex: Int? }
+internal struct setThumbnailHeight: Action { let height: CGFloat }
 
-func slideViewerReducer(action: Action, state: SlideViewerState?) -> SlideViewerState {
+internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> SlideViewerState {
     var state = state ?? SlideViewerState()
     
     switch action {
@@ -58,8 +62,14 @@ func slideViewerReducer(action: Action, state: SlideViewerState?) -> SlideViewer
         state.slide.images[action.pageIndex] = action.originalImage
         state.slide.thumbnailImages[action.pageIndex] = action.thumbnailImage
 
-    case let action as selectThumbnail:
-        state.selectedThumbnailIndex = action.pageIndex
+    case let action as moveToSlide:
+        state.moveToSlideIndex = action.pageIndex
+        
+    case let action as moveToThumbnail:
+        state.moveToThumbnailIndex = action.pageIndex
+        
+    case let action as setThumbnailHeight:
+        state.thumbnailHeight = action.height
         
     default:
         break
@@ -68,19 +78,22 @@ func slideViewerReducer(action: Action, state: SlideViewerState?) -> SlideViewer
     return state
 }
 
-func loadImage(state: SlideViewerState, index: Int) {
+internal func loadImage(state: SlideViewerState, index: Int) {
     DispatchQueue.global(qos: .default).async {
-        if state.slide.images[index] == nil {
-            if let image = loadImageFrom(state: state, index: index) {
-                let thumbnailImage = createThumbnailImage(originalImage: image)
-                DispatchQueue.main.async {
-                    mainStore.dispatch(setImage(
-                        pageIndex: index,
-                        originalImage: image,
-                        thumbnailImage: thumbnailImage
-                    ))
-                }
+        guard state.slide.images[index] == nil else { return }
+        guard let image = loadImageFrom(state: state, index: index) else { return }
+        let thumbnailImage = createThumbnailImage(originalImage: image)
+        let thumbnailHeight = thumbnailImage?.size.height
+        
+        DispatchQueue.main.async {
+            if state.thumbnailHeight == nil, let height = thumbnailHeight {
+                mainStore.dispatch(setThumbnailHeight(height: height))
             }
+            mainStore.dispatch(setImage(
+                pageIndex: index,
+                originalImage: image,
+                thumbnailImage: thumbnailImage
+            ))
         }
     }
 }

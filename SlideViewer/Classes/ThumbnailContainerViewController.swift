@@ -13,7 +13,7 @@ final class ThumbnailContainerViewController: UIViewController {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.estimatedRowHeight = 500
+        tableView.estimatedRowHeight = mainStore.state.thumbnailHeight ?? 500
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.register(ThumbnailTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView()
@@ -73,8 +73,14 @@ extension ThumbnailContainerViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         mainStore.subscribe(self) { subscription in
-            subscription.select { state in state.currentPageIndex }
+            subscription.select { state in
+                SubscribeState(
+                    moveToThumbnailIndex: state.moveToThumbnailIndex,
+                    thumbnailHeight: state.thumbnailHeight
+                )
+            }
         }
     }
     
@@ -104,19 +110,28 @@ extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewData
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        mainStore.dispatch(selectThumbnail(pageIndex: indexPath.row))
+        mainStore.dispatch(moveToSlide(pageIndex: indexPath.row))
+        mainStore.dispatch(moveToThumbnail(pageIndex: indexPath.row))
     }
 }
 
+public struct SubscribeState {
+    let moveToThumbnailIndex: Int?
+    let thumbnailHeight: CGFloat?
+}
+
 extension ThumbnailContainerViewController: StoreSubscriber {
-    public typealias StoreSubscriberStateType = Int
+    public typealias StoreSubscriberStateType = SubscribeState
  
-    public func newState(state currentPageIndex: StoreSubscriberStateType) {
+    public func newState(state: StoreSubscriberStateType) {
         guard tableView.numberOfRows(inSection: 0) > 0 else { return }
-        print("index: \(currentPageIndex)")
-        tableView.scrollToRow(
-            at: IndexPath(row: currentPageIndex, section: 0),
-            at: .middle,
-            animated: true)
+        
+        if let index = state.moveToThumbnailIndex {
+            tableView.scrollToRow(
+                at: IndexPath(row: index, section: 0),
+                at: .middle,
+                animated: true)
+            mainStore.dispatch(moveToThumbnail(pageIndex: nil))
+        }
     }
 }

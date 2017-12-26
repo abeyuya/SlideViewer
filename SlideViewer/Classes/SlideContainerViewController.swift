@@ -23,7 +23,7 @@ final class SlideContainerViewController: UIPageViewController {
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         mainStore.subscribe(self) { subscription in
-            subscription.select { state in state.selectedThumbnailIndex }
+            subscription.select { state in state.moveToSlideIndex }
         }
     }
     
@@ -45,7 +45,7 @@ extension SlideContainerViewController: UIPageViewControllerDelegate, UIPageView
         return v
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    internal func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let v = viewController as? SlideDisplayViewController else { return nil }
         guard v.index != 0 else { return nil }
         
@@ -53,7 +53,7 @@ extension SlideContainerViewController: UIPageViewControllerDelegate, UIPageView
         return createSlideView(at: index)
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    internal func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let v = viewController as? SlideDisplayViewController else { return nil }
         guard v.index < (mainStore.state.slide.images.count - 1) else { return nil }
         
@@ -61,11 +61,12 @@ extension SlideContainerViewController: UIPageViewControllerDelegate, UIPageView
         return createSlideView(at: index)
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    internal func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         guard let views = pageViewController.viewControllers,
             let current = views.first as? SlideDisplayViewController else { return }
         
         mainStore.dispatch(changeCurrentPage(pageIndex: current.index))
+        mainStore.dispatch(moveToThumbnail(pageIndex: current.index))
     }
 }
 
@@ -81,17 +82,15 @@ extension SlideContainerViewController: StoreSubscriber {
     private func move(toIndex: Int) {
         guard let currentView = viewControllers?.first as? SlideDisplayViewController else { return }
         guard toIndex != currentView.index else { return }
-
         let nextView = createSlideView(at: toIndex)
 
-        DispatchQueue.main.async {
-            if currentView.index < toIndex {
-                self.setViewControllers([nextView], direction: .forward, animated: true, completion: nil)
-            } else {
-                self.setViewControllers([nextView], direction: .reverse, animated: true, completion: nil)
-            }
-            mainStore.dispatch(selectThumbnail(pageIndex: nil))
-            mainStore.dispatch(changeCurrentPage(pageIndex: toIndex))
+        if currentView.index < toIndex {
+            self.setViewControllers([nextView], direction: .forward, animated: true, completion: nil)
+        } else {
+            self.setViewControllers([nextView], direction: .reverse, animated: true, completion: nil)
         }
+        
+        mainStore.dispatch(changeCurrentPage(pageIndex: toIndex))
+        mainStore.dispatch(moveToSlide(pageIndex: nil))
     }
 }
