@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SlideViewerError: Error {
+public enum SlideViewerError: Error {
     
     case invalidPDFFile
     case cannotLoadBundledResource

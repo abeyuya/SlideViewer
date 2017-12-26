@@ -11,7 +11,7 @@ import ReSwift
 
 final class SlideContainerViewController: UIPageViewController {
     
-    override func viewDidLoad() {
+    internal override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
         dataSource = self
@@ -20,19 +20,19 @@ final class SlideContainerViewController: UIPageViewController {
         setViewControllers([first], direction: .forward, animated: true, completion: nil)
     }
     
-    public override func viewWillAppear(_ animated: Bool) {
+    internal override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         mainStore.subscribe(self) { subscription in
             subscription.select { state in state.moveToSlideIndex }
         }
     }
     
-    public override func viewWillDisappear(_ animated: Bool) {
+    internal override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         mainStore.unsubscribe(self)
     }
 
-    override func didReceiveMemoryWarning() {
+    internal override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 }
@@ -72,9 +72,9 @@ extension SlideContainerViewController: UIPageViewControllerDelegate, UIPageView
 
 extension SlideContainerViewController: StoreSubscriber {
     
-    public typealias StoreSubscriberStateType = Int?
+    internal typealias StoreSubscriberStateType = Int?
     
-    public func newState(state toIndex: StoreSubscriberStateType) {
+    internal func newState(state toIndex: StoreSubscriberStateType) {
         guard let toIndex = toIndex else { return }
         move(toIndex: toIndex)
     }

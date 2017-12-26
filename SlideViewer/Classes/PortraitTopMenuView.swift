@@ -14,7 +14,7 @@ final class PortraitTopMenuView: UIView {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var avatarImage: UIImageView!
     
-    static func initFromBundledNib() throws -> PortraitTopMenuView {
+    internal static func initFromBundledNib() throws -> PortraitTopMenuView {
         let podBundle = Bundle(for: SlideViewerController.classForCoder())
         
         guard let bundleURL = podBundle.url(forResource: "SlideViewer", withExtension: "bundle"),

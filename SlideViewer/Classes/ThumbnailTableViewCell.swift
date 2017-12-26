@@ -10,26 +10,26 @@ import ReSwift
 
 final class ThumbnailTableViewCell: UITableViewCell {
     
-    var index: Int? = nil
-    var tableView: UITableView? = nil
+    internal var index: Int? = nil
+    internal var tableView: UITableView? = nil
     
-    let thumbnail: UIImageView = {
+    private let thumbnail: UIImageView = {
         let v = UIImageView()
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
-    let indicator: UIActivityIndicatorView = {
+    private let indicator: UIActivityIndicatorView = {
         let v = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         v.startAnimating()
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
 
-    required init?(coder aDecoder: NSCoder) {
+    internal required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    internal override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         mainStore.subscribe(self) { subscription in
@@ -47,18 +47,19 @@ final class ThumbnailTableViewCell: UITableViewCell {
         mainStore.unsubscribe(self)
     }
     
-    override func prepareForReuse() {
+    internal override func prepareForReuse() {
+        super.prepareForReuse()
         thumbnail.image = nil
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
+    internal override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
 }
 
 extension ThumbnailTableViewCell {
     
-    func set(index: Int, tableView: UITableView) {
+    internal func set(index: Int, tableView: UITableView) {
         self.index = index
         self.tableView = tableView
         
@@ -131,9 +132,9 @@ extension ThumbnailTableViewCell {
 
 extension ThumbnailTableViewCell: StoreSubscriber {
     
-    public typealias StoreSubscriberStateType = UIImage?
+    internal typealias StoreSubscriberStateType = UIImage?
     
-    public func newState(state image: StoreSubscriberStateType) {
+    internal func newState(state image: StoreSubscriberStateType) {
         guard thumbnail.image == nil,
             let image = image,
             let tableView = tableView else { return }

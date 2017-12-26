@@ -11,7 +11,7 @@ import ReSwift
 
 final class ThumbnailContainerViewController: UIViewController {
     
-    lazy var tableView: UITableView = {
+    internal lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.estimatedRowHeight = mainStore.state.thumbnailHeight ?? 500
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -71,7 +71,7 @@ extension ThumbnailContainerViewController {
             ])
     }
     
-    public override func viewWillAppear(_ animated: Bool) {
+    internal override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         mainStore.subscribe(self) { subscription in
@@ -84,23 +84,23 @@ extension ThumbnailContainerViewController {
         }
     }
     
-    public override func viewWillDisappear(_ animated: Bool) {
+    internal override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         mainStore.unsubscribe(self)
     }
     
-    override func didReceiveMemoryWarning() {
+    internal override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 }
 
 extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewDataSource {
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mainStore.state.slide.thumbnailImages.count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ThumbnailTableViewCell else {
             return UITableViewCell()
         }
@@ -109,21 +109,21 @@ extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewData
         return cell
     }
     
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         mainStore.dispatch(moveToSlide(pageIndex: indexPath.row))
         mainStore.dispatch(moveToThumbnail(pageIndex: indexPath.row))
     }
 }
 
-public struct SubscribeState {
+internal struct SubscribeState {
     let moveToThumbnailIndex: Int?
     let thumbnailHeight: CGFloat?
 }
 
 extension ThumbnailContainerViewController: StoreSubscriber {
-    public typealias StoreSubscriberStateType = SubscribeState
+    internal typealias StoreSubscriberStateType = SubscribeState
  
-    public func newState(state: StoreSubscriberStateType) {
+    internal func newState(state: StoreSubscriberStateType) {
         guard tableView.numberOfRows(inSection: 0) > 0 else { return }
         
         if let index = state.moveToThumbnailIndex {

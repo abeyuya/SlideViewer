@@ -11,7 +11,7 @@ import ReSwift
 
 final class SlideDisplayViewController: UIViewController {
     
-    var index: Int = 0
+    internal var index: Int = 0
 
     private lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
@@ -46,7 +46,7 @@ final class SlideDisplayViewController: UIViewController {
 
 extension SlideDisplayViewController {
 
-    override func viewDidLoad() {
+    internal override func viewDidLoad() {
         super.viewDidLoad()
         layoutView()
         
@@ -57,20 +57,34 @@ extension SlideDisplayViewController {
         }
     }
     
-    public override func viewWillAppear(_ animated: Bool) {
+    internal override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         mainStore.subscribe(self) { subscription in
             subscription.select { state in state.slide.images[self.index] }
         }
     }
     
-    public override func viewWillDisappear(_ animated: Bool) {
+    internal override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         mainStore.unsubscribe(self)
     }
     
-    override func didReceiveMemoryWarning() {
+    internal override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    internal override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if let imageView = imageView, let size = imageView.image?.size {
+            let wrate = scrollView.frame.width / size.width
+            let hrate = scrollView.frame.height / size.height
+            let rate = min(wrate, hrate, 1)
+            imageView.frame.size = CGSize(width: size.width * rate, height: size.height * rate)
+            
+            scrollView.contentSize = imageView.frame.size
+            updateScrollInset()
+        }
     }
 }
 
@@ -146,26 +160,12 @@ extension SlideDisplayViewController {
 
 extension SlideDisplayViewController: UIScrollViewDelegate {
 
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+    internal func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
     
-    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+    internal func scrollViewDidZoom(_ scrollView: UIScrollView) {
         updateScrollInset()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if let imageView = imageView, let size = imageView.image?.size {
-            let wrate = scrollView.frame.width / size.width
-            let hrate = scrollView.frame.height / size.height
-            let rate = min(wrate, hrate, 1)
-            imageView.frame.size = CGSize(width: size.width * rate, height: size.height * rate)
-            
-            scrollView.contentSize = imageView.frame.size
-            updateScrollInset()
-        }
     }
 }
 
@@ -209,9 +209,9 @@ extension SlideDisplayViewController {
 
 extension SlideDisplayViewController: StoreSubscriber {
     
-    public typealias StoreSubscriberStateType = UIImage?
+    internal typealias StoreSubscriberStateType = UIImage?
     
-    public func newState(state loadedImage: StoreSubscriberStateType) {
+    internal func newState(state loadedImage: StoreSubscriberStateType) {
         guard self.imageView == nil else { return }
         guard let loadedImage = loadedImage else { return }
         self.setImageView(image: loadedImage)
