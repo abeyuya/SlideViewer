@@ -364,6 +364,7 @@ extension SlideViewerController {
 extension SlideViewerController {
     
     @objc func close() {
+        mainStore.dispatch(stateReset())
         dismiss(animated: true, completion: nil)
     }
     

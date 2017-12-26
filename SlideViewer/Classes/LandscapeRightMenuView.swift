@@ -21,8 +21,11 @@ final class LandscapeRightMenuView: UIView {
                 throw SlideViewerError.cannotLoadBundledResource
         }
         
-        guard let rightMenu = bundle.loadNibNamed("LandscapeRightMenuView", owner: self, options: nil)?.first as? LandscapeRightMenuView else {
-            throw SlideViewerError.cannotLoadBundledResource
+        guard let rightMenu = bundle.loadNibNamed(
+            "LandscapeRightMenuView",
+            owner: self,
+            options: nil)?.first as? LandscapeRightMenuView else {
+                throw SlideViewerError.cannotLoadBundledResource
         }
         
         rightMenu.translatesAutoresizingMaskIntoConstraints = false

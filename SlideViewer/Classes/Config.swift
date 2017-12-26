@@ -10,7 +10,7 @@ import Foundation
 public class Config {
     
     var thumbnailViewWidth: CGFloat = 120
-    
+
     static let shared = Config()
     private init() {}
 }

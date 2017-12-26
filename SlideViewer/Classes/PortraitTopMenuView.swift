@@ -22,7 +22,10 @@ final class PortraitTopMenuView: UIView {
                 throw SlideViewerError.cannotLoadBundledResource
         }
         
-        guard let topMenu = bundle.loadNibNamed("PortraitTopMenuView", owner: self, options: nil)?.first as? PortraitTopMenuView else {
+        guard let topMenu = bundle.loadNibNamed(
+            "PortraitTopMenuView",
+            owner: self,
+            options: nil)?.first as? PortraitTopMenuView else {
                 throw SlideViewerError.cannotLoadBundledResource
         }
         

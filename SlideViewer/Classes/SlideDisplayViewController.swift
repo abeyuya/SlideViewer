@@ -59,8 +59,13 @@ extension SlideDisplayViewController {
     
     internal override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let index = self.index
+        
         mainStore.subscribe(self) { subscription in
-            subscription.select { state in state.slide.images[self.index] }
+            subscription.select { state in
+                guard index < state.slide.images.count else { return nil }
+                return state.slide.images[index]
+            }
         }
     }
     

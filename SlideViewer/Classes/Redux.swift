@@ -108,7 +108,9 @@ private func loadImageFrom(state: SlideViewerState, index: Int) -> UIImage? {
 }
 
 private func loadImageFrom(pdfDocument: PDFDocument, index: Int) -> UIImage? {
-    guard let page = pdfDocument.page(at: index) else { return nil }
+    guard let page = pdfDocument.page(at: index),
+        let pageRef = page.pageRef else { return nil }
+
     let pageRect = page.bounds(for: .mediaBox)
     let renderer = UIGraphicsImageRenderer(size: pageRect.size)
     let image = renderer.image { ctx in
@@ -118,7 +120,7 @@ private func loadImageFrom(pdfDocument: PDFDocument, index: Int) -> UIImage? {
         ctx.cgContext.translateBy(x: 0.0, y: pageRect.size.height)
         ctx.cgContext.scaleBy(x: 1.0, y: -1.0)
         
-        ctx.cgContext.drawPDFPage(page.pageRef!)
+        ctx.cgContext.drawPDFPage(pageRef)
     }
     return image
 }
