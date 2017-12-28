@@ -21,12 +21,37 @@ class ViewController: UIViewController {
     }
 
     @IBAction func tapShowPDFSlideView(_ sender: Any) {
-//        let pdfURL = "https://speakerd.s3.amazonaws.com/presentations/50021f75cf1db900020005e7/speakerdeck.pdf"
-        
         let pdfURL = "http://gahp.net/wp-content/uploads/2017/09/sample.pdf"
-        let slide = try! Slide(pdfFileURL: URL(string: pdfURL)!)
-        let vc = SlideViewerController.setup(slide: slide)
-        present(vc, animated: true)
+
+        Slide.build(pdfFileURL: URL(string: pdfURL)!) { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let slide):
+                let vc = SlideViewerController.setup(slide: slide)
+                
+                DispatchQueue.main.async {
+                    self.present(vc, animated: true)
+                }
+            }
+        }
+    }
+    
+    @IBAction func tapHttpsPDFFile(_ sender: Any) {
+        let pdfURL = "https://speakerd.s3.amazonaws.com/presentations/50021f75cf1db900020005e7/speakerdeck.pdf"
+        
+        Slide.build(pdfFileURL: URL(string: pdfURL)!) { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let slide):
+                let vc = SlideViewerController.setup(slide: slide)
+                
+                DispatchQueue.main.async {
+                    self.present(vc, animated: true)
+                }
+            }
+        }
     }
     
     @IBAction func tapShowLocalPDFFile(_ sender: Any) {
