@@ -23,6 +23,8 @@ public struct SlideViewerState: StateType {
 internal struct stateReset: Action {}
 internal struct changeCurrentPage: Action { let pageIndex: Int }
 internal struct toggleMenu: Action {}
+internal struct hideMenu: Action {}
+internal struct showMenu: Action {}
 internal struct toggleThumbnail: Action {}
 internal struct changeIsPortrait: Action { let isPortrait: Bool }
 internal struct setSlide: Action { let slide: Slide }
@@ -48,6 +50,12 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
         
     case _ as toggleMenu:
         state.showMenu = !state.showMenu
+        
+    case _ as hideMenu:
+        state.showMenu = false
+        
+    case _ as showMenu:
+        state.showMenu = true
         
     case _ as toggleThumbnail:
         state.showThumbnail = !state.showThumbnail

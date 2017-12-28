@@ -115,6 +115,12 @@ extension SlideDisplayViewController: UIScrollViewDelegate {
     
     internal func scrollViewDidZoom(_ scrollView: UIScrollView) {
         updateScrollInset()
+        
+        if scrollView.zoomScale > 1.0 {
+            mainStore.dispatch(hideMenu())
+        } else {
+            mainStore.dispatch(showMenu())
+        }
     }
 }
 

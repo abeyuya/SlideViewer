@@ -49,6 +49,8 @@
 		4CDACD8A5A6CFB688838AA988E7D1E43 /* Nimble-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6DC95845EA8FA29E43AB9A8CA15B92 /* Nimble-dummy.m */; };
 		4DA5E3761FF4C20000AA8E81 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5E3741FF4C1D800AA8E81 /* UIView+Extension.swift */; };
 		4DA5E3781FF4C93700AA8E81 /* NSLayoutConstraint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5E3771FF4C93700AA8E81 /* NSLayoutConstraint+Extension.swift */; };
+		4DA5E37D1FF50A0D00AA8E81 /* PortraitBottomMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5E37B1FF5094F00AA8E81 /* PortraitBottomMenuView.swift */; };
+		4DA5E37E1FF50A1C00AA8E81 /* PortraitBottomMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DA5E3791FF5087F00AA8E81 /* PortraitBottomMenuView.xib */; };
 		4DF0BF6E6FF86A5D46DB5DA1569DB5BB /* ReSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6467F5A76329CF4CFC7A26814E0EB6 /* ReSwift-dummy.m */; };
 		4FABBF5CA8F735F48035BE4144613CB7 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C323C83AB822837DF985A636A527884 /* Expression.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		50698F14E7847E18B907E9373FBF4C21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17E78FD24509C16DBF550DC7DFEB97F1 /* Foundation.framework */; };
@@ -267,6 +269,8 @@
 		4CF9E7113923AB260286481C7E57CF4A /* BeVoid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeVoid.swift; path = Sources/Nimble/Matchers/BeVoid.swift; sourceTree = "<group>"; };
 		4DA5E3741FF4C1D800AA8E81 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIView+Extension.swift"; path = "SlideViewer/Classes/UIView+Extension.swift"; sourceTree = "<group>"; };
 		4DA5E3771FF4C93700AA8E81 /* NSLayoutConstraint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NSLayoutConstraint+Extension.swift"; path = "SlideViewer/Classes/NSLayoutConstraint+Extension.swift"; sourceTree = "<group>"; };
+		4DA5E3791FF5087F00AA8E81 /* PortraitBottomMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PortraitBottomMenuView.xib; path = SlideViewer/Assets/PortraitBottomMenuView.xib; sourceTree = "<group>"; };
+		4DA5E37B1FF5094F00AA8E81 /* PortraitBottomMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PortraitBottomMenuView.swift; path = SlideViewer/Classes/PortraitBottomMenuView.swift; sourceTree = "<group>"; };
 		53C7D90A3B5B5AFB195411E19DBD80F5 /* Nimble-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nimble-prefix.pch"; sourceTree = "<group>"; };
 		54DC9BEBAD0B24DA5D6DE30C76523A39 /* Predicate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Predicate.swift; path = Sources/Nimble/Matchers/Predicate.swift; sourceTree = "<group>"; };
 		56B11C1B76830E2EFDBE665C4592EE2F /* RaisesException.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RaisesException.swift; path = Sources/Nimble/Matchers/RaisesException.swift; sourceTree = "<group>"; };
@@ -503,6 +507,7 @@
 				99CDE6A8E9ABD1EA558DE68F1FA98C3D /* Config.swift */,
 				DDEF0B223960EC8592C30046355BB806 /* LandscapeRightMenuView.swift */,
 				0390BA7A3EB60B347485845043874EA2 /* PortraitTopMenuView.swift */,
+				4DA5E37B1FF5094F00AA8E81 /* PortraitBottomMenuView.swift */,
 				DB99D7A06D316AAC6E588698D642C296 /* Redux.swift */,
 				AD9AD4635BC1AD4899D14FC309E5B263 /* Slide.swift */,
 				7153BD1696F278BE46FF997D069EF544 /* SlideContainerViewController.swift */,
@@ -744,6 +749,7 @@
 			children = (
 				247DEC9E6653945A43ED1DD1EFB215CB /* LandscapeRightMenuView.xib */,
 				C544A6AE9BD267FAB1BA4C782C062FE9 /* PortraitTopMenuView.xib */,
+				4DA5E3791FF5087F00AA8E81 /* PortraitBottomMenuView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1040,6 +1046,7 @@
 			files = (
 				8CA37F14270581D01CB2122C7A61DE36 /* LandscapeRightMenuView.xib in Resources */,
 				DA1A003306D686BC4C29705ED1324368 /* PortraitTopMenuView.xib in Resources */,
+				4DA5E37E1FF50A1C00AA8E81 /* PortraitBottomMenuView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1200,6 +1207,7 @@
 				B6206FF75E35089E1AED98D0A87B03BD /* LandscapeRightMenuView.swift in Sources */,
 				B76BD696D983116CD5F14F0A8B88B2B8 /* PortraitTopMenuView.swift in Sources */,
 				E2EDFDF18433D3A3E972FDDAC2AA57F5 /* Redux.swift in Sources */,
+				4DA5E37D1FF50A0D00AA8E81 /* PortraitBottomMenuView.swift in Sources */,
 				8FE324558530C7D1D034AF8ADAA114D6 /* Slide.swift in Sources */,
 				9CEDF0F050A83BC2310BABD9131AEED4 /* SlideContainerViewController.swift in Sources */,
 				0CC9D15AC0409327EE48EEF0BA57FA7F /* SlideDisplayViewController.swift in Sources */,

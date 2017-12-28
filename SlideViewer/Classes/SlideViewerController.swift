@@ -28,6 +28,15 @@ public final class SlideViewerController: UIViewController {
         return v
     }()
     
+    private lazy var portraitBottomMenuView: PortraitBottomMenuView = {
+        let v = try! PortraitBottomMenuView.initFromBundledNib()
+//        v.closeButton.addTarget(
+//            self,
+//            action: #selector(self.close),
+//            for: .touchUpInside)
+        return v
+    }()
+    
     private lazy var landscapeRightMenuView: LandscapeRightMenuView = {
         let v = try! LandscapeRightMenuView.initFromBundledNib()
         v.closeButton.addTarget(
@@ -78,6 +87,14 @@ public final class SlideViewerController: UIViewController {
         v.didMove(toParentViewController: self)
         return v
     }()
+    
+    private let portraitPageLabel: UILabel = {
+        let v = UILabel()
+        v.font = UIFont.systemFont(ofSize: 15)
+        v.textColor = .white
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
 }
 
 extension SlideViewerController {
@@ -121,11 +138,6 @@ extension SlideViewerController {
 extension SlideViewerController {
     
     private func setupView() {
-//        guard mainStore.state.slide.images.isEmpty == false else {
-//            // TODO: show Error
-//            return
-//        }
-        
         view.backgroundColor = .black
         let safeArea = view.safeAreaLayoutGuide
         
@@ -158,7 +170,35 @@ extension SlideViewerController {
                 toItem: nil,
                 attribute: .height,
                 multiplier: 1,
-                constant: 60),
+                constant: Config.shared.portraitTopMenuHeight),
+            ])
+        
+        view.addSubview(portraitBottomMenuView)
+        view.addConstraints([
+            NSLayoutConstraint.build(portraitBottomMenuView, attribute: .bottom, toItem: safeArea),
+            NSLayoutConstraint.build(portraitBottomMenuView, attribute: .leading, toItem: safeArea),
+            NSLayoutConstraint.build(portraitBottomMenuView, attribute: .trailing, toItem: safeArea),
+            NSLayoutConstraint(
+                item: portraitBottomMenuView,
+                attribute: .height,
+                relatedBy: .equal,
+                toItem: nil,
+                attribute: .height,
+                multiplier: 1,
+                constant: Config.shared.portraitBottomMenuHeight),
+            ])
+        
+        view.addSubview(portraitPageLabel)
+        view.addConstraints([
+            NSLayoutConstraint(
+                item: portraitPageLabel,
+                attribute: .bottom,
+                relatedBy: .equal,
+                toItem: portraitBottomMenuView,
+                attribute: .top,
+                multiplier: 1,
+                constant: -5),
+            NSLayoutConstraint.build(portraitPageLabel, attribute: .centerX, toItem: portraitBottomMenuView)
             ])
         
         view.addSubview(landscapeRightMenuView)
@@ -171,7 +211,7 @@ extension SlideViewerController {
                 toItem: nil,
                 attribute: .width,
                 multiplier: 1,
-                constant: 60),
+                constant: Config.shared.landscapeRightMenuWidth),
             NSLayoutConstraint.build(landscapeRightMenuView, attribute: .trailing, toItem: safeArea),
             NSLayoutConstraint.build(landscapeRightMenuView, attribute: .bottom, toItem: safeArea),
             ])
@@ -208,19 +248,33 @@ extension SlideViewerController: StoreSubscriber {
     private func renderMenu(state: SlideViewerState) {
         guard state.showMenu else {
             portraitTopMenuView.isHidden = true
+            portraitBottomMenuView.isHidden = true
+            portraitPageLabel.isHidden = true
             landscapeRightMenuView.isHidden = true
             return
         }
         
-        guard state.isPortrait else {
-            portraitTopMenuView.isHidden = true
-            landscapeRightMenuView.isHidden = false
-            landscapeRightMenuView.pageLabel.text = "\(state.currentPageIndex + 1) of \(state.slide.images.count)"
-            return
+        if state.isPortrait {
+            renderPortraitMenu(state: state)
+        } else {
+            renderLandspaceMenu(state: state)
         }
-        
+    }
+    
+    private func renderPortraitMenu(state: SlideViewerState) {
         portraitTopMenuView.isHidden = false
+        portraitBottomMenuView.isHidden = false
+        portraitPageLabel.isHidden = false
+        portraitPageLabel.text = "\(state.currentPageIndex + 1) of \(state.slide.images.count)"
         landscapeRightMenuView.isHidden = true
+    }
+    
+    private func renderLandspaceMenu(state: SlideViewerState) {
+        portraitTopMenuView.isHidden = true
+        portraitBottomMenuView.isHidden = true
+        portraitPageLabel.isHidden = true
+        landscapeRightMenuView.isHidden = false
+        landscapeRightMenuView.pageLabel.text = "\(state.currentPageIndex + 1) of \(state.slide.images.count)"
     }
     
     private func renderThumbnailView(state: SlideViewerState) {
