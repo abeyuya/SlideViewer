@@ -14,10 +14,26 @@
         <view alpha="0.80000000000000004" contentMode="scaleToFill" id="iN0-l3-epB" customClass="PortraitBottomMenuView" customModule="SlideViewer" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="374" height="76"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Cf-nL-UBU">
+                    <rect key="frame" x="177" y="25" width="20" height="26"/>
+                    <state key="normal" image="share_icon"/>
+                </button>
+            </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="5Cf-nL-UBU" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="jf6-xD-Gcc"/>
+                <constraint firstItem="5Cf-nL-UBU" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="lOq-NW-2Ma"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="shareButton" destination="5Cf-nL-UBU" id="6n0-dX-1yf"/>
+            </connections>
             <point key="canvasLocation" x="33" y="-242"/>
         </view>
     </objects>
+    <resources>
+        <image name="share_icon" width="20" height="26"/>
+    </resources>
 </document>

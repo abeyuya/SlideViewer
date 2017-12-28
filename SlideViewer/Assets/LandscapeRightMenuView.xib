@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view alpha="0.80000000000000004" contentMode="scaleToFill" id="iN0-l3-epB" customClass="LandscapeRightMenuView" customModule="PDFSlideView" customModuleProvider="target">
+        <view alpha="0.80000000000000004" contentMode="scaleToFill" id="iN0-l3-epB" customClass="LandscapeRightMenuView" customModule="SlideViewer" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="82" height="306"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -31,24 +31,36 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gg5-Y0-TtC">
+                    <rect key="frame" x="31" y="140" width="20" height="26"/>
+                    <state key="normal" image="share_icon">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="gg5-Y0-TtC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1gi-RT-UJg"/>
                 <constraint firstItem="4nK-4N-ADj" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="AMD-Jt-DsY"/>
                 <constraint firstItem="4nK-4N-ADj" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="ArP-nA-BEI"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="alU-VB-S2i" secondAttribute="bottom" constant="8" id="JlZ-JG-71B"/>
                 <constraint firstItem="alU-VB-S2i" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Od7-iE-Avh"/>
                 <constraint firstItem="alU-VB-S2i" firstAttribute="top" secondItem="H0U-0D-5oF" secondAttribute="bottom" constant="8" id="S8v-aU-Gjp"/>
                 <constraint firstItem="H0U-0D-5oF" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="TB3-9u-tWh"/>
+                <constraint firstItem="gg5-Y0-TtC" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="rsW-xj-oPl"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="closeButton" destination="4nK-4N-ADj" id="A1k-aT-ymV"/>
                 <outlet property="pageLabel" destination="alU-VB-S2i" id="uGV-vc-eD8"/>
+                <outlet property="shareButton" destination="gg5-Y0-TtC" id="xQ2-yo-yUO"/>
                 <outlet property="thumbnailButton" destination="H0U-0D-5oF" id="TO2-sc-D1O"/>
             </connections>
             <point key="canvasLocation" x="-113" y="-126"/>
         </view>
     </objects>
+    <resources>
+        <image name="share_icon" width="20" height="26"/>
+    </resources>
 </document>

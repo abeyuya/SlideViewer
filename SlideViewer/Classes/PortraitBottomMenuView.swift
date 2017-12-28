@@ -9,6 +9,8 @@ import UIKit
 
 final class PortraitBottomMenuView: UIView {
 
+    @IBOutlet weak var shareButton: UIButton!
+    
     internal static func initFromBundledNib() throws -> PortraitBottomMenuView {
         let podBundle = Bundle(for: SlideViewerController.classForCoder())
         

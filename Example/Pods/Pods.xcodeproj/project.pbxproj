@@ -51,6 +51,7 @@
 		4DA5E3781FF4C93700AA8E81 /* NSLayoutConstraint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5E3771FF4C93700AA8E81 /* NSLayoutConstraint+Extension.swift */; };
 		4DA5E37D1FF50A0D00AA8E81 /* PortraitBottomMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5E37B1FF5094F00AA8E81 /* PortraitBottomMenuView.swift */; };
 		4DA5E37E1FF50A1C00AA8E81 /* PortraitBottomMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DA5E3791FF5087F00AA8E81 /* PortraitBottomMenuView.xib */; };
+		4DA5E3801FF510F600AA8E81 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DA5E37F1FF510F600AA8E81 /* Media.xcassets */; };
 		4DF0BF6E6FF86A5D46DB5DA1569DB5BB /* ReSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6467F5A76329CF4CFC7A26814E0EB6 /* ReSwift-dummy.m */; };
 		4FABBF5CA8F735F48035BE4144613CB7 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C323C83AB822837DF985A636A527884 /* Expression.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		50698F14E7847E18B907E9373FBF4C21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17E78FD24509C16DBF550DC7DFEB97F1 /* Foundation.framework */; };
@@ -271,6 +272,7 @@
 		4DA5E3771FF4C93700AA8E81 /* NSLayoutConstraint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NSLayoutConstraint+Extension.swift"; path = "SlideViewer/Classes/NSLayoutConstraint+Extension.swift"; sourceTree = "<group>"; };
 		4DA5E3791FF5087F00AA8E81 /* PortraitBottomMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PortraitBottomMenuView.xib; path = SlideViewer/Assets/PortraitBottomMenuView.xib; sourceTree = "<group>"; };
 		4DA5E37B1FF5094F00AA8E81 /* PortraitBottomMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PortraitBottomMenuView.swift; path = SlideViewer/Classes/PortraitBottomMenuView.swift; sourceTree = "<group>"; };
+		4DA5E37F1FF510F600AA8E81 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		53C7D90A3B5B5AFB195411E19DBD80F5 /* Nimble-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nimble-prefix.pch"; sourceTree = "<group>"; };
 		54DC9BEBAD0B24DA5D6DE30C76523A39 /* Predicate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Predicate.swift; path = Sources/Nimble/Matchers/Predicate.swift; sourceTree = "<group>"; };
 		56B11C1B76830E2EFDBE665C4592EE2F /* RaisesException.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RaisesException.swift; path = Sources/Nimble/Matchers/RaisesException.swift; sourceTree = "<group>"; };
@@ -747,6 +749,7 @@
 		C7C0601F5C8B1448F37E15C97109A01A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4DA5E37F1FF510F600AA8E81 /* Media.xcassets */,
 				247DEC9E6653945A43ED1DD1EFB215CB /* LandscapeRightMenuView.xib */,
 				C544A6AE9BD267FAB1BA4C782C062FE9 /* PortraitTopMenuView.xib */,
 				4DA5E3791FF5087F00AA8E81 /* PortraitBottomMenuView.xib */,
@@ -1046,6 +1049,7 @@
 			files = (
 				8CA37F14270581D01CB2122C7A61DE36 /* LandscapeRightMenuView.xib in Resources */,
 				DA1A003306D686BC4C29705ED1324368 /* PortraitTopMenuView.xib in Resources */,
+				4DA5E3801FF510F600AA8E81 /* Media.xcassets in Resources */,
 				4DA5E37E1FF50A1C00AA8E81 /* PortraitBottomMenuView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

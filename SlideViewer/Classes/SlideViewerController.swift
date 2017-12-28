@@ -30,10 +30,10 @@ public final class SlideViewerController: UIViewController {
     
     private lazy var portraitBottomMenuView: PortraitBottomMenuView = {
         let v = try! PortraitBottomMenuView.initFromBundledNib()
-//        v.closeButton.addTarget(
-//            self,
-//            action: #selector(self.close),
-//            for: .touchUpInside)
+        v.shareButton.addTarget(
+            self,
+            action: #selector(self.showShareSelect),
+            for: .touchUpInside)
         return v
     }()
     
@@ -46,6 +46,10 @@ public final class SlideViewerController: UIViewController {
         v.thumbnailButton.addTarget(
             self,
             action: #selector(self.toggleThumbnailView),
+            for: .touchUpInside)
+        v.shareButton.addTarget(
+            self,
+            action: #selector(self.showShareSelect),
             for: .touchUpInside)
         return v
     }()
@@ -93,6 +97,36 @@ public final class SlideViewerController: UIViewController {
         v.font = UIFont.systemFont(ofSize: 15)
         v.textColor = .white
         v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    private lazy var shareSelectSheet: UIAlertController = {
+        let v = UIAlertController(
+            title: "Share",
+            message: "",
+            preferredStyle: .actionSheet)
+        
+        let currentPageAsImage = UIAlertAction(
+            title: "Current Page as Image",
+            style: .default) { actin in
+                self.shareCurrentPageAsImage()
+        }
+
+        let asPDF = UIAlertAction(
+            title: "This Slide as PDF",
+            style: .default) { actin in
+                self.shareSlideAsPDF()
+        }
+
+        let cancel = UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil)
+        
+        v.addAction(currentPageAsImage)
+        v.addAction(asPDF)
+        v.addAction(cancel)
+
         return v
     }()
 }
@@ -234,6 +268,28 @@ extension SlideViewerController {
     
     @objc private func toggleThumbnailView() {
         mainStore.dispatch(toggleThumbnail())
+    }
+    
+    @objc private func showShareSelect() {
+        present(shareSelectSheet, animated: true, completion: nil)
+    }
+    
+    private func shareCurrentPageAsImage() {
+        guard mainStore.state.currentPageIndex < mainStore.state.slide.images.count,
+            let image = mainStore.state.slide.images[mainStore.state.currentPageIndex] else {
+                // TODO: show error
+                return
+        }
+
+        let v = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        self.present(v, animated: true, completion: nil)
+    }
+    
+    private func shareSlideAsPDF() {
+        guard let doc = mainStore.state.slide.pdfDocument, let url = doc.documentURL else { return }
+
+        let v = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        self.present(v, animated: true, completion: nil)
     }
 }
 

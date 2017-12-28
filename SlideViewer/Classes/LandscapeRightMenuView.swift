@@ -12,6 +12,7 @@ final class LandscapeRightMenuView: UIView {
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var thumbnailButton: UIButton!
     @IBOutlet weak var pageLabel: UILabel!
+    @IBOutlet weak var shareButton: UIButton!
     
     internal static func initFromBundledNib() throws -> LandscapeRightMenuView {
         let podBundle = Bundle(for: SlideViewerController.classForCoder())
