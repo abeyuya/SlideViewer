@@ -41,7 +41,8 @@ final class ThumbnailTableViewCell: UITableViewCell {
             }
         }
         
-        setupImageView()
+        contentView.layoutFill(subView: thumbnail)
+        thumbnail.layoutCenter(subView: indicator)
     }
     
     deinit {
@@ -70,64 +71,6 @@ extension ThumbnailTableViewCell {
         } else {
             loadImage(state: mainStore.state, index: index)
         }
-    }
-    
-    private func setupImageView() {
-        contentView.addSubview(thumbnail)
-        contentView.addConstraints([
-            NSLayoutConstraint(
-                item: thumbnail,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: contentView,
-                attribute: .top,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: thumbnail,
-                attribute: .leading,
-                relatedBy: .equal,
-                toItem: contentView,
-                attribute: .leading,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: thumbnail,
-                attribute: .trailing,
-                relatedBy: .equal,
-                toItem: contentView,
-                attribute: .trailing,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: thumbnail,
-                attribute: .bottom,
-                relatedBy: .equal,
-                toItem: contentView,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: 0),
-            ])
-        
-        thumbnail.addSubview(indicator)
-        contentView.addConstraints([
-            NSLayoutConstraint(
-                item: indicator,
-                attribute: .centerX,
-                relatedBy: .equal,
-                toItem: thumbnail,
-                attribute: .centerX,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: indicator,
-                attribute: .centerY,
-                relatedBy: .equal,
-                toItem: thumbnail,
-                attribute: .centerY,
-                multiplier: 1,
-                constant: 0),
-        ])
     }
 }
 

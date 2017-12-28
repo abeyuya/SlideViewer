@@ -48,7 +48,9 @@ extension SlideDisplayViewController {
 
     internal override func viewDidLoad() {
         super.viewDidLoad()
-        layoutView()
+        
+        view.layoutFill(subView: scrollView)
+        view.layoutCenter(subView: indicator)
         
         if let image = mainStore.state.slide.images[index] {
             setImageView(image: image)
@@ -102,64 +104,6 @@ extension SlideDisplayViewController {
         scrollView.addSubview(imageView)
         self.imageView = imageView
         self.view.setNeedsLayout()
-    }
-
-    private func layoutView() {
-        view.addSubview(scrollView)
-        view.addConstraints([
-            NSLayoutConstraint(
-                item: scrollView,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: view,
-                attribute: .top,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: scrollView,
-                attribute: .leading,
-                relatedBy: .equal,
-                toItem: view,
-                attribute: .leading,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: scrollView,
-                attribute: .trailing,
-                relatedBy: .equal,
-                toItem: view,
-                attribute: .trailing,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: scrollView,
-                attribute: .bottom,
-                relatedBy: .equal,
-                toItem: view,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: 0),
-            ])
-        
-        view.addSubview(indicator)
-        view.addConstraints([
-            NSLayoutConstraint(
-                item: indicator,
-                attribute: .centerX,
-                relatedBy: .equal,
-                toItem: view,
-                attribute: .centerX,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: indicator,
-                attribute: .centerY,
-                relatedBy: .equal,
-                toItem: view,
-                attribute: .centerY,
-                multiplier: 1,
-                constant: 0),
-            ])
     }
 }
 

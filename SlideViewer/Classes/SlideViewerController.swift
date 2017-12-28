@@ -13,18 +13,32 @@ public final class SlideViewerController: UIViewController {
     
     private lazy var slideAreaView: UIView = {
         let v = UIView()
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(tapSlideView))
+        v.addGestureRecognizer(gesture)
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
     
     private lazy var portraitTopMenuView: PortraitTopMenuView = {
-        let topMenu = try! PortraitTopMenuView.initFromBundledNib()
-        return topMenu
+        let v = try! PortraitTopMenuView.initFromBundledNib()
+        v.closeButton.addTarget(
+            self,
+            action: #selector(self.close),
+            for: .touchUpInside)
+        return v
     }()
     
     private lazy var landscapeRightMenuView: LandscapeRightMenuView = {
-        let rightMenu = try! LandscapeRightMenuView.initFromBundledNib()
-        return rightMenu
+        let v = try! LandscapeRightMenuView.initFromBundledNib()
+        v.closeButton.addTarget(
+            self,
+            action: #selector(self.close),
+            for: .touchUpInside)
+        v.thumbnailButton.addTarget(
+            self,
+            action: #selector(self.toggleThumbnailView),
+            for: .touchUpInside)
+        return v
     }()
     
     private lazy var thumbnailAreaView: UIView = {
@@ -113,137 +127,30 @@ extension SlideViewerController {
 //        }
         
         view.backgroundColor = .black
-
-        setupPDFView()
-        setupPortraitTopMenuView()
-        setupLandscapeRightMenuView()
-        setupThumbnailView()
-        layoutView()
-    }
-    
-    private func setupPDFView() {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(tapSlideView))
-        slideAreaView.addGestureRecognizer(gesture)
-        view.addSubview(slideAreaView)
-    }
-    
-    private func setupPortraitTopMenuView() {
-        portraitTopMenuView.closeButton.addTarget(
-            self,
-            action: #selector(self.close),
-            for: .touchUpInside)
-        
-        view.addSubview(portraitTopMenuView)
-    }
-    
-    private func setupLandscapeRightMenuView() {
-        landscapeRightMenuView.closeButton.addTarget(
-            self,
-            action: #selector(self.close),
-            for: .touchUpInside)
-        landscapeRightMenuView.thumbnailButton.addTarget(
-            self,
-            action: #selector(self.toggleThumbnailView),
-            for: .touchUpInside)
-        
-        view.addSubview(landscapeRightMenuView)
-    }
-    
-    private func setupThumbnailView() {
-        view.addSubview(thumbnailAreaView)
-    }
-    
-    private func layoutView() {
         let safeArea = view.safeAreaLayoutGuide
         
+        view.addSubview(slideAreaView)
+        view.addSubview(thumbnailAreaView)
+        
         view.addConstraints([
-            NSLayoutConstraint(
-                item: thumbnailAreaView,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: safeArea,
-                attribute: .top,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: thumbnailAreaView,
-                attribute: .leading,
-                relatedBy: .equal,
-                toItem: safeArea,
-                attribute: .leading,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: thumbnailAreaView,
-                attribute: .trailing,
-                relatedBy: .equal,
-                toItem: slideAreaView,
-                attribute: .leading,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: thumbnailAreaView,
-                attribute: .bottom,
-                relatedBy: .equal,
-                toItem: safeArea,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: 0),
+            NSLayoutConstraint.build(thumbnailAreaView, attribute: .top, toItem: safeArea),
+            NSLayoutConstraint.build(thumbnailAreaView, attribute: .leading, toItem: safeArea),
+            NSLayoutConstraint.build(thumbnailAreaView, attribute: .trailing, toItem: slideAreaView, attribute: .leading),
+            NSLayoutConstraint.build(thumbnailAreaView, attribute: .bottom, toItem: safeArea),
+            thumbnailAreaViewWidthConstraint,
             ])
         
         view.addConstraints([
-            NSLayoutConstraint(
-                item: slideAreaView,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: safeArea,
-                attribute: .top,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: slideAreaView,
-                attribute: .trailing,
-                relatedBy: .equal,
-                toItem: safeArea,
-                attribute: .trailing,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: slideAreaView,
-                attribute: .bottom,
-                relatedBy: .equal,
-                toItem: safeArea,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: 0),
-            thumbnailAreaViewWidthConstraint
+            NSLayoutConstraint.build(slideAreaView, attribute: .top, toItem: safeArea),
+            NSLayoutConstraint.build(slideAreaView, attribute: .trailing, toItem: safeArea),
+            NSLayoutConstraint.build(slideAreaView, attribute: .bottom, toItem: safeArea),
             ])
         
+        view.addSubview(portraitTopMenuView)
         view.addConstraints([
-            NSLayoutConstraint(
-                item: portraitTopMenuView,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: safeArea,
-                attribute: .top,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: portraitTopMenuView,
-                attribute: .leading,
-                relatedBy: .equal,
-                toItem: safeArea,
-                attribute: .leading,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: portraitTopMenuView,
-                attribute: .trailing,
-                relatedBy: .equal,
-                toItem: safeArea,
-                attribute: .trailing,
-                multiplier: 1,
-                constant: 0),
+            NSLayoutConstraint.build(portraitTopMenuView, attribute: .top, toItem: safeArea),
+            NSLayoutConstraint.build(portraitTopMenuView, attribute: .leading, toItem: safeArea),
+            NSLayoutConstraint.build(portraitTopMenuView, attribute: .trailing, toItem: safeArea),
             NSLayoutConstraint(
                 item: portraitTopMenuView,
                 attribute: .height,
@@ -254,15 +161,9 @@ extension SlideViewerController {
                 constant: 60),
             ])
         
+        view.addSubview(landscapeRightMenuView)
         view.addConstraints([
-            NSLayoutConstraint(
-                item: landscapeRightMenuView,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: safeArea,
-                attribute: .top,
-                multiplier: 1,
-                constant: 0),
+            NSLayoutConstraint.build(landscapeRightMenuView, attribute: .top, toItem: safeArea),
             NSLayoutConstraint(
                 item: landscapeRightMenuView,
                 attribute: .width,
@@ -271,93 +172,12 @@ extension SlideViewerController {
                 attribute: .width,
                 multiplier: 1,
                 constant: 60),
-            NSLayoutConstraint(
-                item: landscapeRightMenuView,
-                attribute: .trailing,
-                relatedBy: .equal,
-                toItem: safeArea,
-                attribute: .trailing,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: landscapeRightMenuView,
-                attribute: .bottom,
-                relatedBy: .equal,
-                toItem: safeArea,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: 0),
+            NSLayoutConstraint.build(landscapeRightMenuView, attribute: .trailing, toItem: safeArea),
+            NSLayoutConstraint.build(landscapeRightMenuView, attribute: .bottom, toItem: safeArea),
             ])
         
-        view.addConstraints([
-            NSLayoutConstraint(
-                item: slideContainerViewController.view,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: slideAreaView,
-                attribute: .top,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: slideContainerViewController.view,
-                attribute: .leading,
-                relatedBy: .equal,
-                toItem: slideAreaView,
-                attribute: .leading,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: slideContainerViewController.view,
-                attribute: .trailing,
-                relatedBy: .equal,
-                toItem: slideAreaView,
-                attribute: .trailing,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: slideContainerViewController.view,
-                attribute: .bottom,
-                relatedBy: .equal,
-                toItem: slideAreaView,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: 0),
-            ])
-        
-        view.addConstraints([
-            NSLayoutConstraint(
-                item: thumbnailViewController.view,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: thumbnailAreaView,
-                attribute: .top,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: thumbnailViewController.view,
-                attribute: .leading,
-                relatedBy: .equal,
-                toItem: thumbnailAreaView,
-                attribute: .leading,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: thumbnailViewController.view,
-                attribute: .trailing,
-                relatedBy: .equal,
-                toItem: thumbnailAreaView,
-                attribute: .trailing,
-                multiplier: 1,
-                constant: 0),
-            NSLayoutConstraint(
-                item: thumbnailViewController.view,
-                attribute: .bottom,
-                relatedBy: .equal,
-                toItem: thumbnailAreaView,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: 0),
-            ])
+        slideAreaView.layoutFill(subView: slideContainerViewController.view)
+        thumbnailAreaView.layoutFill(subView: thumbnailViewController.view)
     }
 }
 
