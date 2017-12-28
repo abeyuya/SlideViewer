@@ -52,6 +52,7 @@
 		4DA5E37D1FF50A0D00AA8E81 /* PortraitBottomMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5E37B1FF5094F00AA8E81 /* PortraitBottomMenuView.swift */; };
 		4DA5E37E1FF50A1C00AA8E81 /* PortraitBottomMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DA5E3791FF5087F00AA8E81 /* PortraitBottomMenuView.xib */; };
 		4DA5E3801FF510F600AA8E81 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DA5E37F1FF510F600AA8E81 /* Media.xcassets */; };
+		4DA5E3821FF5347600AA8E81 /* FileDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5E3811FF5347600AA8E81 /* FileDownloader.swift */; };
 		4DF0BF6E6FF86A5D46DB5DA1569DB5BB /* ReSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6467F5A76329CF4CFC7A26814E0EB6 /* ReSwift-dummy.m */; };
 		4FABBF5CA8F735F48035BE4144613CB7 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C323C83AB822837DF985A636A527884 /* Expression.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		50698F14E7847E18B907E9373FBF4C21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17E78FD24509C16DBF550DC7DFEB97F1 /* Foundation.framework */; };
@@ -273,6 +274,7 @@
 		4DA5E3791FF5087F00AA8E81 /* PortraitBottomMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PortraitBottomMenuView.xib; path = SlideViewer/Assets/PortraitBottomMenuView.xib; sourceTree = "<group>"; };
 		4DA5E37B1FF5094F00AA8E81 /* PortraitBottomMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PortraitBottomMenuView.swift; path = SlideViewer/Classes/PortraitBottomMenuView.swift; sourceTree = "<group>"; };
 		4DA5E37F1FF510F600AA8E81 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		4DA5E3811FF5347600AA8E81 /* FileDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileDownloader.swift; path = SlideViewer/Classes/FileDownloader.swift; sourceTree = "<group>"; };
 		53C7D90A3B5B5AFB195411E19DBD80F5 /* Nimble-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nimble-prefix.pch"; sourceTree = "<group>"; };
 		54DC9BEBAD0B24DA5D6DE30C76523A39 /* Predicate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Predicate.swift; path = Sources/Nimble/Matchers/Predicate.swift; sourceTree = "<group>"; };
 		56B11C1B76830E2EFDBE665C4592EE2F /* RaisesException.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RaisesException.swift; path = Sources/Nimble/Matchers/RaisesException.swift; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 				F44D338092DED7844A6605DF0C4218EB /* Support Files */,
 				4DA5E3741FF4C1D800AA8E81 /* UIView+Extension.swift */,
 				4DA5E3771FF4C93700AA8E81 /* NSLayoutConstraint+Extension.swift */,
+				4DA5E3811FF5347600AA8E81 /* FileDownloader.swift */,
 			);
 			name = SlideViewer;
 			path = ../..;
@@ -1219,6 +1222,7 @@
 				56FD69E5394407C6439117E498B9C1E7 /* SlideViewerController.swift in Sources */,
 				C69816BEFFA8C7A0878BD5E62D4E2B1B /* SlideViewerError.swift in Sources */,
 				6D795E2AC9BB0B05CBCD4DE2664DD9FF /* ThumbnailContainerViewController.swift in Sources */,
+				4DA5E3821FF5347600AA8E81 /* FileDownloader.swift in Sources */,
 				5A48B209907C92D896447ECF45D0D3B6 /* ThumbnailTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

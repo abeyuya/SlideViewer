@@ -286,10 +286,38 @@ extension SlideViewerController {
     }
     
     private func shareSlideAsPDF() {
-        guard let doc = mainStore.state.slide.pdfDocument, let url = doc.documentURL else { return }
+        guard let doc = mainStore.state.slide.pdfDocument,
+            let url = doc.documentURL else {
+                // TODO: show error
+                return
+        }
+        
+        guard url.absoluteString.hasPrefix("http") == false else {
+            FileDownloader.shared.download(url: url) { result in
+                
+                switch result {
+                case .failure(let error):
+                    // TODO: show error
+                    print(error)
+                case .success(let url):
+                    self.showSharePDFFileActivity(url: url)
+                }
+            }
+            
+            return
+        }
 
-        let v = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-        self.present(v, animated: true, completion: nil)
+        showSharePDFFileActivity(url: url)
+    }
+    
+    private func showSharePDFFileActivity(url: URL) {
+        let v = UIActivityViewController(
+            activityItems: [url],
+            applicationActivities: nil)
+        
+        DispatchQueue.main.async {
+            self.present(v, animated: true, completion: nil)
+        }
     }
 }
 
