@@ -18,6 +18,7 @@ final class ThumbnailContainerViewController: UIViewController {
         tableView.register(ThumbnailTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = .black
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -81,12 +82,13 @@ extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewData
     }
 }
 
-internal struct SubscribeState {
-    let moveToThumbnailIndex: Int?
-    let thumbnailHeight: CGFloat?
-}
-
 extension ThumbnailContainerViewController: StoreSubscriber {
+    
+    internal struct SubscribeState {
+        let moveToThumbnailIndex: Int?
+        let thumbnailHeight: CGFloat?
+    }
+
     internal typealias StoreSubscriberStateType = SubscribeState
  
     internal func newState(state: StoreSubscriberStateType) {
