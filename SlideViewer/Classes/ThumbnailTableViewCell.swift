@@ -88,12 +88,16 @@ final class ThumbnailTableViewCell: UITableViewCell {
 
     internal override func layoutSubviews() {
         super.layoutSubviews()
-        gradient.frame = self.bounds
+        
+        if gradient.frame.size.width == 0 {
+            gradient.frame = self.bounds
+        }
     }
 
     internal override func prepareForReuse() {
         super.prepareForReuse()
         thumbnail.image = nil
+        renderFrame(show: false)
     }
 
     internal override func setSelected(_ selected: Bool, animated: Bool) {
@@ -157,10 +161,11 @@ extension ThumbnailTableViewCell {
         self.index = index
         self.tableView = tableView
         numberLabel.text = "\(index + 1)"
-        
+
         if let image = mainStore.state.slide.thumbnailImages[index] {
             thumbnail.image = image
             indicator.removeFromSuperview()
+            renderFrame(show: index == mainStore.state.currentPageIndex)
         } else {
             loadImage(state: mainStore.state, index: index)
         }
