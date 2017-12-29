@@ -67,10 +67,10 @@ final class ThumbnailTableViewCell: UITableViewCell {
         mainStore.subscribe(self) { subscription in
             subscription.select { state in
                 let thumbnailImage: UIImage? = {
-                    guard case .complete(let slide) = state.slide,
+                    guard case .complete = state.slide.state,
                         let index = self.index,
-                        index < slide.thumbnailImages.count else { return nil }
-                    return slide.thumbnailImages[index]
+                        index < state.slide.thumbnailImages.count else { return nil }
+                    return state.slide.thumbnailImages[index]
                 }()
                 
                 return SubscribeState(
@@ -163,9 +163,9 @@ extension ThumbnailTableViewCell {
         self.tableView = tableView
         numberLabel.text = "\(index + 1)"
         
-        guard case .complete(let slide) = mainStore.state.slide,
-            index < slide.thumbnailImages.count,
-            let image = slide.thumbnailImages[index] else {
+        guard case .complete = mainStore.state.slide.state,
+            index < mainStore.state.slide.thumbnailImages.count,
+            let image = mainStore.state.slide.thumbnailImages[index] else {
                 loadImage(state: mainStore.state, index: index)
                 return
         }

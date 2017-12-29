@@ -60,8 +60,8 @@ extension ThumbnailContainerViewController {
 extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewDataSource {
     
     internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard case .complete(let slide) = mainStore.state.slide else { return 0 }
-        return slide.thumbnailImages.count
+        guard case .complete = mainStore.state.slide.state else { return 0 }
+        return mainStore.state.slide.thumbnailImages.count
     }
     
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

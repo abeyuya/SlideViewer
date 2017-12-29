@@ -14,7 +14,7 @@ public struct SlideViewerState: StateType {
     var isPortrait: Bool = true
     var showMenu: Bool = false
     var showThumbnail: Bool = false
-    var slide: Slide.State = .loading(progress: 0)
+    var slide: Slide = Slide()
     var moveToSlideIndex: Int? = nil
     var moveToThumbnailIndex: Int? = nil
     var thumbnailHeight: CGFloat? = nil
@@ -27,6 +27,8 @@ internal struct hideMenu: Action {}
 internal struct showMenu: Action {}
 internal struct toggleThumbnail: Action {}
 internal struct changeIsPortrait: Action { let isPortrait: Bool }
+internal struct setSlideDocument: Action { let doc: PDFDocument }
+internal struct setSlideInfo: Action { let info: Slide.Info }
 internal struct setSlideState: Action { let state: Slide.State }
 internal struct setImage: Action {
     let pageIndex: Int
@@ -39,6 +41,8 @@ internal struct setThumbnailHeight: Action { let height: CGFloat }
 
 internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> SlideViewerState {
     var state = state ?? SlideViewerState()
+    print(state)
+    print("--------------------------\n")
     
     switch action {
         
@@ -63,17 +67,28 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
     case let action as changeIsPortrait:
         state.isPortrait = action.isPortrait
         
+    case let action as setSlideDocument:
+        state.slide.pdfDocument = action.doc
+        state.slide.images = Array(repeating: nil, count: action.doc.pageCount)
+        state.slide.thumbnailImages = Array(repeating: nil, count: action.doc.pageCount)
+        
+    case let action as setSlideInfo:
+        state.slide.info = action.info
+        
     case let action as setSlideState:
-        state.slide = action.state
+        state.slide.state = action.state
         
     case let action as setImage:
-        switch state.slide {
-        case .loading, .failure(_): break
-        case .complete(var slide):
-            slide.images[action.pageIndex] = action.originalImage
-            slide.thumbnailImages[action.pageIndex] = action.thumbnailImage
-            state.slide = .complete(slide: slide)
-        }
+//        switch state.slide.state {
+//        case .loading, .failure(_): break
+//        case .complete:
+//            state.slide.images[action.pageIndex] = action.originalImage
+//            state.slide.thumbnailImages[action.pageIndex] = action.thumbnailImage
+//            state.slide.state = .complete
+//        }
+        state.slide.images[action.pageIndex] = action.originalImage
+        state.slide.thumbnailImages[action.pageIndex] = action.thumbnailImage
+        state.slide.state = .complete
 
     case let action as moveToSlide:
         state.moveToSlideIndex = action.pageIndex
@@ -92,8 +107,8 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
 }
 
 internal func loadImage(state: SlideViewerState, index: Int) {
-    guard case .complete(let slide) = state.slide else { return }
-    guard index < slide.images.count, slide.images[index] == nil else { return }
+//    guard case .complete(let slide) = state.slide.state else { return }
+    guard index < state.slide.images.count, state.slide.images[index] == nil else { return }
     
     DispatchQueue.global(qos: .default).async {
         guard let image = loadImageFrom(state: state, index: index) else { return }
@@ -114,25 +129,25 @@ internal func loadImage(state: SlideViewerState, index: Int) {
     }
 }
 
-internal func fetchSlide(pdfFileURL: URL) {
-    Slide.fetch(pdfFileURL: pdfFileURL) { result in
-        DispatchQueue.main.async {
-            switch result {
-            case .loading(let progress):
-                mainStore.dispatch(setSlideState(state: .loading(progress: progress)))
-            case .failure(let error):
-                mainStore.dispatch(setSlideState(state: .failure(error: error)))
-            case .complete(let slide):
-                mainStore.dispatch(setSlideState(state: .complete(slide: slide)))
-            }
-        }
-    }
-}
+//internal func fetchSlide(pdfFileURL: URL) {
+//    Slide.fetch(pdfFileURL: pdfFileURL) { result in
+//        DispatchQueue.main.async {
+//            switch result {
+//            case .loading(let progress):
+//                mainStore.dispatch(setSlideState(state: .loading(progress: progress)))
+//            case .failure(let error):
+//                mainStore.dispatch(setSlideState(state: .failure(error: error)))
+//            case .complete(let doc):
+//                mainStore.dispatch(setSlideState(state: .complete)
+//            }
+//        }
+//    }
+//}
 
 private func loadImageFrom(state: SlideViewerState, index: Int) -> UIImage? {
     
-    guard case .complete(let slide) = state.slide else { return nil }
-    guard let doc = slide.pdfDocument else { return nil }
+//    guard case .complete(let slide) = state.slide else { return nil }
+    guard let doc = state.slide.pdfDocument else { return nil }
     return loadImageFrom(pdfDocument: doc, index: index)
 }
 
@@ -157,23 +172,6 @@ private func loadImageFrom(pdfDocument: PDFDocument, index: Int) -> UIImage? {
 private func createThumbnailImage(originalImage: UIImage) -> UIImage? {
     let thumbnailHeight = originalImage.size.height * (Config.shared.thumbnailViewWidth / originalImage.size.width)
     return originalImage.resize(size: CGSize(width: Config.shared.thumbnailViewWidth, height: thumbnailHeight))
-}
-
-fileprivate extension UIImage {
-    func resize(size _size: CGSize) -> UIImage? {
-        let widthRatio = _size.width / size.width
-        let heightRatio = _size.height / size.height
-        let ratio = widthRatio < heightRatio ? widthRatio : heightRatio
-        
-        let resizedSize = CGSize(width: size.width * ratio, height: size.height * ratio)
-        
-        UIGraphicsBeginImageContextWithOptions(resizedSize, false, 0.0)
-        draw(in: CGRect(origin: .zero, size: resizedSize))
-        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return resizedImage
-    }
 }
 
 internal let mainStore = Store<SlideViewerState>(

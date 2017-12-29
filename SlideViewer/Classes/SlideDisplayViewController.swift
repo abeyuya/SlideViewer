@@ -61,9 +61,9 @@ extension SlideDisplayViewController {
         view.layoutFill(subView: scrollView)
         view.layoutCenter(subView: indicator)
         
-        guard case .complete(let slide) = mainStore.state.slide,
-            index < slide.images.count,
-            let image = slide.images[index] else {
+        guard case .complete = mainStore.state.slide.state,
+            index < mainStore.state.slide.images.count,
+            let image = mainStore.state.slide.images[index] else {
                 loadImage(state: mainStore.state, index: index)
                 return
         }
@@ -77,9 +77,9 @@ extension SlideDisplayViewController {
         
         mainStore.subscribe(self) { subscription in
             subscription.select { state in
-                guard case .complete(let slide) = state.slide,
-                    index < slide.images.count else { return nil }
-                return slide.images[index]
+                guard case .complete = state.slide.state,
+                    index < state.slide.images.count else { return nil }
+                return state.slide.images[index]
             }
         }
     }
