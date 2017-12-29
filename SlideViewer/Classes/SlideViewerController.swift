@@ -25,6 +25,11 @@ public final class SlideViewerController: UIViewController {
             self,
             action: #selector(self.close),
             for: .touchUpInside)
+        v.titleLabel.text = mainStore.state.slide.info.title
+        v.authorLabel.text = mainStore.state.slide.info.author
+        if let url = mainStore.state.slide.info.avatarImageURL {
+            v.setAvatarImage(imageURL: url)
+        }
         return v
     }()
     

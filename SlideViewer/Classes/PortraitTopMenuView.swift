@@ -33,4 +33,15 @@ final class PortraitTopMenuView: UIView {
         
         return topMenu
     }
+    
+    internal func setAvatarImage(imageURL: URL) {
+        DispatchQueue.global(qos: .default).async {
+            guard let data = try? Data(contentsOf: imageURL) else { return }
+            let image = UIImage(data: data)
+            
+            DispatchQueue.main.async {
+                self.avatarImage.image = image
+            }
+        }
+    }
 }
