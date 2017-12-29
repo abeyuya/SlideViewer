@@ -146,7 +146,6 @@ extension SlideViewerController {
         let info = Slide.Info(avatarImageURL: avatarImageURL, title: title, author: author)
         mainStore.dispatch(setSlideInfo(info: info))
         mainStore.dispatch(setSlideDocument(doc: pdfDocument))
-        mainStore.dispatch(setSlideState(state: .complete))
         let v = SlideViewerController()
         return v
     }
@@ -165,7 +164,6 @@ extension SlideViewerController {
                     mainStore.dispatch(setSlideState(state: .failure(error: error)))
                 case .complete(let doc):
                     mainStore.dispatch(setSlideDocument(doc: doc))
-                    mainStore.dispatch(setSlideState(state: .complete))
                 }
             }
         }

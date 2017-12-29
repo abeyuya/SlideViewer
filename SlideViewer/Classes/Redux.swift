@@ -41,9 +41,7 @@ internal struct setThumbnailHeight: Action { let height: CGFloat }
 
 internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> SlideViewerState {
     var state = state ?? SlideViewerState()
-    print(state)
-    print("--------------------------\n")
-    
+
     switch action {
         
     case _ as stateReset:
@@ -71,6 +69,7 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
         state.slide.pdfDocument = action.doc
         state.slide.images = Array(repeating: nil, count: action.doc.pageCount)
         state.slide.thumbnailImages = Array(repeating: nil, count: action.doc.pageCount)
+        state.slide.state = .complete
         
     case let action as setSlideInfo:
         state.slide.info = action.info
@@ -79,16 +78,8 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
         state.slide.state = action.state
         
     case let action as setImage:
-//        switch state.slide.state {
-//        case .loading, .failure(_): break
-//        case .complete:
-//            state.slide.images[action.pageIndex] = action.originalImage
-//            state.slide.thumbnailImages[action.pageIndex] = action.thumbnailImage
-//            state.slide.state = .complete
-//        }
         state.slide.images[action.pageIndex] = action.originalImage
         state.slide.thumbnailImages[action.pageIndex] = action.thumbnailImage
-        state.slide.state = .complete
 
     case let action as moveToSlide:
         state.moveToSlideIndex = action.pageIndex
@@ -107,7 +98,6 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
 }
 
 internal func loadImage(state: SlideViewerState, index: Int) {
-//    guard case .complete(let slide) = state.slide.state else { return }
     guard index < state.slide.images.count, state.slide.images[index] == nil else { return }
     
     DispatchQueue.global(qos: .default).async {
@@ -129,24 +119,7 @@ internal func loadImage(state: SlideViewerState, index: Int) {
     }
 }
 
-//internal func fetchSlide(pdfFileURL: URL) {
-//    Slide.fetch(pdfFileURL: pdfFileURL) { result in
-//        DispatchQueue.main.async {
-//            switch result {
-//            case .loading(let progress):
-//                mainStore.dispatch(setSlideState(state: .loading(progress: progress)))
-//            case .failure(let error):
-//                mainStore.dispatch(setSlideState(state: .failure(error: error)))
-//            case .complete(let doc):
-//                mainStore.dispatch(setSlideState(state: .complete)
-//            }
-//        }
-//    }
-//}
-
 private func loadImageFrom(state: SlideViewerState, index: Int) -> UIImage? {
-    
-//    guard case .complete(let slide) = state.slide else { return nil }
     guard let doc = state.slide.pdfDocument else { return nil }
     return loadImageFrom(pdfDocument: doc, index: index)
 }
