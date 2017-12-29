@@ -33,6 +33,11 @@ internal final class FileDownloader: NSObject {
         let task = session.downloadTask(with: url)
         task.resume()
     }
+    
+    private func resetRequestInfo() {
+        self.completion = nil
+        self.originURL = nil
+    }
 }
 
 extension FileDownloader: URLSessionDownloadDelegate {
@@ -41,12 +46,11 @@ extension FileDownloader: URLSessionDownloadDelegate {
         
         guard let completion = self.completion,
             let originURL = self.originURL else {
-                self.completion = nil
-                self.originURL = nil
+                resetRequestInfo()
                 return
         }
-        self.completion = nil
-        self.originURL = nil
+        
+        resetRequestInfo()
         
         guard let data = NSData(contentsOf: location), data.length > 0 else {
             return completion(.failure(error: .invalidPDFFile))
@@ -59,11 +63,17 @@ extension FileDownloader: URLSessionDownloadDelegate {
     }
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        if error == nil{
-            session.finishTasksAndInvalidate()
-        } else {
+        if let error = error {
+            if let completion = self.completion {
+                resetRequestInfo()
+                completion(.failure(error: .cannotDownloadFile(message: error.localizedDescription)))
+            }
+            
             session.invalidateAndCancel()
+            return
         }
+        
+        session.finishTasksAndInvalidate()
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {

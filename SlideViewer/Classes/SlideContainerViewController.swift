@@ -24,6 +24,15 @@ final class SlideContainerViewController: UIPageViewController {
         return v
     }()
     
+    private lazy var errorMessageLabel: UILabel = {
+        let l = UILabel()
+        l.textColor = .white
+        l.numberOfLines = 0
+        l.isHidden = true
+        l.translatesAutoresizingMaskIntoConstraints = false
+        return l
+    }()
+    
     internal override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
@@ -31,6 +40,7 @@ final class SlideContainerViewController: UIPageViewController {
         
         guard case .complete(_) = mainStore.state.slide else {
             view.layoutCenter(subView: indicator)
+            
             view.addSubview(progress)
             view.addConstraints([
                 NSLayoutConstraint(
@@ -50,6 +60,27 @@ final class SlideContainerViewController: UIPageViewController {
                     attribute: .width,
                     multiplier: 1,
                     constant: 100),
+                ])
+            
+            view.addSubview(errorMessageLabel)
+            view.addConstraints([
+                NSLayoutConstraint.build(errorMessageLabel, attribute: .centerY, toItem: view),
+                NSLayoutConstraint(
+                    item: errorMessageLabel,
+                    attribute: .leading,
+                    relatedBy: .equal,
+                    toItem: view,
+                    attribute: .leading,
+                    multiplier: 1,
+                    constant: 20),
+                NSLayoutConstraint(
+                    item: errorMessageLabel,
+                    attribute: .trailing,
+                    relatedBy: .equal,
+                    toItem: view,
+                    attribute: .trailing,
+                    multiplier: 1,
+                    constant: -20),
                 ])
             return
         }
@@ -131,8 +162,7 @@ extension SlideContainerViewController: StoreSubscriber {
                 indicator.removeFromSuperview()
                 progress.removeFromSuperview()
             case .failure(let error):
-                // TODO: show error
-                print(error)
+                renderErrorMessage(message: error.message)
             }
         }
         
@@ -154,5 +184,15 @@ extension SlideContainerViewController: StoreSubscriber {
         
         mainStore.dispatch(changeCurrentPage(pageIndex: toIndex))
         mainStore.dispatch(moveToSlide(pageIndex: nil))
+    }
+    
+    private func renderErrorMessage(message: String) {
+        if errorMessageLabel.isHidden {
+            indicator.removeFromSuperview()
+            progress.removeFromSuperview()
+            errorMessageLabel.text = message
+            errorMessageLabel.isHidden = false
+            mainStore.dispatch(showMenu())
+        }
     }
 }
