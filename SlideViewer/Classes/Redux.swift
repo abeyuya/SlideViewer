@@ -152,7 +152,6 @@ private func loadImageFrom(pdfDocument: PDFDocument, index: Int) -> UIImage? {
     return image
 }
 
-
 private func createThumbnailImage(originalImage: UIImage) -> UIImage? {
     let thumbnailHeight = originalImage.size.height * (Config.shared.thumbnailViewWidth / originalImage.size.width)
     return originalImage.resize(size: CGSize(width: Config.shared.thumbnailViewWidth, height: thumbnailHeight))

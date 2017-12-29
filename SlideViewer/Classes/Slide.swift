@@ -9,24 +9,25 @@ import Foundation
 import PDFKit
 
 internal struct Slide {
-    var images: [UIImage?] = []
-    var thumbnailImages: [UIImage?] = []
-    var pdfDocument: PDFDocument? = nil
-}
-
-extension Slide {
     
     internal enum State {
         case loading
         case failure(error: SlideViewerError)
         case complete(slide: Slide)
     }
-    
+
     internal enum SetupResult {
         case failure(error: SlideViewerError)
         case success(slide: Slide)
     }
     
+    var images: [UIImage?] = []
+    var thumbnailImages: [UIImage?] = []
+    var pdfDocument: PDFDocument? = nil
+}
+
+extension Slide {
+
     internal init(pdfDocument: PDFDocument) {
         self.pdfDocument = pdfDocument
         
