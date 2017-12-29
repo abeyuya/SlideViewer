@@ -61,6 +61,9 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
         
     case _ as toggleThumbnail:
         state.showThumbnail = !state.showThumbnail
+        if state.showThumbnail {
+            state.moveToThumbnailIndex = state.currentPageIndex
+        }
         
     case let action as changeIsPortrait:
         state.isPortrait = action.isPortrait

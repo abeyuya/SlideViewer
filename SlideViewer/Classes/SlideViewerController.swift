@@ -414,16 +414,27 @@ extension SlideViewerController: StoreSubscriber {
     }
     
     private func renderThumbnailView(state: SlideViewerState) {
+        let duration = 0.1
+        
         guard state.isPortrait == false else {
-            thumbnailAreaViewWidthConstraint.constant = 0
+            UIView.animate(withDuration: duration) {
+                self.thumbnailAreaViewWidthConstraint.constant = 0
+                self.view.layoutIfNeeded()
+            }
             return
         }
         
         guard state.showThumbnail else {
-            thumbnailAreaViewWidthConstraint.constant = 0
+            UIView.animate(withDuration: duration) {
+                self.thumbnailAreaViewWidthConstraint.constant = 0
+                self.view.layoutIfNeeded()
+            }
             return
         }
         
-        thumbnailAreaViewWidthConstraint.constant = Config.shared.thumbnailViewWidth
+        UIView.animate(withDuration: duration) {
+            self.thumbnailAreaViewWidthConstraint.constant = Config.shared.thumbnailViewWidth
+            self.view.layoutIfNeeded()
+        }
     }
 }
