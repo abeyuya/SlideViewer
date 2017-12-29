@@ -11,7 +11,7 @@ import ReSwift
 
 final class SlideDisplayViewController: UIViewController {
     
-    internal var index: Int = 0
+    internal var index: Int
 
     private lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
@@ -37,11 +37,20 @@ final class SlideDisplayViewController: UIViewController {
     private var imageView: UIImageView? = nil
     
     private let indicator: UIActivityIndicatorView = {
-        let v = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let v = UIActivityIndicatorView(activityIndicatorStyle: .white)
         v.startAnimating()
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
+    
+    internal init(index: Int) {
+        self.index = index
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 extension SlideDisplayViewController {
