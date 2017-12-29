@@ -13,7 +13,7 @@ final class ThumbnailContainerViewController: UIViewController {
     
     internal lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.estimatedRowHeight = mainStore.state.thumbnailHeight ?? 100
+        tableView.estimatedRowHeight = (mainStore.state.thumbnailHeight ?? 100) + 5
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.register(ThumbnailTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView()
@@ -79,7 +79,11 @@ extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewData
     }
     
     internal func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return mainStore.state.thumbnailHeight ?? tableView.estimatedRowHeight
+        if let height = mainStore.state.thumbnailHeight {
+            return height + 5
+        } else {
+            return tableView.estimatedRowHeight
+        }
     }
 }
 

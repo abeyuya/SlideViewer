@@ -154,7 +154,6 @@ extension SlideContainerViewController: StoreSubscriber {
         if viewControllers!.isEmpty {
             switch state.slide {
             case .loading(let progress):
-                print(progress)
                 self.progress.progress = progress
             case .complete(_):
                 let first = createSlideView(at: 0)

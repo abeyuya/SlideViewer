@@ -31,7 +31,7 @@ extension Slide {
     }
     
     internal static func fetch(pdfFileURL: URL, completion: @escaping (State) -> Void) {
-        guard pdfFileURL.absoluteString.hasPrefix("http") == false else {
+        guard pdfFileURL.absoluteString.hasPrefix("https") == false else {
             FileDownloader.shared.download(url: pdfFileURL) { result in
                 switch result {
                 case .loading(let progress):
