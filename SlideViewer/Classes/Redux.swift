@@ -14,7 +14,7 @@ public struct SlideViewerState: StateType {
     var isPortrait: Bool = true
     var showMenu: Bool = false
     var showThumbnail: Bool = false
-    var slide: Slide = Slide()
+    var slide: Slide.State = .loading
     var moveToSlideIndex: Int? = nil
     var moveToThumbnailIndex: Int? = nil
     var thumbnailHeight: CGFloat? = nil
@@ -27,7 +27,7 @@ internal struct hideMenu: Action {}
 internal struct showMenu: Action {}
 internal struct toggleThumbnail: Action {}
 internal struct changeIsPortrait: Action { let isPortrait: Bool }
-internal struct setSlide: Action { let slide: Slide }
+internal struct setSlideState: Action { let state: Slide.State }
 internal struct setImage: Action {
     let pageIndex: Int
     let originalImage: UIImage
@@ -63,12 +63,17 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
     case let action as changeIsPortrait:
         state.isPortrait = action.isPortrait
         
-    case let action as setSlide:
-        state.slide = action.slide
+    case let action as setSlideState:
+        state.slide = action.state
         
     case let action as setImage:
-        state.slide.images[action.pageIndex] = action.originalImage
-        state.slide.thumbnailImages[action.pageIndex] = action.thumbnailImage
+        switch state.slide {
+        case .loading, .failure(_): break
+        case .complete(var slide):
+            slide.images[action.pageIndex] = action.originalImage
+            slide.thumbnailImages[action.pageIndex] = action.thumbnailImage
+            state.slide = .complete(slide: slide)
+        }
 
     case let action as moveToSlide:
         state.moveToSlideIndex = action.pageIndex
@@ -87,9 +92,12 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
 }
 
 internal func loadImage(state: SlideViewerState, index: Int) {
+    guard case .complete(let slide) = state.slide else { return }
+    guard index < slide.images.count, slide.images[index] == nil else { return }
+    
     DispatchQueue.global(qos: .default).async {
-        guard state.slide.images[index] == nil else { return }
         guard let image = loadImageFrom(state: state, index: index) else { return }
+        
         let thumbnailImage = createThumbnailImage(originalImage: image)
         let thumbnailHeight = thumbnailImage?.size.height
         
@@ -106,13 +114,24 @@ internal func loadImage(state: SlideViewerState, index: Int) {
     }
 }
 
+internal func fetchSlide(pdfFileURL: URL) {
+    Slide.fetch(pdfFileURL: pdfFileURL) { result in
+        DispatchQueue.main.async {
+            switch result {
+            case .failure(let error):
+                mainStore.dispatch(setSlideState(state: .failure(error: error)))
+            case .success(let slide):
+                mainStore.dispatch(setSlideState(state: .complete(slide: slide)))
+            }
+        }
+    }
+}
+
 private func loadImageFrom(state: SlideViewerState, index: Int) -> UIImage? {
     
-    if let pdfDocument = state.slide.pdfDocument {
-        return loadImageFrom(pdfDocument: pdfDocument, index: index)
-    }
-    
-    return nil
+    guard case .complete(let slide) = state.slide else { return nil }
+    guard let doc = slide.pdfDocument else { return nil }
+    return loadImageFrom(pdfDocument: doc, index: index)
 }
 
 private func loadImageFrom(pdfDocument: PDFDocument, index: Int) -> UIImage? {

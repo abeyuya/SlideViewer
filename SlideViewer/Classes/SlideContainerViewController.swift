@@ -55,7 +55,8 @@ extension SlideContainerViewController: UIPageViewControllerDelegate, UIPageView
     
     internal func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let v = viewController as? SlideDisplayViewController else { return nil }
-        guard v.index < (mainStore.state.slide.images.count - 1) else { return nil }
+        guard case .complete(let slide) = mainStore.state.slide else { return nil }
+        guard v.index < (slide.images.count - 1) else { return nil }
         
         let index = v.index + 1
         return createSlideView(at: index)

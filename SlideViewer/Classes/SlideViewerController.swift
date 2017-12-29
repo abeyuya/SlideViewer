@@ -129,13 +129,40 @@ public final class SlideViewerController: UIViewController {
 
         return v
     }()
+
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private init() {
+        super.init(nibName: nil, bundle: nil)
+    }
 }
 
 extension SlideViewerController {
     
-    public static func setup(slide: Slide) -> SlideViewerController {
+    public static func setup(pdfDocument: PDFDocument) -> SlideViewerController {
         mainStore.dispatch(stateReset())
-        mainStore.dispatch(setSlide(slide: slide))
+        let slide = Slide(pdfDocument: pdfDocument)
+        mainStore.dispatch(setSlideState(state: .complete(slide: slide)))
+        let v = SlideViewerController()
+        return v
+    }
+    
+    public static func setup(pdfFileURL: URL) -> SlideViewerController {
+        mainStore.dispatch(stateReset())
+        
+        Slide.fetch(pdfFileURL: pdfFileURL) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    mainStore.dispatch(setSlideState(state: .failure(error: error)))
+                case .success(let slide):
+                    mainStore.dispatch(setSlideState(state: .complete(slide: slide)))
+                }
+            }
+        }
+        
         let v = SlideViewerController()
         return v
     }
@@ -275,8 +302,9 @@ extension SlideViewerController {
     }
     
     private func shareCurrentPageAsImage() {
-        guard mainStore.state.currentPageIndex < mainStore.state.slide.images.count,
-            let image = mainStore.state.slide.images[mainStore.state.currentPageIndex] else {
+        guard case .complete(let slide) = mainStore.state.slide,
+            mainStore.state.currentPageIndex < slide.images.count,
+            let image = slide.images[mainStore.state.currentPageIndex] else {
                 // TODO: show error
                 return
         }
@@ -286,7 +314,8 @@ extension SlideViewerController {
     }
     
     private func shareSlideAsPDF() {
-        guard let doc = mainStore.state.slide.pdfDocument,
+        guard case .complete(let slide) = mainStore.state.slide,
+            let doc = slide.pdfDocument,
             let url = doc.documentURL else {
                 // TODO: show error
                 return
@@ -349,8 +378,13 @@ extension SlideViewerController: StoreSubscriber {
         portraitTopMenuView.isHidden = false
         portraitBottomMenuView.isHidden = false
         portraitPageLabel.isHidden = false
-        portraitPageLabel.text = "\(state.currentPageIndex + 1) of \(state.slide.images.count)"
         landscapeRightMenuView.isHidden = true
+        
+        if case .complete(let slide) = state.slide {
+            portraitPageLabel.text = "\(state.currentPageIndex + 1) of \(slide.images.count)"
+        } else {
+            portraitPageLabel.text = ""
+        }
     }
     
     private func renderLandspaceMenu(state: SlideViewerState) {
@@ -358,7 +392,12 @@ extension SlideViewerController: StoreSubscriber {
         portraitBottomMenuView.isHidden = true
         portraitPageLabel.isHidden = true
         landscapeRightMenuView.isHidden = false
-        landscapeRightMenuView.pageLabel.text = "\(state.currentPageIndex + 1) of \(state.slide.images.count)"
+        
+        if case .complete(let slide) = state.slide {
+            landscapeRightMenuView.pageLabel.text = "\(state.currentPageIndex + 1) of \(slide.images.count)"
+        } else {
+            landscapeRightMenuView.pageLabel.text = ""
+        }
     }
     
     private func renderThumbnailView(state: SlideViewerState) {

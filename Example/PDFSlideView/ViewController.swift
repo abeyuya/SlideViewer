@@ -22,45 +22,22 @@ class ViewController: UIViewController {
 
     @IBAction func tapShowPDFSlideView(_ sender: Any) {
         let pdfURL = "http://gahp.net/wp-content/uploads/2017/09/sample.pdf"
-
-        Slide.build(pdfFileURL: URL(string: pdfURL)!) { result in
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let slide):
-                let vc = SlideViewerController.setup(slide: slide)
-                
-                DispatchQueue.main.async {
-                    self.present(vc, animated: true)
-                }
-            }
-        }
+        let v = SlideViewerController.setup(pdfFileURL: URL(string: pdfURL)!)
+        present(v, animated: true, completion: nil)
     }
     
     @IBAction func tapHttpsPDFFile(_ sender: Any) {
         let pdfURL = "https://speakerd.s3.amazonaws.com/presentations/50021f75cf1db900020005e7/speakerdeck.pdf"
-        
-        Slide.build(pdfFileURL: URL(string: pdfURL)!) { result in
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let slide):
-                let vc = SlideViewerController.setup(slide: slide)
-                
-                DispatchQueue.main.async {
-                    self.present(vc, animated: true)
-                }
-            }
-        }
+        let v = SlideViewerController.setup(pdfFileURL: URL(string: pdfURL)!)
+        present(v, animated: true, completion: nil)
     }
     
     @IBAction func tapShowLocalPDFFile(_ sender: Any) {
         let path = Bundle.main.path(forResource: "speakerdeck", ofType: "pdf")
         let url = URL(fileURLWithPath: path!)
         let doc = PDFDocument(url: url)
-        let slide = try! Slide(pdfDocument: doc!)
-        let vc = SlideViewerController.setup(slide: slide)
-        present(vc, animated: true)
+        let v = SlideViewerController.setup(pdfDocument: doc!)
+        present(v, animated: true)
     }
 }
 

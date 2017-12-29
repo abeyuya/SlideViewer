@@ -39,11 +39,16 @@ extension FileDownloader: URLSessionDownloadDelegate {
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         
         guard let completion = self.completion,
-            let originURL = self.originURL else { return }
+            let originURL = self.originURL else {
+                self.completion = nil
+                self.originURL = nil
+                return
+        }
+        self.completion = nil
+        self.originURL = nil
         
         guard let data = NSData(contentsOf: location), data.length > 0 else {
-            completion(.failure(error: .invalidPDFFile))
-            return
+            return completion(.failure(error: .invalidPDFFile))
         }
         
         let tempPath = NSTemporaryDirectory() + originURL.lastPathComponent
