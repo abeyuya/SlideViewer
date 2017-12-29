@@ -8,27 +8,34 @@
 import Foundation
 import PDFKit
 
-public struct Slide {
+internal struct Slide {
+    
+    internal enum State {
+        case loading
+        case failure(error: SlideViewerError)
+        case complete(slide: Slide)
+    }
+
+    internal enum SetupResult {
+        case failure(error: SlideViewerError)
+        case success(slide: Slide)
+    }
+    
     var images: [UIImage?] = []
     var thumbnailImages: [UIImage?] = []
     var pdfDocument: PDFDocument? = nil
 }
 
 extension Slide {
-    
-    public enum SetupResult {
-        case failure(error: SlideViewerError)
-        case success(slide: Slide)
-    }
-    
-    public init(pdfDocument: PDFDocument) {
+
+    internal init(pdfDocument: PDFDocument) {
         self.pdfDocument = pdfDocument
         
         self.images = Array(repeating: nil, count: pdfDocument.pageCount)
         self.thumbnailImages = Array(repeating: nil, count: pdfDocument.pageCount)
     }
     
-    public static func build(pdfFileURL: URL, completion: @escaping (SetupResult) -> Void) {
+    internal static func fetch(pdfFileURL: URL, completion: @escaping (SetupResult) -> Void) {
         guard pdfFileURL.absoluteString.hasPrefix("https") == false else {
             FileDownloader.shared.download(url: pdfFileURL) { result in
                 switch result {
@@ -46,8 +53,10 @@ extension Slide {
             return
         }
         
-        let doc = PDFDocument(url: pdfFileURL)!
-        let slide = Slide(pdfDocument: doc)
-        completion(.success(slide: slide))
+        DispatchQueue.global(qos: .default).async {
+            let doc = PDFDocument(url: pdfFileURL)!
+            let slide = Slide(pdfDocument: doc)
+            completion(.success(slide: slide))
+        }
     }
 }
