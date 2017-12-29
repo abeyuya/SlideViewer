@@ -28,7 +28,14 @@ class ViewController: UIViewController {
     
     @IBAction func tapHttpsPDFFile(_ sender: Any) {
         let pdfURL = "https://speakerd.s3.amazonaws.com/presentations/50021f75cf1db900020005e7/speakerdeck.pdf"
-        let v = SlideViewerController.setup(pdfFileURL: URL(string: pdfURL)!)
+        let avatarImageURL = "https://secure.gravatar.com/avatar/066a20c2e5d3c54f7ddb10ab9d82738e?s=47"
+        let title = "Introduction to SpeakerDeck"
+        let author = "Speaker Deck"
+        let v = SlideViewerController.setup(
+            pdfFileURL: URL(string: pdfURL)!,
+            avatarImageURL: URL(string: avatarImageURL)!,
+            title: title,
+            author: author)
         present(v, animated: true, completion: nil)
     }
     

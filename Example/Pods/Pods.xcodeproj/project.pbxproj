@@ -47,6 +47,7 @@
 		4338732E1D3EA95CEF62F9C378122C91 /* Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62516F52C6A7834F4750FD68761954CE /* Reducer.swift */; };
 		45F183320C688F9978649F30ABE21D09 /* MatchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937726C6396DDB3452E936DB4A11FFFC /* MatchError.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		4CDACD8A5A6CFB688838AA988E7D1E43 /* Nimble-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6DC95845EA8FA29E43AB9A8CA15B92 /* Nimble-dummy.m */; };
+		4D2AF0111FF6602600A3DB1B /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2AF0101FF6602600A3DB1B /* UIImage+Extension.swift */; };
 		4DA5E3761FF4C20000AA8E81 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5E3741FF4C1D800AA8E81 /* UIView+Extension.swift */; };
 		4DA5E3781FF4C93700AA8E81 /* NSLayoutConstraint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5E3771FF4C93700AA8E81 /* NSLayoutConstraint+Extension.swift */; };
 		4DA5E37D1FF50A0D00AA8E81 /* PortraitBottomMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5E37B1FF5094F00AA8E81 /* PortraitBottomMenuView.swift */; };
@@ -269,6 +270,7 @@
 		4B10AC3A0D18E7371734E749837CF95A /* AllPass.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AllPass.swift; path = Sources/Nimble/Matchers/AllPass.swift; sourceTree = "<group>"; };
 		4C6D7929283C6C5A01A5F68103B2BA6E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CF9E7113923AB260286481C7E57CF4A /* BeVoid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeVoid.swift; path = Sources/Nimble/Matchers/BeVoid.swift; sourceTree = "<group>"; };
+		4D2AF0101FF6602600A3DB1B /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIImage+Extension.swift"; path = "SlideViewer/Classes/UIImage+Extension.swift"; sourceTree = "<group>"; };
 		4DA5E3741FF4C1D800AA8E81 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIView+Extension.swift"; path = "SlideViewer/Classes/UIView+Extension.swift"; sourceTree = "<group>"; };
 		4DA5E3771FF4C93700AA8E81 /* NSLayoutConstraint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NSLayoutConstraint+Extension.swift"; path = "SlideViewer/Classes/NSLayoutConstraint+Extension.swift"; sourceTree = "<group>"; };
 		4DA5E3791FF5087F00AA8E81 /* PortraitBottomMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PortraitBottomMenuView.xib; path = SlideViewer/Assets/PortraitBottomMenuView.xib; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 				4DA5E3741FF4C1D800AA8E81 /* UIView+Extension.swift */,
 				4DA5E3771FF4C93700AA8E81 /* NSLayoutConstraint+Extension.swift */,
 				4DA5E3811FF5347600AA8E81 /* FileDownloader.swift */,
+				4D2AF0101FF6602600A3DB1B /* UIImage+Extension.swift */,
 			);
 			name = SlideViewer;
 			path = ../..;
@@ -1220,6 +1223,7 @@
 				0CC9D15AC0409327EE48EEF0BA57FA7F /* SlideDisplayViewController.swift in Sources */,
 				B1E14A0DA597979FE76EABA80B5DCCF2 /* SlideViewer-dummy.m in Sources */,
 				56FD69E5394407C6439117E498B9C1E7 /* SlideViewerController.swift in Sources */,
+				4D2AF0111FF6602600A3DB1B /* UIImage+Extension.swift in Sources */,
 				C69816BEFFA8C7A0878BD5E62D4E2B1B /* SlideViewerError.swift in Sources */,
 				6D795E2AC9BB0B05CBCD4DE2664DD9FF /* ThumbnailContainerViewController.swift in Sources */,
 				4DA5E3821FF5347600AA8E81 /* FileDownloader.swift in Sources */,

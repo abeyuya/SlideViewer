@@ -38,7 +38,7 @@ final class SlideContainerViewController: UIPageViewController {
         delegate = self
         dataSource = self
         
-        guard case .complete(_) = mainStore.state.slide else {
+        guard case .complete = mainStore.state.slide.state else {
             view.layoutCenter(subView: indicator)
             
             view.addSubview(progress)
@@ -93,7 +93,7 @@ final class SlideContainerViewController: UIPageViewController {
         super.viewWillAppear(animated)
         mainStore.subscribe(self) { subscription in
             subscription.select { state in
-                SubscribeState(toIndex: state.moveToSlideIndex, slide: state.slide)
+                SubscribeState(toIndex: state.moveToSlideIndex, slideState: state.slide.state)
             }
         }
     }
@@ -125,8 +125,8 @@ extension SlideContainerViewController: UIPageViewControllerDelegate, UIPageView
     
     internal func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let v = viewController as? SlideDisplayViewController else { return nil }
-        guard case .complete(let slide) = mainStore.state.slide else { return nil }
-        guard v.index < (slide.images.count - 1) else { return nil }
+        guard case .complete = mainStore.state.slide.state else { return nil }
+        guard v.index < (mainStore.state.slide.images.count - 1) else { return nil }
         
         let index = v.index + 1
         return createSlideView(at: index)
@@ -145,23 +145,23 @@ extension SlideContainerViewController: StoreSubscriber {
     
     internal struct SubscribeState {
         let toIndex: Int?
-        let slide: Slide.State
+        let slideState: Slide.State
     }
     
     internal typealias StoreSubscriberStateType = SubscribeState
     
     internal func newState(state: StoreSubscriberStateType) {
         if viewControllers!.isEmpty {
-            switch state.slide {
+            switch state.slideState {
             case .loading(let progress):
                 self.progress.progress = progress
-            case .complete(_):
+            case .failure(let error):
+                renderErrorMessage(message: error.message)
+            case .complete:
                 let first = createSlideView(at: 0)
                 setViewControllers([first], direction: .forward, animated: false, completion: nil)
                 indicator.removeFromSuperview()
                 progress.removeFromSuperview()
-            case .failure(let error):
-                renderErrorMessage(message: error.message)
             }
         }
         
