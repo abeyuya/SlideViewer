@@ -10,6 +10,7 @@ import Foundation
 internal final class FileDownloader: NSObject {
     
     enum DownloadResult {
+        case loading(progress: Float)
         case failure(error: SlideViewerError)
         case success(url: URL)
     }
@@ -62,6 +63,14 @@ extension FileDownloader: URLSessionDownloadDelegate {
             session.finishTasksAndInvalidate()
         } else {
             session.invalidateAndCancel()
+        }
+    }
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        let progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+        
+        if let completion = self.completion {
+            completion(.loading(progress: progress))
         }
     }
 }

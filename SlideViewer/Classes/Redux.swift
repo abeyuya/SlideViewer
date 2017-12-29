@@ -14,7 +14,7 @@ public struct SlideViewerState: StateType {
     var isPortrait: Bool = true
     var showMenu: Bool = false
     var showThumbnail: Bool = false
-    var slide: Slide.State = .loading
+    var slide: Slide.State = .loading(progress: 0)
     var moveToSlideIndex: Int? = nil
     var moveToThumbnailIndex: Int? = nil
     var thumbnailHeight: CGFloat? = nil
@@ -118,9 +118,11 @@ internal func fetchSlide(pdfFileURL: URL) {
     Slide.fetch(pdfFileURL: pdfFileURL) { result in
         DispatchQueue.main.async {
             switch result {
+            case .loading(let progress):
+                mainStore.dispatch(setSlideState(state: .loading(progress: progress)))
             case .failure(let error):
                 mainStore.dispatch(setSlideState(state: .failure(error: error)))
-            case .success(let slide):
+            case .complete(let slide):
                 mainStore.dispatch(setSlideState(state: .complete(slide: slide)))
             }
         }

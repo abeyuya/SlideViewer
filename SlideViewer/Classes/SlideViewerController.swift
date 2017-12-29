@@ -155,9 +155,11 @@ extension SlideViewerController {
         Slide.fetch(pdfFileURL: pdfFileURL) { result in
             DispatchQueue.main.async {
                 switch result {
+                case .loading(let progress):
+                    mainStore.dispatch(setSlideState(state: .loading(progress: progress)))
                 case .failure(let error):
                     mainStore.dispatch(setSlideState(state: .failure(error: error)))
-                case .success(let slide):
+                case .complete(let slide):
                     mainStore.dispatch(setSlideState(state: .complete(slide: slide)))
                 }
             }
@@ -325,6 +327,9 @@ extension SlideViewerController {
             FileDownloader.shared.download(url: url) { result in
                 
                 switch result {
+                case .loading(let progress):
+                    // TODO: show progress
+                    print(progress)
                 case .failure(let error):
                     // TODO: show error
                     print(error)

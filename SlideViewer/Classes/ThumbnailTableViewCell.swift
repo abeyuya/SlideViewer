@@ -195,16 +195,18 @@ extension ThumbnailTableViewCell: StoreSubscriber {
     internal typealias StoreSubscriberStateType = SubscribeState
     
     internal func newState(state: StoreSubscriberStateType) {
-        if let index = self.index {
-            renderFrame(show: index == state.currentPageIndex)
-        }
-
+        guard let index = self.index else { return }
+        
+        renderFrame(show: index == state.currentPageIndex)
+        
         if thumbnail.image == nil,
             let image = state.thumbnailImage,
             let tableView = tableView {
             thumbnail.image = image
             indicator.removeFromSuperview()
-            tableView.reloadData()
+            tableView.reloadRows(
+                at: [IndexPath(row: index, section: 0)],
+                with: .automatic)
         }
     }
 }

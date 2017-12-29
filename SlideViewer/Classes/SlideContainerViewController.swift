@@ -18,6 +18,12 @@ final class SlideContainerViewController: UIPageViewController {
         return v
     }()
     
+    private lazy var progress: UIProgressView = {
+        let v = UIProgressView(progressViewStyle: .default)
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
     internal override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
@@ -25,6 +31,26 @@ final class SlideContainerViewController: UIPageViewController {
         
         guard case .complete(_) = mainStore.state.slide else {
             view.layoutCenter(subView: indicator)
+            view.addSubview(progress)
+            view.addConstraints([
+                NSLayoutConstraint(
+                    item: progress,
+                    attribute: .top,
+                    relatedBy: .equal,
+                    toItem: indicator,
+                    attribute: .bottom,
+                    multiplier: 1,
+                    constant: 20),
+                NSLayoutConstraint.build(progress, attribute: .centerX, toItem: indicator),
+                NSLayoutConstraint(
+                    item: progress,
+                    attribute: .width,
+                    relatedBy: .equal,
+                    toItem: nil,
+                    attribute: .width,
+                    multiplier: 1,
+                    constant: 100),
+                ])
             return
         }
         
@@ -94,10 +120,20 @@ extension SlideContainerViewController: StoreSubscriber {
     internal typealias StoreSubscriberStateType = SubscribeState
     
     internal func newState(state: StoreSubscriberStateType) {
-        if viewControllers!.isEmpty, case .complete(_) = state.slide {
-            let first = createSlideView(at: 0)
-            setViewControllers([first], direction: .forward, animated: false, completion: nil)
-            indicator.removeFromSuperview()
+        if viewControllers!.isEmpty {
+            switch state.slide {
+            case .loading(let progress):
+                print(progress)
+                self.progress.progress = progress
+            case .complete(_):
+                let first = createSlideView(at: 0)
+                setViewControllers([first], direction: .forward, animated: false, completion: nil)
+                indicator.removeFromSuperview()
+                progress.removeFromSuperview()
+            case .failure(let error):
+                // TODO: show error
+                print(error)
+            }
         }
         
         if let toIndex = state.toIndex {
