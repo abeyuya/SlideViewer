@@ -19,43 +19,35 @@ public final class SlideViewerController: UIViewController {
         return v
     }()
     
-    private lazy var portraitTopMenuView: PortraitTopMenuView = {
-        let v = try! PortraitTopMenuView.initFromBundledNib()
-        v.closeButton.addTarget(
-            self,
-            action: #selector(self.close),
-            for: .touchUpInside)
+    public lazy var portraitTopMenuView: PortraitTopMenuView = {
+        let v = try! DefaultPortraitTopMenuView.initFromBundledNib()
+ 
+        v.delegate = self
         v.titleLabel.text = mainStore.state.slide.info.title
         v.authorLabel.text = mainStore.state.slide.info.author
         if let url = mainStore.state.slide.info.avatarImageURL {
             v.setAvatarImage(imageURL: url)
+            DispatchQueue.global(qos: .default).async {
+                guard let data = try? Data(contentsOf: url) else { return }
+                let image = UIImage(data: data)
+                
+                DispatchQueue.main.async {
+                    v.avatarImage.image = image
+                }
+            }
         }
         return v
     }()
     
-    private lazy var portraitBottomMenuView: PortraitBottomMenuView = {
-        let v = try! PortraitBottomMenuView.initFromBundledNib()
-        v.shareButton.addTarget(
-            self,
-            action: #selector(self.showShareSelect),
-            for: .touchUpInside)
+    public lazy var portraitBottomMenuView: PortraitBottomMenuView = {
+        let v = try! DefaultPortraitBottomMenuView.initFromBundledNib()
+        v.delegate = self
         return v
     }()
     
-    private lazy var landscapeRightMenuView: LandscapeRightMenuView = {
-        let v = try! LandscapeRightMenuView.initFromBundledNib()
-        v.closeButton.addTarget(
-            self,
-            action: #selector(self.close),
-            for: .touchUpInside)
-        v.thumbnailButton.addTarget(
-            self,
-            action: #selector(self.toggleThumbnailView),
-            for: .touchUpInside)
-        v.shareButton.addTarget(
-            self,
-            action: #selector(self.showShareSelect),
-            for: .touchUpInside)
+    public lazy var landscapeRightMenuView: LandscapeRightMenuView = {
+        let v = try! DefaultLandscapeRightMenuView.initFromBundledNib()
+        v.delegate = self
         return v
     }()
     
@@ -292,9 +284,35 @@ extension SlideViewerController {
     }
 }
 
+extension SlideViewerController: LandscapeRightMenuDelegate {
+    public func showShareSelctFromLandscapeRightMenu() {
+        showShareSelect()
+    }
+    
+    public func closeFromLandscapeRightMenu() {
+        close()
+    }
+    
+    public func toggleThumbnailAction() {
+        toggleThumbnailView()
+    }
+}
+
+extension SlideViewerController: PortraitTopMenuDelegate {
+    public func closeFromPortraitTopMenu() {
+        close()
+    }
+}
+
+extension SlideViewerController: PortraitBottomMenuDelegate {
+    public func showShareSelctFromPortraitBottomMenu() {
+        showShareSelect()
+    }
+}
+
 extension SlideViewerController {
     
-    @objc func close() {
+    func close() {
         mainStore.dispatch(stateReset())
         dismiss(animated: true, completion: nil)
     }
@@ -303,11 +321,11 @@ extension SlideViewerController {
         mainStore.dispatch(toggleMenu())
     }
     
-    @objc private func toggleThumbnailView() {
+    private func toggleThumbnailView() {
         mainStore.dispatch(toggleThumbnail())
     }
     
-    @objc private func showShareSelect() {
+    private func showShareSelect() {
         present(shareSelectSheet, animated: true, completion: nil)
     }
     
@@ -407,9 +425,13 @@ extension SlideViewerController: StoreSubscriber {
         landscapeRightMenuView.isHidden = false
         
         if case .complete = state.slide.state {
-            landscapeRightMenuView.pageLabel.text = "\(state.currentPageIndex + 1) of \(state.slide.images.count)"
+            landscapeRightMenuView.update(
+                currentPageIndex: state.currentPageIndex,
+                pageCount: state.slide.images.count)
         } else {
-            landscapeRightMenuView.pageLabel.text = ""
+            landscapeRightMenuView.update(
+                currentPageIndex: nil,
+                pageCount: nil)
         }
     }
     

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view alpha="0.5" contentMode="scaleToFill" id="iN0-l3-epB" customClass="CustomLandscapeRightMenuView" customModule="SlideViewer_Example" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="85" height="330"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LvG-rI-gwy">
+                    <rect key="frame" x="22.5" y="8" width="39" height="30"/>
+                    <state key="normal" title="Close"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUJ-6C-NdO">
+                    <rect key="frame" x="18" y="292" width="49" height="30"/>
+                    <state key="normal" title="Thumb"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w1C-o3-afS">
+                    <rect key="frame" x="22.5" y="254" width="40" height="30"/>
+                    <state key="normal" title="Share"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Z7-1C-fHX">
+                    <rect key="frame" x="15.5" y="216" width="54" height="30"/>
+                    <state key="normal" title="Custom"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KNN-H1-Ie8">
+                    <rect key="frame" x="21" y="165" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.55634254220000001" green="0.97934550050000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="1Z7-1C-fHX" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="HhO-9e-gd0"/>
+                <constraint firstItem="w1C-o3-afS" firstAttribute="top" secondItem="1Z7-1C-fHX" secondAttribute="bottom" constant="8" id="I6T-zK-1LU"/>
+                <constraint firstItem="1Z7-1C-fHX" firstAttribute="top" secondItem="KNN-H1-Ie8" secondAttribute="bottom" constant="30" id="OPg-vi-fv5"/>
+                <constraint firstItem="cUJ-6C-NdO" firstAttribute="top" secondItem="w1C-o3-afS" secondAttribute="bottom" constant="8" id="SsZ-4q-KlZ"/>
+                <constraint firstItem="LvG-rI-gwy" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="gxQ-YX-0kt"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="cUJ-6C-NdO" secondAttribute="bottom" constant="8" id="h5d-aH-Nev"/>
+                <constraint firstItem="LvG-rI-gwy" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="j6J-YL-a9i"/>
+                <constraint firstItem="w1C-o3-afS" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="scd-hU-Qsh"/>
+                <constraint firstItem="KNN-H1-Ie8" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="u0A-eQ-lkz"/>
+                <constraint firstItem="cUJ-6C-NdO" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="vb5-w0-gmY"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="closeButton" destination="LvG-rI-gwy" id="tnq-P3-zmY"/>
+                <outlet property="customButton" destination="1Z7-1C-fHX" id="rxt-Lb-xij"/>
+                <outlet property="label" destination="KNN-H1-Ie8" id="ScG-fj-hlp"/>
+                <outlet property="shareButton" destination="w1C-o3-afS" id="GVX-vo-yuA"/>
+                <outlet property="thumbButton" destination="cUJ-6C-NdO" id="Gnj-OE-SaE"/>
+            </connections>
+            <point key="canvasLocation" x="-110.5" y="-109"/>
+        </view>
+    </objects>
+</document>

@@ -51,7 +51,7 @@
 		4DA5E3761FF4C20000AA8E81 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5E3741FF4C1D800AA8E81 /* UIView+Extension.swift */; };
 		4DA5E3781FF4C93700AA8E81 /* NSLayoutConstraint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5E3771FF4C93700AA8E81 /* NSLayoutConstraint+Extension.swift */; };
 		4DA5E37D1FF50A0D00AA8E81 /* PortraitBottomMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5E37B1FF5094F00AA8E81 /* PortraitBottomMenuView.swift */; };
-		4DA5E37E1FF50A1C00AA8E81 /* PortraitBottomMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DA5E3791FF5087F00AA8E81 /* PortraitBottomMenuView.xib */; };
+		4DA5E37E1FF50A1C00AA8E81 /* DefaultPortraitBottomMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DA5E3791FF5087F00AA8E81 /* DefaultPortraitBottomMenuView.xib */; };
 		4DA5E3801FF510F600AA8E81 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DA5E37F1FF510F600AA8E81 /* Media.xcassets */; };
 		4DA5E3821FF5347600AA8E81 /* FileDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5E3811FF5347600AA8E81 /* FileDownloader.swift */; };
 		4DF0BF6E6FF86A5D46DB5DA1569DB5BB /* ReSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6467F5A76329CF4CFC7A26814E0EB6 /* ReSwift-dummy.m */; };
@@ -97,7 +97,7 @@
 		8800652C97DD22C6BBEC71F3711EBB8D /* QuickConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = FD082E409DF8351DC8E3E20490BAE817 /* QuickConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8B55BD430033027AD5FF22D630DD9F62 /* DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = A1793AC228F336FC32D1F4B1D4BA2B04 /* DSL.m */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		8B9988FB130D59B7CCF18FC2709A9092 /* ExampleMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D56A1524EF30FEE7249D0E0D60D8DF /* ExampleMetadata.swift */; };
-		8CA37F14270581D01CB2122C7A61DE36 /* LandscapeRightMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 247DEC9E6653945A43ED1DD1EFB215CB /* LandscapeRightMenuView.xib */; };
+		8CA37F14270581D01CB2122C7A61DE36 /* DefaultLandscapeRightMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 247DEC9E6653945A43ED1DD1EFB215CB /* DefaultLandscapeRightMenuView.xib */; };
 		8FE324558530C7D1D034AF8ADAA114D6 /* Slide.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9AD4635BC1AD4899D14FC309E5B263 /* Slide.swift */; };
 		914BA96FA43F7A6513BB545DA7BEF27C /* HooksPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEEAD9CED7F2B93D17C078FDCF88A6E2 /* HooksPhase.swift */; };
 		942FA508F22ED7092314C8034EDF5120 /* Behavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62E00F5CD7DA7409F8C7AC6A14B880E /* Behavior.swift */; };
@@ -144,7 +144,7 @@
 		D32C9D9322A49A2D7B943E9B43427474 /* SlideViewer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 217D80BEBBEB4638DD31EC36A03BC00C /* SlideViewer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3608E03074ACB024AFF72365D0DC673 /* Quick-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F3BE2562E1EF1421239B0BC693368FF0 /* Quick-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9E62C41794D0B5D2CD68CA92C4BA836 /* mach_excServer.c in Sources */ = {isa = PBXBuildFile; fileRef = 7B5221D1B7873E8C383870EDC228AEF4 /* mach_excServer.c */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
-		DA1A003306D686BC4C29705ED1324368 /* PortraitTopMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C544A6AE9BD267FAB1BA4C782C062FE9 /* PortraitTopMenuView.xib */; };
+		DA1A003306D686BC4C29705ED1324368 /* DefaultPortraitTopMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C544A6AE9BD267FAB1BA4C782C062FE9 /* DefaultPortraitTopMenuView.xib */; };
 		DAC22A8D9EA6EE62FAE07207004974AD /* ReSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B4F1097957667BD8F2A850EE95B03C2 /* ReSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF026F6F406A4FB6CEA63B0A4B9E27DD /* AllPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B10AC3A0D18E7371734E749837CF95A /* AllPass.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		E2EDFDF18433D3A3E972FDDAC2AA57F5 /* Redux.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB99D7A06D316AAC6E588698D642C296 /* Redux.swift */; };
@@ -241,7 +241,7 @@
 		217D80BEBBEB4638DD31EC36A03BC00C /* SlideViewer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SlideViewer-umbrella.h"; sourceTree = "<group>"; };
 		21C9A93C1A19CB0F330392B582C9E940 /* StoreType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StoreType.swift; path = ReSwift/CoreTypes/StoreType.swift; sourceTree = "<group>"; };
 		220E4BA1EAA6727C4DDB07B1AE34043E /* NimbleXCTestHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NimbleXCTestHandler.swift; path = Sources/Nimble/Adapters/NimbleXCTestHandler.swift; sourceTree = "<group>"; };
-		247DEC9E6653945A43ED1DD1EFB215CB /* LandscapeRightMenuView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = LandscapeRightMenuView.xib; path = SlideViewer/Assets/LandscapeRightMenuView.xib; sourceTree = "<group>"; };
+		247DEC9E6653945A43ED1DD1EFB215CB /* DefaultLandscapeRightMenuView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = DefaultLandscapeRightMenuView.xib; path = SlideViewer/Assets/DefaultLandscapeRightMenuView.xib; sourceTree = "<group>"; };
 		24EBB717123345590B06CE5296FBFA2F /* SlideViewer.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlideViewer.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		263E346342BDACF9A8D546099F395CF2 /* Store.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Store.swift; path = ReSwift/CoreTypes/Store.swift; sourceTree = "<group>"; };
 		2888E94DA80F91C33F0B2988EE5F764B /* FailureMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FailureMessage.swift; path = Sources/Nimble/FailureMessage.swift; sourceTree = "<group>"; };
@@ -273,7 +273,7 @@
 		4D2AF0101FF6602600A3DB1B /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIImage+Extension.swift"; path = "SlideViewer/Classes/UIImage+Extension.swift"; sourceTree = "<group>"; };
 		4DA5E3741FF4C1D800AA8E81 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIView+Extension.swift"; path = "SlideViewer/Classes/UIView+Extension.swift"; sourceTree = "<group>"; };
 		4DA5E3771FF4C93700AA8E81 /* NSLayoutConstraint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NSLayoutConstraint+Extension.swift"; path = "SlideViewer/Classes/NSLayoutConstraint+Extension.swift"; sourceTree = "<group>"; };
-		4DA5E3791FF5087F00AA8E81 /* PortraitBottomMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PortraitBottomMenuView.xib; path = SlideViewer/Assets/PortraitBottomMenuView.xib; sourceTree = "<group>"; };
+		4DA5E3791FF5087F00AA8E81 /* DefaultPortraitBottomMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DefaultPortraitBottomMenuView.xib; path = SlideViewer/Assets/DefaultPortraitBottomMenuView.xib; sourceTree = "<group>"; };
 		4DA5E37B1FF5094F00AA8E81 /* PortraitBottomMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PortraitBottomMenuView.swift; path = SlideViewer/Classes/PortraitBottomMenuView.swift; sourceTree = "<group>"; };
 		4DA5E37F1FF510F600AA8E81 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4DA5E3811FF5347600AA8E81 /* FileDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileDownloader.swift; path = SlideViewer/Classes/FileDownloader.swift; sourceTree = "<group>"; };
@@ -357,7 +357,7 @@
 		C1453023E742E250038EE8F26E7665C3 /* World+DSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "World+DSL.swift"; path = "Sources/Quick/DSL/World+DSL.swift"; sourceTree = "<group>"; };
 		C31BCB555328861B8BB96432D2E21E8F /* ReSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ReSwift-prefix.pch"; sourceTree = "<group>"; };
 		C4DF74DFDC37AFE450BEB7F19E63F8D7 /* World+DSL.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "World+DSL.h"; path = "Sources/QuickObjectiveC/DSL/World+DSL.h"; sourceTree = "<group>"; };
-		C544A6AE9BD267FAB1BA4C782C062FE9 /* PortraitTopMenuView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = PortraitTopMenuView.xib; path = SlideViewer/Assets/PortraitTopMenuView.xib; sourceTree = "<group>"; };
+		C544A6AE9BD267FAB1BA4C782C062FE9 /* DefaultPortraitTopMenuView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = DefaultPortraitTopMenuView.xib; path = SlideViewer/Assets/DefaultPortraitTopMenuView.xib; sourceTree = "<group>"; };
 		C9B461A456E2398216F21D9C687E18FE /* Match.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Match.swift; path = Sources/Nimble/Matchers/Match.swift; sourceTree = "<group>"; };
 		CA31CBE44E273564706C8BEC1E387D5F /* Coding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Coding.swift; path = ReSwift/Utils/Coding.swift; sourceTree = "<group>"; };
 		CA5BEB2BA1B8CEC77616BB12B4F218E4 /* Async.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Async.swift; path = Sources/Nimble/Utils/Async.swift; sourceTree = "<group>"; };
@@ -756,9 +756,9 @@
 			isa = PBXGroup;
 			children = (
 				4DA5E37F1FF510F600AA8E81 /* Media.xcassets */,
-				247DEC9E6653945A43ED1DD1EFB215CB /* LandscapeRightMenuView.xib */,
-				C544A6AE9BD267FAB1BA4C782C062FE9 /* PortraitTopMenuView.xib */,
-				4DA5E3791FF5087F00AA8E81 /* PortraitBottomMenuView.xib */,
+				247DEC9E6653945A43ED1DD1EFB215CB /* DefaultLandscapeRightMenuView.xib */,
+				C544A6AE9BD267FAB1BA4C782C062FE9 /* DefaultPortraitTopMenuView.xib */,
+				4DA5E3791FF5087F00AA8E81 /* DefaultPortraitBottomMenuView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1053,10 +1053,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CA37F14270581D01CB2122C7A61DE36 /* LandscapeRightMenuView.xib in Resources */,
-				DA1A003306D686BC4C29705ED1324368 /* PortraitTopMenuView.xib in Resources */,
+				8CA37F14270581D01CB2122C7A61DE36 /* DefaultLandscapeRightMenuView.xib in Resources */,
+				DA1A003306D686BC4C29705ED1324368 /* DefaultPortraitTopMenuView.xib in Resources */,
 				4DA5E3801FF510F600AA8E81 /* Media.xcassets in Resources */,
-				4DA5E37E1FF50A1C00AA8E81 /* PortraitBottomMenuView.xib in Resources */,
+				4DA5E37E1FF50A1C00AA8E81 /* DefaultPortraitBottomMenuView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

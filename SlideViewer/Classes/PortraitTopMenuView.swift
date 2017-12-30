@@ -7,14 +7,31 @@
 
 import UIKit
 
-final class PortraitTopMenuView: UIView {
+public protocol PortraitTopMenu {
+    var delegate: PortraitTopMenuDelegate? { get set }
+}
+
+public protocol PortraitTopMenuDelegate {
+    func closeFromPortraitTopMenu() -> Void
+}
+
+open class PortraitTopMenuView: UIView, PortraitTopMenu {
+
+    public var delegate: PortraitTopMenuDelegate? = nil
+    
+    @objc public func closeAction() {
+        delegate?.closeFromPortraitTopMenu()
+    }
+}
+
+final class DefaultPortraitTopMenuView: PortraitTopMenuView {
     
     @IBOutlet var closeButton: UIButton!
     @IBOutlet var authorLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var avatarImage: UIImageView!
     
-    internal static func initFromBundledNib() throws -> PortraitTopMenuView {
+    internal static func initFromBundledNib() throws -> DefaultPortraitTopMenuView {
         let podBundle = Bundle(for: SlideViewerController.classForCoder())
         
         guard let bundleURL = podBundle.url(forResource: "SlideViewer", withExtension: "bundle"),
@@ -23,13 +40,18 @@ final class PortraitTopMenuView: UIView {
         }
         
         guard let topMenu = bundle.loadNibNamed(
-            "PortraitTopMenuView",
+            "DefaultPortraitTopMenuView",
             owner: self,
-            options: nil)?.first as? PortraitTopMenuView else {
+            options: nil)?.first as? DefaultPortraitTopMenuView else {
                 throw SlideViewerError.cannotLoadBundledResource
         }
         
         topMenu.translatesAutoresizingMaskIntoConstraints = false
+        
+        topMenu.closeButton.addTarget(
+            topMenu,
+            action: #selector(closeAction),
+            for: .touchUpInside)
         
         return topMenu
     }

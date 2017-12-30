@@ -7,11 +7,28 @@
 
 import UIKit
 
-final class PortraitBottomMenuView: UIView {
+public protocol PortraitBottomMenu {
+    var delegate: PortraitBottomMenuDelegate? { get set }
+}
+
+public protocol PortraitBottomMenuDelegate {
+    func showShareSelctFromPortraitBottomMenu() -> Void
+}
+
+open class PortraitBottomMenuView: UIView, PortraitBottomMenu {
+    
+    public var delegate: PortraitBottomMenuDelegate? = nil
+    
+    @objc public func showShareSelectAction() {
+        delegate?.showShareSelctFromPortraitBottomMenu()
+    }
+}
+
+final class DefaultPortraitBottomMenuView: PortraitBottomMenuView {
 
     @IBOutlet weak var shareButton: UIButton!
     
-    internal static func initFromBundledNib() throws -> PortraitBottomMenuView {
+    internal static func initFromBundledNib() throws -> DefaultPortraitBottomMenuView {
         let podBundle = Bundle(for: SlideViewerController.classForCoder())
         
         guard let bundleURL = podBundle.url(forResource: "SlideViewer", withExtension: "bundle"),
@@ -19,15 +36,20 @@ final class PortraitBottomMenuView: UIView {
                 throw SlideViewerError.cannotLoadBundledResource
         }
         
-        guard let topMenu = bundle.loadNibNamed(
-            "PortraitBottomMenuView",
+        guard let bottomMenu = bundle.loadNibNamed(
+            "DefaultPortraitBottomMenuView",
             owner: self,
-            options: nil)?.first as? PortraitBottomMenuView else {
+            options: nil)?.first as? DefaultPortraitBottomMenuView else {
                 throw SlideViewerError.cannotLoadBundledResource
         }
         
-        topMenu.translatesAutoresizingMaskIntoConstraints = false
+        bottomMenu.shareButton.addTarget(
+            bottomMenu,
+            action: #selector(showShareSelectAction),
+            for: .touchUpInside)
+
+        bottomMenu.translatesAutoresizingMaskIntoConstraints = false
         
-        return topMenu
+        return bottomMenu
     }
 }

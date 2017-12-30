@@ -20,36 +20,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CcE-zD-ndr">
-                                <rect key="frame" x="111" y="146" width="153" height="30"/>
-                                <state key="normal" title="show from http pdf url"/>
-                                <connections>
-                                    <action selector="tapShowPDFSlideView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="QTp-Zr-LPD"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zdc-K3-RJv">
-                                <rect key="frame" x="107" y="206" width="160" height="30"/>
+                                <rect key="frame" x="107.66666666666669" y="108" width="160" height="30"/>
                                 <state key="normal" title="show from local pdf file"/>
                                 <connections>
                                     <action selector="tapShowLocalPDFFile:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="2as-PY-VGa"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dIC-e2-eOj">
-                                <rect key="frame" x="107" y="266" width="161" height="30"/>
+                                <rect key="frame" x="107" y="228" width="161" height="30"/>
                                 <state key="normal" title="show from https pdf url"/>
                                 <connections>
                                     <action selector="tapHttpsPDFFile:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="bzp-WY-QhT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uGj-X0-FIY">
+                                <rect key="frame" x="87" y="288" width="201" height="30"/>
+                                <state key="normal" title="show with custom menu view"/>
+                                <connections>
+                                    <action selector="tapShowWithCustomMenu:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="aP2-UH-AD1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CcE-zD-ndr">
+                                <rect key="frame" x="111" y="168" width="153" height="30"/>
+                                <state key="normal" title="show from http pdf url"/>
+                                <connections>
+                                    <action selector="tapShowPDFSlideView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="QTp-Zr-LPD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="uGj-X0-FIY" firstAttribute="top" secondItem="dIC-e2-eOj" secondAttribute="bottom" constant="30" id="9Vk-OV-tOu"/>
                             <constraint firstItem="CcE-zD-ndr" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="CAW-jK-3ry"/>
-                            <constraint firstItem="dIC-e2-eOj" firstAttribute="top" secondItem="zdc-K3-RJv" secondAttribute="bottom" constant="30" id="MRG-ap-8oZ"/>
+                            <constraint firstItem="zdc-K3-RJv" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="64" id="FU0-7N-Ebk"/>
+                            <constraint firstItem="CcE-zD-ndr" firstAttribute="top" secondItem="zdc-K3-RJv" secondAttribute="bottom" constant="30" id="HEf-8R-ca5"/>
                             <constraint firstItem="zdc-K3-RJv" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="S7V-ks-7Dd"/>
-                            <constraint firstItem="CcE-zD-ndr" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="102" id="g0t-Ud-d5U"/>
+                            <constraint firstItem="dIC-e2-eOj" firstAttribute="top" secondItem="CcE-zD-ndr" secondAttribute="bottom" constant="30" id="cmU-2V-Dp3"/>
                             <constraint firstItem="dIC-e2-eOj" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="qbK-vs-q38"/>
-                            <constraint firstItem="zdc-K3-RJv" firstAttribute="top" secondItem="CcE-zD-ndr" secondAttribute="bottom" constant="30" id="tIO-Pf-vpV"/>
+                            <constraint firstItem="uGj-X0-FIY" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="uLI-f2-7vp"/>
                         </constraints>
                     </view>
                 </viewController>

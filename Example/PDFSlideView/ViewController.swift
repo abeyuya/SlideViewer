@@ -46,5 +46,19 @@ class ViewController: UIViewController {
         let v = SlideViewerController.setup(pdfDocument: doc!)
         present(v, animated: true)
     }
+    
+    @IBAction func tapShowWithCustomMenu(_ sender: Any) {
+        let path = Bundle.main.path(forResource: "speakerdeck", ofType: "pdf")!
+        let url = URL(fileURLWithPath: path)
+        let doc = PDFDocument(url: url)!
+        let v = SlideViewerController.setup(pdfDocument: doc)
+        
+        let right = CustomLandscapeRightMenuView.build(vc: v)
+        v.landscapeRightMenuView = right
+
+        present(v, animated: true)
+    }
+
 }
+
 
