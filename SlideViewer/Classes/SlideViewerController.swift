@@ -350,20 +350,9 @@ extension SlideViewerController {
         }
         
         guard url.absoluteString.hasPrefix("http") == false else {
-            FileDownloader.shared.download(url: url) { result in
-                
-                switch result {
-                case .loading(let progress):
-                    // TODO: show progress
-                    print(progress)
-                case .failure(let error):
-                    // TODO: show error
-                    print(error)
-                case .success(let url):
-                    self.showSharePDFFileActivity(url: url)
-                }
-            }
-            
+            let tempPath = NSTemporaryDirectory() + url.lastPathComponent
+            doc.write(toFile: tempPath)
+            showSharePDFFileActivity(url: URL.init(fileURLWithPath: tempPath))
             return
         }
 
