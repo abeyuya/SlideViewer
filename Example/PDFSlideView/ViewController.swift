@@ -58,4 +58,13 @@ class ViewController: UIViewController {
 
         present(v, animated: true)
     }
+    
+    
+    @IBAction func tapShowPasswordFile(_ sender: Any) {
+        let path = Bundle.main.path(forResource: "speakerdeck-password", ofType: "pdf")
+        let url = URL(fileURLWithPath: path!)
+        let doc = PDFDocument(url: url)
+        let v = SlideViewerController.setup(pdfDocument: doc!)
+        present(v, animated: true)
+    }
 }

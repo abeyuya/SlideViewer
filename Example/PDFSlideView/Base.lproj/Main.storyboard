@@ -41,6 +41,13 @@
                                     <action selector="tapShowWithCustomMenu:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="aP2-UH-AD1"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="01h-zo-eT5">
+                                <rect key="frame" x="74" y="348" width="227" height="30"/>
+                                <state key="normal" title="show local pdf file with password"/>
+                                <connections>
+                                    <action selector="tapShowPasswordFile:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="bot-ZM-ZXV"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CcE-zD-ndr">
                                 <rect key="frame" x="111" y="168" width="153" height="30"/>
                                 <state key="normal" title="show from http pdf url"/>
@@ -57,8 +64,10 @@
                             <constraint firstItem="CcE-zD-ndr" firstAttribute="top" secondItem="zdc-K3-RJv" secondAttribute="bottom" constant="30" id="HEf-8R-ca5"/>
                             <constraint firstItem="zdc-K3-RJv" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="S7V-ks-7Dd"/>
                             <constraint firstItem="dIC-e2-eOj" firstAttribute="top" secondItem="CcE-zD-ndr" secondAttribute="bottom" constant="30" id="cmU-2V-Dp3"/>
+                            <constraint firstItem="01h-zo-eT5" firstAttribute="top" secondItem="uGj-X0-FIY" secondAttribute="bottom" constant="30" id="mEh-Ok-wgL"/>
                             <constraint firstItem="dIC-e2-eOj" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="qbK-vs-q38"/>
                             <constraint firstItem="uGj-X0-FIY" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="uLI-f2-7vp"/>
+                            <constraint firstItem="01h-zo-eT5" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="y4o-rg-1Ce"/>
                         </constraints>
                     </view>
                 </viewController>

@@ -32,7 +32,8 @@ final class SlideContainerViewController: UIPageViewController {
         l.translatesAutoresizingMaskIntoConstraints = false
         return l
     }()
-    
+
+
     internal override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
@@ -157,6 +158,7 @@ extension SlideContainerViewController: StoreSubscriber {
                 self.progress.progress = progress
             case .failure(let error):
                 renderErrorMessage(message: error.message)
+            case .needPassword: break
             case .complete:
                 let first = createSlideView(at: 0)
                 setViewControllers([first], direction: .forward, animated: false, completion: nil)

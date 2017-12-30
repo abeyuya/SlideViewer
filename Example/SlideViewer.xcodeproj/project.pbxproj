@@ -11,6 +11,7 @@
 		3A1C0BCE788D367A5C501D09 /* Pods_SlideViewer_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1E9BBD252B89BD45D745A60 /* Pods_SlideViewer_Example.framework */; };
 		4D2AF0131FF6C99100A3DB1B /* CustomLandscapeRightMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2AF0121FF6C99100A3DB1B /* CustomLandscapeRightMenuView.swift */; };
 		4D2AF0151FF735D900A3DB1B /* CustomLandscapeRightMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D2AF0141FF735D900A3DB1B /* CustomLandscapeRightMenuView.xib */; };
+		4D7D26681FF7C29300C0C17A /* speakerdeck-password.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4D7D26671FF7C29200C0C17A /* speakerdeck-password.pdf */; };
 		4DAD3BF21FF14547003DB2BA /* speakerdeck.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4DAD3BF11FF14547003DB2BA /* speakerdeck.pdf */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -38,6 +39,7 @@
 		3F2C671DAC8FE0C4FBA14F90 /* Pods-SlideViewer_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SlideViewer_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SlideViewer_Example/Pods-SlideViewer_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		4D2AF0121FF6C99100A3DB1B /* CustomLandscapeRightMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLandscapeRightMenuView.swift; sourceTree = "<group>"; };
 		4D2AF0141FF735D900A3DB1B /* CustomLandscapeRightMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomLandscapeRightMenuView.xib; sourceTree = "<group>"; };
+		4D7D26671FF7C29200C0C17A /* speakerdeck-password.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "speakerdeck-password.pdf"; sourceTree = "<group>"; };
 		4D911CCE1FED2201000D8184 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
 		4DAD3BF11FF14547003DB2BA /* speakerdeck.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = speakerdeck.pdf; sourceTree = "<group>"; };
 		5F931C36C4848DB538D1194C /* PDFSlideView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = PDFSlideView.podspec; path = ../PDFSlideView.podspec; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 		607FACD21AFB9204008FA782 /* Example for SlideViewer */ = {
 			isa = PBXGroup;
 			children = (
+				4D7D26671FF7C29200C0C17A /* speakerdeck-password.pdf */,
 				4DAD3BF11FF14547003DB2BA /* speakerdeck.pdf */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
@@ -275,6 +278,7 @@
 			files = (
 				4D2AF0151FF735D900A3DB1B /* CustomLandscapeRightMenuView.xib in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				4D7D26681FF7C29300C0C17A /* speakerdeck-password.pdf in Resources */,
 				4DAD3BF21FF14547003DB2BA /* speakerdeck.pdf in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,

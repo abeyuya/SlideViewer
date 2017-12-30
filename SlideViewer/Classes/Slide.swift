@@ -14,6 +14,7 @@ internal struct Slide {
         case loading(progress: Float)
         case failure(error: SlideViewerError)
         case complete
+        case needPassword(pdfDocument: PDFDocument)
     }
     
     internal struct Info {
@@ -35,6 +36,7 @@ extension Slide {
         case loading(progress: Float)
         case failure(error: SlideViewerError)
         case complete(pdfDocument: PDFDocument)
+        case needPassword(pdfDocument: PDFDocument)
     }
 
     internal static func fetch(pdfFileURL: URL, completion: @escaping (FetchResult) -> Void) {
@@ -49,6 +51,10 @@ extension Slide {
                     guard let doc = PDFDocument(url: url) else {
                         return completion(.failure(error: .invalidPDFFile))
                     }
+                    guard doc.isEncrypted == false else {
+                        return completion(.needPassword(pdfDocument: doc))
+                    }
+                    
                     return completion(.complete(pdfDocument: doc))
                 }
             }

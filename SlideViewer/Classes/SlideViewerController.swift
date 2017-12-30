@@ -126,6 +126,46 @@ public final class SlideViewerController: UIViewController {
 
         return v
     }()
+    
+    private lazy var passwordForm: UIAlertController = {
+        let v = UIAlertController(
+            title: "Enter file password",
+            message: "this file is locked.",
+            preferredStyle: .alert)
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            self.close()
+        }
+        
+        let ok = UIAlertAction(title: "OK", style: .default) { _ in
+            guard case .needPassword(let doc) = mainStore.state.slide.state,
+                let textField = v.textFields?.first,
+                let password = textField.text else { return }
+            let result = doc.unlock(withPassword: password)
+            
+            if result {
+                mainStore.dispatch(setSlideDocument(doc: doc))
+            } else {
+                let badMessage = UIAlertController(
+                    title: "Incorrect password",
+                    message: "",
+                    preferredStyle: .alert)
+                let ok2 = UIAlertAction(title: "OK", style: .default, handler: nil)
+                badMessage.addAction(ok2)
+                self.present(badMessage, animated: true, completion: nil)
+            }
+        }
+        
+        v.addAction(cancel)
+        v.addAction(ok)
+        v.addTextField { textField in
+            textField.placeholder = "password"
+            textField.isSecureTextEntry = true
+            textField.returnKeyType = .done
+        }
+        
+        return v
+    }()
 
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -142,7 +182,13 @@ extension SlideViewerController {
         mainStore.dispatch(stateReset())
         let info = Slide.Info(avatarImageURL: avatarImageURL, title: title, author: author)
         mainStore.dispatch(setSlideInfo(info: info))
-        mainStore.dispatch(setSlideDocument(doc: pdfDocument))
+        
+        if pdfDocument.isEncrypted {
+            mainStore.dispatch(setSlideState(state: .needPassword(pdfDocument: pdfDocument)))
+        } else {
+            mainStore.dispatch(setSlideDocument(doc: pdfDocument))
+        }
+        
         let v = SlideViewerController()
         return v
     }
@@ -161,6 +207,8 @@ extension SlideViewerController {
                     mainStore.dispatch(setSlideState(state: .failure(error: error)))
                 case .complete(let doc):
                     mainStore.dispatch(setSlideDocument(doc: doc))
+                case .needPassword(let doc):
+                    mainStore.dispatch(setSlideState(state: .needPassword(pdfDocument: doc)))
                 }
             }
         }
@@ -376,6 +424,7 @@ extension SlideViewerController: StoreSubscriber {
     public func newState(state: SlideViewerController.StoreSubscriberStateType) {
         renderMenu(state: state)
         renderThumbnailView(state: state)
+        renderPasswordForm(state: state)
     }
     
     private func renderMenu(state: SlideViewerState) {
@@ -446,6 +495,14 @@ extension SlideViewerController: StoreSubscriber {
         UIView.animate(withDuration: duration) {
             self.thumbnailAreaViewWidthConstraint.constant = Config.shared.thumbnailViewWidth
             self.view.layoutIfNeeded()
+        }
+    }
+    
+    private func renderPasswordForm(state: SlideViewerState) {
+        guard case .needPassword = state.slide.state else { return }
+        
+        if !passwordForm.isBeingPresented {
+            present(passwordForm, animated: true, completion: nil)
         }
     }
 }

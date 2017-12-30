@@ -73,7 +73,7 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
         state.slide.images = Array(repeating: nil, count: action.doc.pageCount)
         state.slide.thumbnailImages = Array(repeating: nil, count: action.doc.pageCount)
         state.slide.state = .complete
-        
+    
     case let action as setSlideInfo:
         state.slide.info = action.info
         
