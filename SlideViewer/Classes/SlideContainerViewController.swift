@@ -28,6 +28,7 @@ final class SlideContainerViewController: UIPageViewController {
         let l = UILabel()
         l.textColor = .white
         l.numberOfLines = 0
+        l.textAlignment = .center
         l.isHidden = true
         l.translatesAutoresizingMaskIntoConstraints = false
         return l
