@@ -17,7 +17,6 @@ public struct SlideViewerState: StateType {
     var slide: Slide = Slide()
     var moveToSlideIndex: Int? = nil
     var moveToThumbnailIndex: Int? = nil
-    var thumbnailHeight: CGFloat? = nil
 }
 
 internal struct stateReset: Action {}
@@ -32,7 +31,6 @@ internal struct setSlideInfo: Action { let info: Slide.Info }
 internal struct setSlideState: Action { let state: Slide.State }
 internal struct moveToSlide: Action { let pageIndex: Int? }
 internal struct moveToThumbnail: Action { let pageIndex: Int? }
-internal struct setThumbnailHeight: Action { let height: CGFloat }
 
 internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> SlideViewerState {
     var state = state ?? SlideViewerState()
@@ -78,9 +76,6 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
         
     case let action as moveToThumbnail:
         state.moveToThumbnailIndex = action.pageIndex
-        
-    case let action as setThumbnailHeight:
-        state.thumbnailHeight = action.height
         
     default:
         break
