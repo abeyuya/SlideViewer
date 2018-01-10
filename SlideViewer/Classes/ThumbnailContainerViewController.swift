@@ -13,7 +13,7 @@ final class ThumbnailContainerViewController: UIViewController {
     
     internal lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.estimatedRowHeight = (mainStore.state.thumbnailHeight ?? 100) + 5
+        tableView.estimatedRowHeight = 100 + 5
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.register(ThumbnailTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView()
@@ -40,8 +40,7 @@ extension ThumbnailContainerViewController {
         mainStore.subscribe(self) { subscription in
             subscription.select { state in
                 SubscribeState(
-                    moveToThumbnailIndex: state.moveToThumbnailIndex,
-                    thumbnailHeight: state.thumbnailHeight
+                    moveToThumbnailIndex: state.moveToThumbnailIndex
                 )
             }
         }
@@ -60,8 +59,9 @@ extension ThumbnailContainerViewController {
 extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewDataSource {
     
     internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard case .complete = mainStore.state.slide.state else { return 0 }
-        return mainStore.state.slide.thumbnailImages.count
+        guard case .complete = mainStore.state.slide.state,
+            let doc = mainStore.state.slide.pdfDocument else { return 0 }
+        return doc.pageCount
     }
     
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -79,11 +79,7 @@ extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewData
     }
     
     internal func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if let height = mainStore.state.thumbnailHeight {
-            return height + 5
-        } else {
-            return tableView.estimatedRowHeight
-        }
+        return tableView.estimatedRowHeight
     }
 }
 
@@ -91,7 +87,6 @@ extension ThumbnailContainerViewController: StoreSubscriber {
     
     internal struct SubscribeState {
         let moveToThumbnailIndex: Int?
-        let thumbnailHeight: CGFloat?
     }
 
     internal typealias StoreSubscriberStateType = SubscribeState

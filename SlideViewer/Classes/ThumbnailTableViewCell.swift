@@ -7,6 +7,7 @@
 
 import UIKit
 import ReSwift
+import PDFKit
 
 final class ThumbnailTableViewCell: UITableViewCell {
     
@@ -15,6 +16,8 @@ final class ThumbnailTableViewCell: UITableViewCell {
     
     private let thumbnail: UIImageView = {
         let v = UIImageView()
+        v.contentMode = .scaleAspectFill
+        v.clipsToBounds = true
         v.translatesAutoresizingMaskIntoConstraints = false
         v.layer.borderColor = UIColor(
             red: 19/255.0,
@@ -66,15 +69,7 @@ final class ThumbnailTableViewCell: UITableViewCell {
         
         mainStore.subscribe(self) { subscription in
             subscription.select { state in
-                let thumbnailImage: UIImage? = {
-                    guard case .complete = state.slide.state,
-                        let index = self.index,
-                        index < state.slide.thumbnailImages.count else { return nil }
-                    return state.slide.thumbnailImages[index]
-                }()
-                
                 return SubscribeState(
-                    thumbnailImage: thumbnailImage,
                     currentPageIndex: state.currentPageIndex
                 )
             }
@@ -162,17 +157,29 @@ extension ThumbnailTableViewCell {
         self.index = index
         self.tableView = tableView
         numberLabel.text = "\(index + 1)"
-        
-        guard case .complete = mainStore.state.slide.state,
-            index < mainStore.state.slide.thumbnailImages.count,
-            let image = mainStore.state.slide.thumbnailImages[index] else {
-                loadImage(state: mainStore.state, index: index)
-                return
-        }
-
-        thumbnail.image = image
-        indicator.removeFromSuperview()
         renderFrame(show: index == mainStore.state.currentPageIndex)
+        renderImage()
+    }
+    
+    private func renderImage() {
+        guard thumbnail.image == nil,
+            let index = self.index,
+            case .complete = mainStore.state.slide.state,
+            let doc = mainStore.state.slide.pdfDocument,
+            let page = doc.page(at: index) else { return }
+        
+        let size = CGSize(
+            width: self.bounds.size.width * 3,
+            height: self.bounds.size.height * 3)
+        
+        DispatchQueue.global(qos: .default).async {
+            let image = page.thumbnail(of: size, for: .cropBox)
+            
+            DispatchQueue.main.async {
+                self.thumbnail.image = image
+                self.indicator.removeFromSuperview()
+            }
+        }
     }
     
     private func renderFrame(show: Bool) {
@@ -184,11 +191,9 @@ extension ThumbnailTableViewCell {
     }
 }
 
-
 extension ThumbnailTableViewCell: StoreSubscriber {
     
     internal struct SubscribeState {
-        let thumbnailImage: UIImage?
         let currentPageIndex: Int
     }
     
@@ -196,17 +201,7 @@ extension ThumbnailTableViewCell: StoreSubscriber {
     
     internal func newState(state: StoreSubscriberStateType) {
         guard let index = self.index else { return }
-        
         renderFrame(show: index == state.currentPageIndex)
-        
-        if thumbnail.image == nil,
-            let image = state.thumbnailImage,
-            let tableView = tableView {
-            thumbnail.image = image
-            indicator.removeFromSuperview()
-            tableView.reloadRows(
-                at: [IndexPath(row: index, section: 0)],
-                with: .automatic)
-        }
+        renderImage()
     }
 }
