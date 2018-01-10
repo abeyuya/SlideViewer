@@ -60,23 +60,14 @@ extension SlideDisplayViewController {
         
         view.layoutFill(subView: scrollView)
         view.layoutCenter(subView: indicator)
-        
-        guard case .complete = mainStore.state.slide.state else {
-            return
-        }
-        
-//        setImageView(image: image)
+        renderImage()
     }
     
     internal override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let index = self.index
-        
+
         mainStore.subscribe(self) { subscription in
-            subscription.select { state in
-                guard case .complete = state.slide.state else { return nil }
-                return nil
-            }
+            subscription.select { state in state.slide.state }
         }
     }
     
@@ -106,13 +97,35 @@ extension SlideDisplayViewController {
 
 extension SlideDisplayViewController {
     
-    private func setImageView(image: UIImage) {
-        indicator.removeFromSuperview()
-        let imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFit
-        scrollView.addSubview(imageView)
-        self.imageView = imageView
-        self.view.setNeedsLayout()
+    private func renderImage() {
+        guard self.imageView == nil,
+            case .complete = mainStore.state.slide.state,
+            let doc = mainStore.state.slide.pdfDocument,
+            let page = doc.page(at: index),
+            let pageRef = page.pageRef else { return }
+        
+        DispatchQueue.global(qos: .default).async {
+            let pageRect = page.bounds(for: .mediaBox)
+            let renderer = UIGraphicsImageRenderer(size: pageRect.size)
+            let image = renderer.image { ctx in
+                UIColor.white.set()
+                ctx.fill(pageRect)
+                
+                ctx.cgContext.translateBy(x: 0.0, y: pageRect.size.height)
+                ctx.cgContext.scaleBy(x: 1.0, y: -1.0)
+                
+                ctx.cgContext.drawPDFPage(pageRef)
+            }
+            
+            DispatchQueue.main.async {
+                self.indicator.removeFromSuperview()
+                let imageView = UIImageView(image: image)
+                imageView.contentMode = .scaleAspectFit
+                self.scrollView.addSubview(imageView)
+                self.imageView = imageView
+                self.view.setNeedsLayout()
+            }
+        }
     }
 }
 
@@ -173,11 +186,10 @@ extension SlideDisplayViewController {
 
 extension SlideDisplayViewController: StoreSubscriber {
     
-    internal typealias StoreSubscriberStateType = UIImage?
+    internal typealias StoreSubscriberStateType = Slide.State
     
-    internal func newState(state loadedImage: StoreSubscriberStateType) {
-        guard self.imageView == nil else { return }
-        guard let loadedImage = loadedImage else { return }
-        self.setImageView(image: loadedImage)
+    internal func newState(state: StoreSubscriberStateType) {
+        guard case .complete = state else { return }
+        renderImage()
     }
 }

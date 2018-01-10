@@ -84,35 +84,6 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
     return state
 }
 
-//internal func loadImage(state: SlideViewerState, index: Int) {
-//    DispatchQueue.global(qos: .default).async {
-//        guard let image = loadImageFrom(state: state, index: index) else { return }
-//    }
-//}
-//
-//private func loadImageFrom(state: SlideViewerState, index: Int) -> UIImage? {
-//    guard let doc = state.slide.pdfDocument else { return nil }
-//    return loadImageFrom(pdfDocument: doc, index: index)
-//}
-
-private func loadImageFrom(pdfDocument: PDFDocument, index: Int) -> UIImage? {
-    guard let page = pdfDocument.page(at: index),
-        let pageRef = page.pageRef else { return nil }
-
-    let pageRect = page.bounds(for: .mediaBox)
-    let renderer = UIGraphicsImageRenderer(size: pageRect.size)
-    let image = renderer.image { ctx in
-        UIColor.white.set()
-        ctx.fill(pageRect)
-        
-        ctx.cgContext.translateBy(x: 0.0, y: pageRect.size.height)
-        ctx.cgContext.scaleBy(x: 1.0, y: -1.0)
-        
-        ctx.cgContext.drawPDFPage(pageRef)
-    }
-    return image
-}
-
 internal let mainStore = Store<SlideViewerState>(
     reducer: slideViewerReducer,
     state: nil
