@@ -24,8 +24,6 @@ internal struct Slide {
     }
 
     var state: State = .loading(progress: 0)
-    var images: [UIImage?] = []
-    var thumbnailImages: [UIImage?] = []
     var pdfDocument: PDFDocument? = nil
     var info = Info()
 }

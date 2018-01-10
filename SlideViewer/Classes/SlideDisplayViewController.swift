@@ -61,14 +61,11 @@ extension SlideDisplayViewController {
         view.layoutFill(subView: scrollView)
         view.layoutCenter(subView: indicator)
         
-        guard case .complete = mainStore.state.slide.state,
-            index < mainStore.state.slide.images.count,
-            let image = mainStore.state.slide.images[index] else {
-                loadImage(state: mainStore.state, index: index)
-                return
+        guard case .complete = mainStore.state.slide.state else {
+            return
         }
         
-        setImageView(image: image)
+//        setImageView(image: image)
     }
     
     internal override func viewWillAppear(_ animated: Bool) {
@@ -77,9 +74,8 @@ extension SlideDisplayViewController {
         
         mainStore.subscribe(self) { subscription in
             subscription.select { state in
-                guard case .complete = state.slide.state,
-                    index < state.slide.images.count else { return nil }
-                return state.slide.images[index]
+                guard case .complete = state.slide.state else { return nil }
+                return nil
             }
         }
     }

@@ -30,11 +30,6 @@ internal struct changeIsPortrait: Action { let isPortrait: Bool }
 internal struct setSlideDocument: Action { let doc: PDFDocument }
 internal struct setSlideInfo: Action { let info: Slide.Info }
 internal struct setSlideState: Action { let state: Slide.State }
-internal struct setImage: Action {
-    let pageIndex: Int
-    let originalImage: UIImage
-    let thumbnailImage: UIImage?
-}
 internal struct moveToSlide: Action { let pageIndex: Int? }
 internal struct moveToThumbnail: Action { let pageIndex: Int? }
 internal struct setThumbnailHeight: Action { let height: CGFloat }
@@ -70,8 +65,6 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
         
     case let action as setSlideDocument:
         state.slide.pdfDocument = action.doc
-        state.slide.images = Array(repeating: nil, count: action.doc.pageCount)
-        state.slide.thumbnailImages = Array(repeating: nil, count: action.doc.pageCount)
         state.slide.state = .complete
     
     case let action as setSlideInfo:
@@ -80,10 +73,6 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
     case let action as setSlideState:
         state.slide.state = action.state
         
-    case let action as setImage:
-        state.slide.images[action.pageIndex] = action.originalImage
-        state.slide.thumbnailImages[action.pageIndex] = action.thumbnailImage
-
     case let action as moveToSlide:
         state.moveToSlideIndex = action.pageIndex
         
@@ -100,32 +89,16 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
     return state
 }
 
-internal func loadImage(state: SlideViewerState, index: Int) {
-    guard index < state.slide.images.count, state.slide.images[index] == nil else { return }
-    
-    DispatchQueue.global(qos: .default).async {
-        guard let image = loadImageFrom(state: state, index: index) else { return }
-        
-        let thumbnailImage = createThumbnailImage(originalImage: image)
-        let thumbnailHeight = thumbnailImage?.size.height
-        
-        DispatchQueue.main.async {
-            if state.thumbnailHeight == nil, let height = thumbnailHeight {
-                mainStore.dispatch(setThumbnailHeight(height: height))
-            }
-            mainStore.dispatch(setImage(
-                pageIndex: index,
-                originalImage: image,
-                thumbnailImage: thumbnailImage
-            ))
-        }
-    }
-}
-
-private func loadImageFrom(state: SlideViewerState, index: Int) -> UIImage? {
-    guard let doc = state.slide.pdfDocument else { return nil }
-    return loadImageFrom(pdfDocument: doc, index: index)
-}
+//internal func loadImage(state: SlideViewerState, index: Int) {
+//    DispatchQueue.global(qos: .default).async {
+//        guard let image = loadImageFrom(state: state, index: index) else { return }
+//    }
+//}
+//
+//private func loadImageFrom(state: SlideViewerState, index: Int) -> UIImage? {
+//    guard let doc = state.slide.pdfDocument else { return nil }
+//    return loadImageFrom(pdfDocument: doc, index: index)
+//}
 
 private func loadImageFrom(pdfDocument: PDFDocument, index: Int) -> UIImage? {
     guard let page = pdfDocument.page(at: index),
@@ -143,11 +116,6 @@ private func loadImageFrom(pdfDocument: PDFDocument, index: Int) -> UIImage? {
         ctx.cgContext.drawPDFPage(pageRef)
     }
     return image
-}
-
-private func createThumbnailImage(originalImage: UIImage) -> UIImage? {
-    let thumbnailHeight = originalImage.size.height * (Config.shared.thumbnailViewWidth / originalImage.size.width)
-    return originalImage.resize(size: CGSize(width: Config.shared.thumbnailViewWidth, height: thumbnailHeight))
 }
 
 internal let mainStore = Store<SlideViewerState>(

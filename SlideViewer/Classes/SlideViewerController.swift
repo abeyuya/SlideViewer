@@ -378,15 +378,13 @@ extension SlideViewerController {
     }
     
     private func shareCurrentPageAsImage() {
-        guard case .complete = mainStore.state.slide.state,
-            mainStore.state.currentPageIndex < mainStore.state.slide.images.count,
-            let image = mainStore.state.slide.images[mainStore.state.currentPageIndex] else {
-                // TODO: show error
-                return
+        guard case .complete = mainStore.state.slide.state else {
+            // TODO: show error
+            return
         }
 
-        let v = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-        self.present(v, animated: true, completion: nil)
+//        let v = UIActivityViewController(activityItems: [nil], applicationActivities: nil)
+//        self.present(v, animated: true, completion: nil)
     }
     
     private func shareSlideAsPDF() {
@@ -449,8 +447,9 @@ extension SlideViewerController: StoreSubscriber {
         portraitPageLabel.isHidden = false
         landscapeRightMenuView.isHidden = true
         
-        if case .complete = state.slide.state {
-            portraitPageLabel.text = "\(state.currentPageIndex + 1) of \(state.slide.images.count)"
+        if case .complete = state.slide.state,
+            let doc = state.slide.pdfDocument {
+            portraitPageLabel.text = "\(state.currentPageIndex + 1) of \(doc.pageCount)"
         } else {
             portraitPageLabel.text = ""
         }
@@ -462,10 +461,11 @@ extension SlideViewerController: StoreSubscriber {
         portraitPageLabel.isHidden = true
         landscapeRightMenuView.isHidden = false
         
-        if case .complete = state.slide.state {
+        if case .complete = state.slide.state,
+            let doc = state.slide.pdfDocument {
             landscapeRightMenuView.update(
                 currentPageIndex: state.currentPageIndex,
-                pageCount: state.slide.images.count)
+                pageCount: doc.pageCount)
         } else {
             landscapeRightMenuView.update(
                 currentPageIndex: nil,
