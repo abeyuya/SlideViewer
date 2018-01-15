@@ -127,12 +127,21 @@ extension SlideContainerViewController: UIPageViewControllerDelegate, UIPageView
     
     internal func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let v = viewController as? SlideDisplayViewController,
-            case .complete = mainStore.state.slide.state,
-            let doc = mainStore.state.slide.pdfDocument,
-            v.index < (doc.pageCount - 1) else { return nil }
-
-        let index = v.index + 1
-        return createSlideView(at: index)
+            case .complete = mainStore.state.slide.state else { return nil }
+        
+        if let doc = mainStore.state.slide.pdfDocument {
+            guard v.index < (doc.pageCount - 1) else { return nil }
+            let index = v.index + 1
+            return createSlideView(at: index)
+        }
+        
+        if mainStore.state.slide.mainImageURLs.count > 0 {
+            guard v.index < (mainStore.state.slide.mainImageURLs.count - 1) else { return nil }
+            let index = v.index + 1
+            return createSlideView(at: index)
+        }
+        
+        return nil
     }
     
     internal func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {

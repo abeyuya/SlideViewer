@@ -216,6 +216,17 @@ extension SlideViewerController {
         let v = SlideViewerController()
         return v
     }
+    
+    public static func setup(mainImageURLs: [URL], thumbImageURLs: [URL], avatarImageURL: URL? = nil, title: String = "", author: String = "") -> SlideViewerController {
+        mainStore.dispatch(stateReset())
+        let info = Slide.Info(avatarImageURL: avatarImageURL, title: title, author: author)
+        mainStore.dispatch(setSlideInfo(info: info))
+        mainStore.dispatch(setSlideImageURLs(mainImageURLs: mainImageURLs, thumbImageURLs: thumbImageURLs))
+        mainStore.dispatch(setSlideState(state: .complete))
+
+        let v = SlideViewerController()
+        return v
+    }
 }
 
 extension SlideViewerController {
@@ -447,12 +458,22 @@ extension SlideViewerController: StoreSubscriber {
         portraitPageLabel.isHidden = false
         landscapeRightMenuView.isHidden = true
         
-        if case .complete = state.slide.state,
-            let doc = state.slide.pdfDocument {
-            portraitPageLabel.text = "\(state.currentPageIndex + 1) of \(doc.pageCount)"
-        } else {
+        guard case .complete = state.slide.state else {
             portraitPageLabel.text = ""
+            return
         }
+        
+        if let doc = state.slide.pdfDocument {
+            portraitPageLabel.text = "\(state.currentPageIndex + 1) of \(doc.pageCount)"
+            return
+        }
+        
+        if state.slide.mainImageURLs.count > 0 {
+            portraitPageLabel.text = "\(state.currentPageIndex + 1) of \(state.slide.mainImageURLs.count)"
+            return
+        }
+        
+        portraitPageLabel.text = ""
     }
     
     private func renderLandspaceMenu(state: SlideViewerState) {
@@ -461,16 +482,30 @@ extension SlideViewerController: StoreSubscriber {
         portraitPageLabel.isHidden = true
         landscapeRightMenuView.isHidden = false
         
-        if case .complete = state.slide.state,
-            let doc = state.slide.pdfDocument {
-            landscapeRightMenuView.update(
-                currentPageIndex: state.currentPageIndex,
-                pageCount: doc.pageCount)
-        } else {
+        guard case .complete = state.slide.state else {
             landscapeRightMenuView.update(
                 currentPageIndex: nil,
                 pageCount: nil)
+            return
         }
+        
+        if let doc = state.slide.pdfDocument {
+            landscapeRightMenuView.update(
+                currentPageIndex: state.currentPageIndex,
+                pageCount: doc.pageCount)
+            return
+        }
+        
+        if state.slide.mainImageURLs.count > 0 {
+            landscapeRightMenuView.update(
+                currentPageIndex: state.currentPageIndex,
+                pageCount: state.slide.mainImageURLs.count)
+            return
+        }
+        
+        landscapeRightMenuView.update(
+            currentPageIndex: nil,
+            pageCount: nil)
     }
     
     private func renderThumbnailView(state: SlideViewerState) {

@@ -55,6 +55,13 @@
                                     <action selector="tapShowPDFSlideView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="QTp-Zr-LPD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4L-Qu-wTJ">
+                                <rect key="frame" x="117" y="408" width="140" height="30"/>
+                                <state key="normal" title="show from image url"/>
+                                <connections>
+                                    <action selector="tapShowFromImageURL:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="a4G-cJ-M6d"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -62,6 +69,8 @@
                             <constraint firstItem="CcE-zD-ndr" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="CAW-jK-3ry"/>
                             <constraint firstItem="zdc-K3-RJv" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="64" id="FU0-7N-Ebk"/>
                             <constraint firstItem="CcE-zD-ndr" firstAttribute="top" secondItem="zdc-K3-RJv" secondAttribute="bottom" constant="30" id="HEf-8R-ca5"/>
+                            <constraint firstItem="f4L-Qu-wTJ" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="Jl0-sC-1Fm"/>
+                            <constraint firstItem="f4L-Qu-wTJ" firstAttribute="top" secondItem="01h-zo-eT5" secondAttribute="bottom" constant="30" id="ON9-bk-oiN"/>
                             <constraint firstItem="zdc-K3-RJv" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="S7V-ks-7Dd"/>
                             <constraint firstItem="dIC-e2-eOj" firstAttribute="top" secondItem="CcE-zD-ndr" secondAttribute="bottom" constant="30" id="cmU-2V-Dp3"/>
                             <constraint firstItem="01h-zo-eT5" firstAttribute="top" secondItem="uGj-X0-FIY" secondAttribute="bottom" constant="30" id="mEh-Ok-wgL"/>

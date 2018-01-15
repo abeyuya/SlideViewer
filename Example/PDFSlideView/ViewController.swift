@@ -59,12 +59,34 @@ class ViewController: UIViewController {
         present(v, animated: true)
     }
     
-    
     @IBAction func tapShowPasswordFile(_ sender: Any) {
         let path = Bundle.main.path(forResource: "speakerdeck-password", ofType: "pdf")
         let url = URL(fileURLWithPath: path!)
         let doc = PDFDocument(url: url)
         let v = SlideViewerController.setup(pdfDocument: doc!)
+        present(v, animated: true)
+    }
+    
+    @IBAction func tapShowFromImageURL(_ sender: Any) {
+        let mainImageURLs = [0, 1, 2, 3, 4, 5].map { i -> URL in
+            let str = [
+                "https://speakerd.s3.amazonaws.com/presentations/50021f75cf1db900020005e7/",
+                "preview_slide_\(i).jpg?1362165300"
+                ].joined(separator: "")
+            
+            return URL(string: str)!
+        }
+        
+        let thumbImageURLs = [0, 1, 2, 3, 4, 5].map { i -> URL in
+            let str = [
+                "https://speakerd.s3.amazonaws.com/presentations/50021f75cf1db900020005e7/",
+                "thumb_slide_\(i).jpg?1362165300"
+                ].joined(separator: "")
+            
+            return URL(string: str)!
+        }
+        
+        let v = SlideViewerController.setup(mainImageURLs: mainImageURLs, thumbImageURLs: thumbImageURLs)
         present(v, animated: true)
     }
 }

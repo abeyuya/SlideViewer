@@ -27,6 +27,7 @@ internal struct showMenu: Action {}
 internal struct toggleThumbnail: Action {}
 internal struct changeIsPortrait: Action { let isPortrait: Bool }
 internal struct setSlideDocument: Action { let doc: PDFDocument }
+internal struct setSlideImageURLs: Action { let mainImageURLs: [URL]; let thumbImageURLs: [URL] }
 internal struct setSlideInfo: Action { let info: Slide.Info }
 internal struct setSlideState: Action { let state: Slide.State }
 internal struct moveToSlide: Action { let pageIndex: Int? }
@@ -70,6 +71,10 @@ internal func slideViewerReducer(action: Action, state: SlideViewerState?) -> Sl
         
     case let action as setSlideState:
         state.slide.state = action.state
+        
+    case let action as setSlideImageURLs:
+        state.slide.mainImageURLs = action.mainImageURLs
+        state.slide.thumbImageURLs = action.thumbImageURLs
         
     case let action as moveToSlide:
         state.moveToSlideIndex = action.pageIndex
