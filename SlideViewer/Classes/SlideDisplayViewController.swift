@@ -99,9 +99,20 @@ extension SlideDisplayViewController {
     
     private func renderImage() {
         guard self.imageView == nil,
-            case .complete = mainStore.state.slide.state,
-            let doc = mainStore.state.slide.pdfDocument,
-            let page = doc.page(at: index),
+            case .complete = mainStore.state.slide.state else { return }
+        
+        if let doc = mainStore.state.slide.pdfDocument {
+            renderImageFromPDF(doc: doc)
+        }
+        
+        if index < mainStore.state.slide.mainImageURLs.count {
+            let url = mainStore.state.slide.mainImageURLs[index]
+            renderImageFromURL(url: url)
+        }
+    }
+    
+    private func renderImageFromPDF(doc: PDFDocument) {
+        guard let page = doc.page(at: index),
             let pageRef = page.pageRef else { return }
         
         DispatchQueue.global(qos: .default).async {
@@ -117,14 +128,36 @@ extension SlideDisplayViewController {
                 ctx.cgContext.drawPDFPage(pageRef)
             }
             
-            DispatchQueue.main.async {
-                self.indicator.removeFromSuperview()
-                let imageView = UIImageView(image: image)
-                imageView.contentMode = .scaleAspectFit
-                self.scrollView.addSubview(imageView)
-                self.imageView = imageView
-                self.view.setNeedsLayout()
-            }
+            self.set(image: image)
+        }
+    }
+    
+    private func renderImageFromURL(url: URL) {
+        let session = URLSession(configuration: .default)
+        
+        DispatchQueue.global(qos: .default).async {
+            session.dataTask(with: url) { data, _, error in
+                if let error = error {
+                    // TODO: Error
+                    print(error)
+                    return
+                }
+                
+                guard let data = data, let image = UIImage(data: data) else { return }
+                self.set(image: image)
+            }.resume()
+        }
+    }
+    
+    private func set(image: UIImage) {
+        DispatchQueue.main.async {
+            guard self.imageView == nil else { return }
+            self.indicator.removeFromSuperview()
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFit
+            self.scrollView.addSubview(imageView)
+            self.imageView = imageView
+            self.view.setNeedsLayout()
         }
     }
 }
