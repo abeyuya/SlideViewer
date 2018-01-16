@@ -133,10 +133,8 @@ extension SlideDisplayViewController {
     }
     
     private func renderImageFromURL(url: URL) {
-        let session = URLSession(configuration: .default)
-        
         DispatchQueue.global(qos: .default).async {
-            session.dataTask(with: url) { data, _, error in
+            URLSession.shared.dataTask(with: url) { data, _, error in
                 if let error = error {
                     // TODO: Error
                     print(error)
