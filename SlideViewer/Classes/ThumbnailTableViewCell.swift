@@ -163,10 +163,20 @@ extension ThumbnailTableViewCell {
     
     private func renderImage() {
         guard thumbnail.image == nil,
-            let index = self.index,
-            case .complete = mainStore.state.slide.state,
-            let doc = mainStore.state.slide.pdfDocument,
-            let page = doc.page(at: index) else { return }
+            case .complete = mainStore.state.slide.state else { return }
+        
+        if let doc = mainStore.state.slide.pdfDocument {
+            renderImageFromPDF(doc: doc)
+        }
+        
+        if let index = index, index < mainStore.state.slide.thumbImageURLs.count {
+            let url = mainStore.state.slide.thumbImageURLs[index]
+            renderImageFromURL(url: url)
+        }
+    }
+    
+    private func renderImageFromPDF(doc: PDFDocument) {
+        guard let index = index, let page = doc.page(at: index) else { return }
         
         let size = CGSize(
             width: self.bounds.size.width * 3,
@@ -174,11 +184,30 @@ extension ThumbnailTableViewCell {
         
         DispatchQueue.global(qos: .default).async {
             let image = page.thumbnail(of: size, for: .cropBox)
-            
-            DispatchQueue.main.async {
-                self.thumbnail.image = image
-                self.indicator.removeFromSuperview()
-            }
+            self.set(image: image)
+        }
+    }
+    
+    private func renderImageFromURL(url: URL) {
+        DispatchQueue.global(qos: .default).async {
+            URLSession.shared.dataTask(with: url) { data, _, error in
+                if let error = error {
+                    // TODO: Error
+                    print(error)
+                    return
+                }
+                
+                guard let data = data, let image = UIImage(data: data) else { return }
+                self.set(image: image)
+                }.resume()
+        }
+    }
+    
+    private func set(image: UIImage) {
+        DispatchQueue.main.async {
+            guard self.thumbnail.image == nil else { return }
+            self.thumbnail.image = image
+            self.indicator.removeFromSuperview()
         }
     }
     

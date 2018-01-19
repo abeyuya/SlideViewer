@@ -26,6 +26,8 @@ internal struct Slide {
     var state: State = .loading(progress: 0)
     var pdfDocument: PDFDocument? = nil
     var info = Info()
+    var mainImageURLs: [URL] = []
+    var thumbImageURLs: [URL] = []
 }
 
 extension Slide {

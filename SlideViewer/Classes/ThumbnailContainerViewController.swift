@@ -59,9 +59,10 @@ extension ThumbnailContainerViewController {
 extension ThumbnailContainerViewController: UITableViewDelegate, UITableViewDataSource {
     
     internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard case .complete = mainStore.state.slide.state,
-            let doc = mainStore.state.slide.pdfDocument else { return 0 }
-        return doc.pageCount
+        guard case .complete = mainStore.state.slide.state else { return 0 }
+        if let doc = mainStore.state.slide.pdfDocument { return doc.pageCount }
+        if mainStore.state.slide.mainImageURLs.count > 0 { return mainStore.state.slide.mainImageURLs.count }
+        return 0
     }
     
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
