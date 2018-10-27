@@ -1,15 +1,15 @@
 # SlideViewer
 
-iOS UI library for viewing slides inspired by slideshare app.
+iOS UI library for viewing slides inspired by SlideShare iOS App.
 
 ![screenshot](https://github.com/abeyuya/SlideViewer/blob/master/doc/slideviewer.gif)
 
-- UI is very similar to SlideShare iOS App
+- UI is very similar to SlideShare iOS App.
 - Accept date sources:
   - array of image url
   - url of pdf file
   - bundle pdf file
-- Corresponds to both portrait and landscape
+- Corresponds to both portrait and landscape.
 
 # Installation
 
