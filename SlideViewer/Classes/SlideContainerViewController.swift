@@ -12,7 +12,7 @@ import ReSwift
 final class SlideContainerViewController: UIPageViewController {
     
     private lazy var indicator: UIActivityIndicatorView = {
-        let v = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        let v = UIActivityIndicatorView(style: .white)
         v.startAnimating()
         v.translatesAutoresizingMaskIntoConstraints = false
         return v

@@ -74,18 +74,18 @@ public final class SlideViewerController: UIViewController {
             navigationOrientation: .horizontal,
             options: nil)
         v.view.translatesAutoresizingMaskIntoConstraints = false
-        addChildViewController(v)
+        addChild(v)
         slideAreaView.addSubview(v.view)
-        v.didMove(toParentViewController: self)
+        v.didMove(toParent: self)
         return v
     }()
     
     private lazy var thumbnailViewController: ThumbnailContainerViewController = {
         let v = ThumbnailContainerViewController()
         v.view.translatesAutoresizingMaskIntoConstraints = false
-        addChildViewController(v)
+        addChild(v)
         thumbnailAreaView.addSubview(v.view)
-        v.didMove(toParentViewController: self)
+        v.didMove(toParent: self)
         return v
     }()
     
