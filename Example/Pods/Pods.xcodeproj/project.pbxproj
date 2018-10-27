@@ -241,6 +241,7 @@
 				F94D9D1477619338424925E4528FE69C /* Media.xcassets */,
 			);
 			name = Resources;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		244EC61568DA46D4D48C913EE9C98778 /* iOS */ = {
@@ -256,12 +257,7 @@
 		27CE95227B50F57154E23006A2C220A3 /* SlideViewer */ = {
 			isa = PBXGroup;
 			children = (
-				4D60D5CA218442FB00E0DCE0 /* EntryPoint */,
-				4D60D5CC2184435500E0DCE0 /* Controller */,
-				4D60D5CB2184433200E0DCE0 /* View */,
-				4D60D5C9218442B600E0DCE0 /* Util */,
-				4D60D5C82184428300E0DCE0 /* Extension */,
-				192AA232CC9B765BBA8DC829425A12D7 /* Resources */,
+				4D81A43221848A6A006B091F /* Source */,
 				C1D67598AED6CD76D3CBD221738402FD /* Support Files */,
 			);
 			name = SlideViewer;
@@ -334,6 +330,19 @@
 				83DD6F1004B66B51C7A0E7E9AD441539 /* ThumbnailContainerViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		4D81A43221848A6A006B091F /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				4D60D5CA218442FB00E0DCE0 /* EntryPoint */,
+				4D60D5CC2184435500E0DCE0 /* Controller */,
+				4D60D5CB2184433200E0DCE0 /* View */,
+				4D60D5C9218442B600E0DCE0 /* Util */,
+				4D60D5C82184428300E0DCE0 /* Extension */,
+				192AA232CC9B765BBA8DC829425A12D7 /* Resources */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 		7892EBC6FA6295EBC8F2C5C421138C5E /* Frameworks */ = {
