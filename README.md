@@ -58,3 +58,7 @@ let doc = PDFDocument(url: url)
 let v = SlideViewerController.setup(pdfDocument: doc!)
 present(v, animated: true)
 ```
+
+All of sample codes are here.
+https://github.com/abeyuya/SlideViewer/blob/master/Example/PDFSlideView/ViewController.swift
+
