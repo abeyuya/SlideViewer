@@ -99,7 +99,7 @@
 		2711A63FBF227A0CA669ED1D1EDB8F56 /* Action.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Action.swift; path = ReSwift/CoreTypes/Action.swift; sourceTree = "<group>"; };
 		3017A79414DC063E18A5B822BA674C2C /* Pods-SlideViewer_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SlideViewer_Tests-dummy.m"; sourceTree = "<group>"; };
 		3247B6F6A4D06AA22E0FF2481A668411 /* Pods-SlideViewer_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SlideViewer_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		36198D7F7CB58312A5E31686BBCF4429 /* PortraitBottomMenuView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PortraitBottomMenuView.swift; path = SlideViewer/Classes/PortraitBottomMenuView.swift; sourceTree = "<group>"; };
+		36198D7F7CB58312A5E31686BBCF4429 /* PortraitBottomMenuView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PortraitBottomMenuView.swift; sourceTree = "<group>"; };
 		3619FACAEDA7A2354E669DDFB4D240A7 /* Pods-SlideViewer_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SlideViewer_Tests.modulemap"; sourceTree = "<group>"; };
 		375E8868F8F6D6961F33EDED16FF1D5E /* State.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = State.swift; path = ReSwift/CoreTypes/State.swift; sourceTree = "<group>"; };
 		3CDBE43FC33887FCB4906EA6C9C741DD /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -108,42 +108,42 @@
 		47F993F7835EE686753688F370321EED /* SlideViewer-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SlideViewer-prefix.pch"; sourceTree = "<group>"; };
 		5046C7FEC06A354112C0560B6F4080DC /* SlideViewer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SlideViewer-dummy.m"; sourceTree = "<group>"; };
 		5279BEEA93D3BB399FBCB375ADD3ACB4 /* ReSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ReSwift-dummy.m"; sourceTree = "<group>"; };
-		64FEBE4A56DFF17C50A7F05D93407A1D /* SlideDisplayViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SlideDisplayViewController.swift; path = SlideViewer/Classes/SlideDisplayViewController.swift; sourceTree = "<group>"; };
+		64FEBE4A56DFF17C50A7F05D93407A1D /* SlideDisplayViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SlideDisplayViewController.swift; sourceTree = "<group>"; };
 		655A1EBFFB0756F294E09BC5E22F1439 /* DefaultPortraitBottomMenuView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = DefaultPortraitBottomMenuView.xib; path = SlideViewer/Assets/DefaultPortraitBottomMenuView.xib; sourceTree = "<group>"; };
 		66B6E850E29C1675A556C629C4D99553 /* ReSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ReSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6DC4EFA3EAAC5082E4E9BE841AC0E548 /* UIView+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+Extension.swift"; path = "SlideViewer/Classes/UIView+Extension.swift"; sourceTree = "<group>"; };
+		6DC4EFA3EAAC5082E4E9BE841AC0E548 /* UIView+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		71271725DE5CCC0BBEE81EB8E9D98E82 /* Reducer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Reducer.swift; path = ReSwift/CoreTypes/Reducer.swift; sourceTree = "<group>"; };
 		712EB67935AC06E0360D4E306D02AAD9 /* Pods-SlideViewer_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SlideViewer_Example-frameworks.sh"; sourceTree = "<group>"; };
 		76DD018EBE9154131A62DBBCE936E7F5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		782E63DBE082AFBDD68C1F0AD12F3415 /* SlideViewer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SlideViewer.xcconfig; sourceTree = "<group>"; };
 		79671FE58DCBAC8FB9711561D02ED4DA /* Coding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Coding.swift; path = ReSwift/Utils/Coding.swift; sourceTree = "<group>"; };
-		79C5C377B2ACBADDBA13AF2A8EF803D5 /* ThumbnailTableViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThumbnailTableViewCell.swift; path = SlideViewer/Classes/ThumbnailTableViewCell.swift; sourceTree = "<group>"; };
+		79C5C377B2ACBADDBA13AF2A8EF803D5 /* ThumbnailTableViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThumbnailTableViewCell.swift; sourceTree = "<group>"; };
 		79DB2909B4F73DC4F83635FAD497F431 /* Pods-SlideViewer_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SlideViewer_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		81CBAF76151CF858D574A099D1E7FC21 /* Store.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Store.swift; path = ReSwift/CoreTypes/Store.swift; sourceTree = "<group>"; };
 		83BFFB5DC675821DA415A98E67AED9FF /* Pods-SlideViewer_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SlideViewer_Tests-umbrella.h"; sourceTree = "<group>"; };
-		83DD6F1004B66B51C7A0E7E9AD441539 /* ThumbnailContainerViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThumbnailContainerViewController.swift; path = SlideViewer/Classes/ThumbnailContainerViewController.swift; sourceTree = "<group>"; };
+		83DD6F1004B66B51C7A0E7E9AD441539 /* ThumbnailContainerViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThumbnailContainerViewController.swift; sourceTree = "<group>"; };
 		83EDC964B22DDA588870C260A7A333C6 /* TypeHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TypeHelper.swift; path = ReSwift/Utils/TypeHelper.swift; sourceTree = "<group>"; };
-		841CE7471FEAA7ABBFCFD3378DB218B5 /* PortraitTopMenuView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PortraitTopMenuView.swift; path = SlideViewer/Classes/PortraitTopMenuView.swift; sourceTree = "<group>"; };
+		841CE7471FEAA7ABBFCFD3378DB218B5 /* PortraitTopMenuView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PortraitTopMenuView.swift; sourceTree = "<group>"; };
 		8778FC6DEB7887848A4D8BC90BD4B957 /* SlideViewer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SlideViewer-umbrella.h"; sourceTree = "<group>"; };
-		8A5E20527F3C0D2116964D9878D6B22A /* Slide.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Slide.swift; path = SlideViewer/Classes/Slide.swift; sourceTree = "<group>"; };
+		8A5E20527F3C0D2116964D9878D6B22A /* Slide.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Slide.swift; sourceTree = "<group>"; };
 		8E5136521BE96DE0663E3CC6F88088A6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		8E6C9E17987035DE48EA9493A0C11119 /* StoreType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StoreType.swift; path = ReSwift/CoreTypes/StoreType.swift; sourceTree = "<group>"; };
 		9236D253A512531FF3F24D28F2906382 /* SlideViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SlideViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		95248170BAFB7168E5A199155C4A17D8 /* Pods-SlideViewer_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SlideViewer_Example-resources.sh"; sourceTree = "<group>"; };
-		97C7B32254E716D6CD226C1A35C6E78C /* LandscapeRightMenuView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LandscapeRightMenuView.swift; path = SlideViewer/Classes/LandscapeRightMenuView.swift; sourceTree = "<group>"; };
+		97C7B32254E716D6CD226C1A35C6E78C /* LandscapeRightMenuView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LandscapeRightMenuView.swift; sourceTree = "<group>"; };
 		98B36FE8C98D507A0C49A48733C3AD43 /* Pods-SlideViewer_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SlideViewer_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		9CB8ADFF9E71FFC266EC18030474F906 /* SlideViewerController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SlideViewerController.swift; path = SlideViewer/Classes/SlideViewerController.swift; sourceTree = "<group>"; };
-		A61D585E4C38F661F05983A7CDBF1C84 /* Redux.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Redux.swift; path = SlideViewer/Classes/Redux.swift; sourceTree = "<group>"; };
-		AB1E5B6061FCFAB8632744D9DB91BDD4 /* FileDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FileDownloader.swift; path = SlideViewer/Classes/FileDownloader.swift; sourceTree = "<group>"; };
+		9CB8ADFF9E71FFC266EC18030474F906 /* SlideViewerController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SlideViewerController.swift; sourceTree = "<group>"; };
+		A61D585E4C38F661F05983A7CDBF1C84 /* Redux.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Redux.swift; sourceTree = "<group>"; };
+		AB1E5B6061FCFAB8632744D9DB91BDD4 /* FileDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FileDownloader.swift; sourceTree = "<group>"; };
 		AD6E955BFC89A34FDBF7FEE7631E7D19 /* DispatchingStoreType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DispatchingStoreType.swift; path = ReSwift/CoreTypes/DispatchingStoreType.swift; sourceTree = "<group>"; };
 		AE64CEF372085B24E500493911C621F9 /* StoreSubscriber.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StoreSubscriber.swift; path = ReSwift/CoreTypes/StoreSubscriber.swift; sourceTree = "<group>"; };
-		AFC24B16D6D2F0F10D8B8484677BBB6E /* NSLayoutConstraint+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSLayoutConstraint+Extension.swift"; path = "SlideViewer/Classes/NSLayoutConstraint+Extension.swift"; sourceTree = "<group>"; };
+		AFC24B16D6D2F0F10D8B8484677BBB6E /* NSLayoutConstraint+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Extension.swift"; sourceTree = "<group>"; };
 		B47C2CC0117CF2CC8C37F9DB974A16EA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC219B08D0957042BF0D78EA5CA45787 /* SlideViewer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SlideViewer.modulemap; sourceTree = "<group>"; };
 		BCFD6EB08FEADAFE2588084C140D2B0E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF00180716EED54CF1A780181A59D1EB /* UIImage+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIImage+Extension.swift"; path = "SlideViewer/Classes/UIImage+Extension.swift"; sourceTree = "<group>"; };
-		C57D6E42AB37147468F10510F7F147A7 /* SlideContainerViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SlideContainerViewController.swift; path = SlideViewer/Classes/SlideContainerViewController.swift; sourceTree = "<group>"; };
+		BF00180716EED54CF1A780181A59D1EB /* UIImage+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		C57D6E42AB37147468F10510F7F147A7 /* SlideContainerViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SlideContainerViewController.swift; sourceTree = "<group>"; };
 		C95B4B0495839D82A34B854A845AC91D /* DefaultPortraitTopMenuView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = DefaultPortraitTopMenuView.xib; path = SlideViewer/Assets/DefaultPortraitTopMenuView.xib; sourceTree = "<group>"; };
 		CE9FF8A70D2AC7A1D137462E1C3E5CB1 /* Subscription.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Subscription.swift; path = ReSwift/CoreTypes/Subscription.swift; sourceTree = "<group>"; };
 		D324436B2A4B19815F46B84BA55C72FC /* ReSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ReSwift.xcconfig; sourceTree = "<group>"; };
@@ -162,8 +162,8 @@
 		F79E083085EC57220A3D941256EFF156 /* ReSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ReSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F94D9D1477619338424925E4528FE69C /* Media.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = SlideViewer/Assets/Media.xcassets; sourceTree = "<group>"; };
 		FC871B7066428FF774C5F9208197F11C /* Middleware.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Middleware.swift; path = ReSwift/CoreTypes/Middleware.swift; sourceTree = "<group>"; };
-		FED12D16940308E13FF8AF2771BE3A00 /* Config.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Config.swift; path = SlideViewer/Classes/Config.swift; sourceTree = "<group>"; };
-		FF875204F93CCA8D59CDAD64D2DBAB21 /* SlideViewerError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SlideViewerError.swift; path = SlideViewer/Classes/SlideViewerError.swift; sourceTree = "<group>"; };
+		FED12D16940308E13FF8AF2771BE3A00 /* Config.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		FF875204F93CCA8D59CDAD64D2DBAB21 /* SlideViewerError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SlideViewerError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,22 +256,11 @@
 		27CE95227B50F57154E23006A2C220A3 /* SlideViewer */ = {
 			isa = PBXGroup;
 			children = (
-				FED12D16940308E13FF8AF2771BE3A00 /* Config.swift */,
-				AB1E5B6061FCFAB8632744D9DB91BDD4 /* FileDownloader.swift */,
-				97C7B32254E716D6CD226C1A35C6E78C /* LandscapeRightMenuView.swift */,
-				AFC24B16D6D2F0F10D8B8484677BBB6E /* NSLayoutConstraint+Extension.swift */,
-				36198D7F7CB58312A5E31686BBCF4429 /* PortraitBottomMenuView.swift */,
-				841CE7471FEAA7ABBFCFD3378DB218B5 /* PortraitTopMenuView.swift */,
-				A61D585E4C38F661F05983A7CDBF1C84 /* Redux.swift */,
-				8A5E20527F3C0D2116964D9878D6B22A /* Slide.swift */,
-				C57D6E42AB37147468F10510F7F147A7 /* SlideContainerViewController.swift */,
-				64FEBE4A56DFF17C50A7F05D93407A1D /* SlideDisplayViewController.swift */,
-				9CB8ADFF9E71FFC266EC18030474F906 /* SlideViewerController.swift */,
-				FF875204F93CCA8D59CDAD64D2DBAB21 /* SlideViewerError.swift */,
-				83DD6F1004B66B51C7A0E7E9AD441539 /* ThumbnailContainerViewController.swift */,
-				79C5C377B2ACBADDBA13AF2A8EF803D5 /* ThumbnailTableViewCell.swift */,
-				BF00180716EED54CF1A780181A59D1EB /* UIImage+Extension.swift */,
-				6DC4EFA3EAAC5082E4E9BE841AC0E548 /* UIView+Extension.swift */,
+				4D60D5CA218442FB00E0DCE0 /* EntryPoint */,
+				4D60D5CC2184435500E0DCE0 /* Controller */,
+				4D60D5CB2184433200E0DCE0 /* View */,
+				4D60D5C9218442B600E0DCE0 /* Util */,
+				4D60D5C82184428300E0DCE0 /* Extension */,
 				192AA232CC9B765BBA8DC829425A12D7 /* Resources */,
 				C1D67598AED6CD76D3CBD221738402FD /* Support Files */,
 			);
@@ -294,6 +283,57 @@
 				8DD84C1EB30E6F7F6DB5802D94B8E318 /* Pods-SlideViewer_Tests */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		4D60D5C82184428300E0DCE0 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				BF00180716EED54CF1A780181A59D1EB /* UIImage+Extension.swift */,
+				6DC4EFA3EAAC5082E4E9BE841AC0E548 /* UIView+Extension.swift */,
+				AFC24B16D6D2F0F10D8B8484677BBB6E /* NSLayoutConstraint+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		4D60D5C9218442B600E0DCE0 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				AB1E5B6061FCFAB8632744D9DB91BDD4 /* FileDownloader.swift */,
+				FF875204F93CCA8D59CDAD64D2DBAB21 /* SlideViewerError.swift */,
+				A61D585E4C38F661F05983A7CDBF1C84 /* Redux.swift */,
+				8A5E20527F3C0D2116964D9878D6B22A /* Slide.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		4D60D5CA218442FB00E0DCE0 /* EntryPoint */ = {
+			isa = PBXGroup;
+			children = (
+				9CB8ADFF9E71FFC266EC18030474F906 /* SlideViewerController.swift */,
+				FED12D16940308E13FF8AF2771BE3A00 /* Config.swift */,
+			);
+			path = EntryPoint;
+			sourceTree = "<group>";
+		};
+		4D60D5CB2184433200E0DCE0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				97C7B32254E716D6CD226C1A35C6E78C /* LandscapeRightMenuView.swift */,
+				36198D7F7CB58312A5E31686BBCF4429 /* PortraitBottomMenuView.swift */,
+				841CE7471FEAA7ABBFCFD3378DB218B5 /* PortraitTopMenuView.swift */,
+				79C5C377B2ACBADDBA13AF2A8EF803D5 /* ThumbnailTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4D60D5CC2184435500E0DCE0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C57D6E42AB37147468F10510F7F147A7 /* SlideContainerViewController.swift */,
+				64FEBE4A56DFF17C50A7F05D93407A1D /* SlideDisplayViewController.swift */,
+				83DD6F1004B66B51C7A0E7E9AD441539 /* ThumbnailContainerViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		7892EBC6FA6295EBC8F2C5C421138C5E /* Frameworks */ = {
