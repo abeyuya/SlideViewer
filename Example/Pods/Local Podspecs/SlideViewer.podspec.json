@@ -21,7 +21,8 @@
   "source_files": "SlideViewer/Classes/**/*",
   "resource_bundles": {
     "SlideViewer": [
-      "SlideViewer/Assets/*.xib"
+      "SlideViewer/Assets/*.xib",
+      "SlideViewer/Assets/*.xcassets"
     ]
   },
   "frameworks": [
