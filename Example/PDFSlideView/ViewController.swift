@@ -86,7 +86,9 @@ class ViewController: UIViewController {
             return URL(string: str)!
         }
  
+        // Removing chache for test (Do not need to remove cache if in production code)
         URLCache.shared.removeAllCachedResponses()
+        
         let v = SlideViewerController.setup(mainImageURLs: mainImageURLs, thumbImageURLs: thumbImageURLs)
         present(v, animated: true)
     }
