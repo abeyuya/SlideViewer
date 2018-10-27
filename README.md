@@ -4,6 +4,13 @@ iOS UI library for viewing slides inspired by slideshare app.
 
 ![screenshot](https://github.com/abeyuya/SlideViewer/blob/master/doc/slideviewer.gif)
 
+- UI is very similar to SlideShare iOS App
+- Accept date sources:
+  - array of image url
+  - url of pdf file
+  - bundle pdf file
+- Corresponds to both portrait and landscape
+
 # Installation
 
 ## CocoaPods
@@ -41,7 +48,7 @@ let v = SlideViewerController.setup(mainImageURLs: mainImageURLs, thumbImageURLs
 present(v, animated: true)
 ```
 
-## with PDF file URL
+## with URL of PDF file
 
 ```swift
 let pdfURL = "https://speakerd.s3.amazonaws.com/presentations/50021f75cf1db900020005e7/speakerdeck.pdf"
