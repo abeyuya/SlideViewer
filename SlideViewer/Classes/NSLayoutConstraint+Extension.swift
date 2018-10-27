@@ -11,9 +11,9 @@ internal extension NSLayoutConstraint {
     
     internal static func build(
         _ fromItem: UIView,
-        attribute fromAttribute: NSLayoutAttribute,
+        attribute fromAttribute: NSLayoutConstraint.Attribute,
         toItem: Any?,
-        attribute toAttribute: NSLayoutAttribute? = nil) -> NSLayoutConstraint {
+        attribute toAttribute: NSLayoutConstraint.Attribute? = nil) -> NSLayoutConstraint {
         return NSLayoutConstraint(
             item: fromItem,
             attribute: fromAttribute,

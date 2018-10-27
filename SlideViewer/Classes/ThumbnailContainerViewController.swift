@@ -14,7 +14,7 @@ final class ThumbnailContainerViewController: UIViewController {
     internal lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.estimatedRowHeight = 100 + 5
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.register(ThumbnailTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = .black

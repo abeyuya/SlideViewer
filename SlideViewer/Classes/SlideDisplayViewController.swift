@@ -37,7 +37,7 @@ final class SlideDisplayViewController: UIViewController {
     private var imageView: UIImageView? = nil
     
     private let indicator: UIActivityIndicatorView = {
-        let v = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        let v = UIActivityIndicatorView(style: .white)
         v.startAnimating()
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
@@ -205,11 +205,11 @@ extension SlideDisplayViewController {
 
     private func updateScrollInset() {
         if let imageView = imageView {
-            scrollView.contentInset = UIEdgeInsetsMake(
-                max((scrollView.frame.height - imageView.frame.height)/2, 0),
-                max((scrollView.frame.width - imageView.frame.width)/2, 0),
-                0,
-                0
+            scrollView.contentInset = UIEdgeInsets.init(
+                top: max((scrollView.frame.height - imageView.frame.height)/2, 0),
+                left: max((scrollView.frame.width - imageView.frame.width)/2, 0),
+                bottom: 0,
+                right: 0
             )
         }
     }

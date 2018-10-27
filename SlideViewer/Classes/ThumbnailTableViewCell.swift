@@ -28,7 +28,7 @@ final class ThumbnailTableViewCell: UITableViewCell {
     }()
     
     private let indicator: UIActivityIndicatorView = {
-        let v = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let v = UIActivityIndicatorView(style: .gray)
         v.startAnimating()
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
@@ -63,7 +63,7 @@ final class ThumbnailTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    internal override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    internal override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         
