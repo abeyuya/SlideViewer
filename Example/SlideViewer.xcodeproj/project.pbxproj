@@ -32,7 +32,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		18166AD2CE299A02AAE3EEF1 /* Pods-PDFSlideView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDFSlideView_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PDFSlideView_Tests/Pods-PDFSlideView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		342F6EB996ABA836A415D3CE /* Pods_SlideViewer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SlideViewer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		37D6C17D56D3EEF85FE92400 /* Pods-SlideViewer_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SlideViewer_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SlideViewer_Example/Pods-SlideViewer_Example.release.xcconfig"; sourceTree = "<group>"; };
 		3EB65F41C69AC35404008578 /* Pods-SlideViewer_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SlideViewer_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SlideViewer_Tests/Pods-SlideViewer_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -54,12 +53,9 @@
 		607FACE51AFB9204008FA782 /* SlideViewer_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlideViewer_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		6EED3DD7B9DFC8C4319A8BFA /* Pods-PDFSlideView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDFSlideView_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PDFSlideView_Tests/Pods-PDFSlideView_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		8FDF02BD5F8E92531D75D365 /* Pods_PDFSlideView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PDFSlideView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9822C88EDD881FE1B4B5AE65 /* Pods-PDFSlideView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDFSlideView_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-PDFSlideView_Example/Pods-PDFSlideView_Example.release.xcconfig"; sourceTree = "<group>"; };
 		A8772E4E0CC1DF8BCF07752C /* Pods-SlideViewer_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SlideViewer_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SlideViewer_Tests/Pods-SlideViewer_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		CAB2306B3136F2BF03B47671 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		CD1DBED57E07C953F60F1A0F /* Pods-PDFSlideView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDFSlideView_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PDFSlideView_Example/Pods-PDFSlideView_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		E13363EB33D72BD535E53DC5 /* Pods_PDFSlideView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PDFSlideView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E9BBD252B89BD45D745A60 /* Pods_SlideViewer_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SlideViewer_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -99,10 +95,6 @@
 		4710130EDB52D66C4F492A0C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				CD1DBED57E07C953F60F1A0F /* Pods-PDFSlideView_Example.debug.xcconfig */,
-				9822C88EDD881FE1B4B5AE65 /* Pods-PDFSlideView_Example.release.xcconfig */,
-				18166AD2CE299A02AAE3EEF1 /* Pods-PDFSlideView_Tests.debug.xcconfig */,
-				6EED3DD7B9DFC8C4319A8BFA /* Pods-PDFSlideView_Tests.release.xcconfig */,
 				3F2C671DAC8FE0C4FBA14F90 /* Pods-SlideViewer_Example.debug.xcconfig */,
 				37D6C17D56D3EEF85FE92400 /* Pods-SlideViewer_Example.release.xcconfig */,
 				3EB65F41C69AC35404008578 /* Pods-SlideViewer_Tests.debug.xcconfig */,
@@ -372,9 +364,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SlideViewer_Example/Pods-SlideViewer_Example-resources.sh",
+				$PODS_CONFIGURATION_BUILD_DIR/SlideViewer/SlideViewer.bundle,
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
