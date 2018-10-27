@@ -1,6 +1,6 @@
 # SlideViewer
 
-iOS UI Library for viewing slides.
+iOS UI library for viewing slides inspired by slideshare app.
 
 ![screenshot](https://github.com/abeyuya/SlideViewer/blob/master/doc/slideviewer.gif)
 
