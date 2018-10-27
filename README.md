@@ -1,5 +1,7 @@
 # SlideViewer
 
+iOS UI Library for viewing slides.
+
 ![screenshot](https://github.com/abeyuya/SlideViewer/blob/master/doc/slideviewer.gif)
 
 # Installation
